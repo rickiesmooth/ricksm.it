@@ -38,7 +38,7 @@ jobs:
         if: success()
         uses: alexjurkiewicz/cfn-deploy@v2.0.1
         with:
-          stackName: ${{ github.event.number }}.ricksm.it
+          stackName: ${{ github.event.number }}-ricksm-it
           templateFile: template.yml
 
       - name: Deploy message
