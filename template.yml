@@ -40,15 +40,3 @@ Resources:
           AliasTarget:
             HostedZoneId: Z2FDTNDATAQYW2
             DNSName: !GetAtt Distribution.DomainName
-
-Outputs:
-  DomainName:
-    Description: The Domain name
-    Value: !Join ['', ['api.', !Ref RecordSetDomainName]]
-    Export:
-      Name: !Sub ${AWS::StackName}-DomainName
-  GithubToken:
-    Description: GithubToken
-    Value: !Ref GithubOAuthToken
-    Export:
-      Name: !Sub ${AWS::StackName}-Token
