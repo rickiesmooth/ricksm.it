@@ -1,0 +1,46 @@
+{
+  "name": "website-new",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rickiesmooth/website-new.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rickiesmooth/website-new/issues"
+  },
+  "homepage": "https://github.com/rickiesmooth/website-new#readme",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/glob": "^7.1.1",
+    "@types/node": "^13.13.4",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-typescript"
+    ]
+  },
+  "dependencies": {
+    "copy-webpack-plugin": "^5.1.1",
+    "front-matter": "^3.1.0",
+    "glob": "^7.1.6",
+    "html-loader": "^1.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "markdown-it": "^10.0.0",
+    "markdown-it-attrs": "^3.0.2"
+  }
+}
