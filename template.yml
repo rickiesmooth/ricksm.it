@@ -97,8 +97,9 @@ Resources:
           const path = require('path');
           exports.handler = async (event) => {
             var request = event.Records[0].cf.request;
-            console.log(request.origin.s3)
-            // Rewrite clean URLs (adding index.html)
+            console.log("S3", request.origin.s3)
+            console.log("URI", request.uri)
+            // Rewrite URLs (adding index.html)
             if (!path.extname(request.uri)) {
               request.uri = request.uri.replace(/\/?$/, '\/index.html');
             }
@@ -111,7 +112,7 @@ Resources:
   TheOriginRequestLambdaFunctionVersion:
     Type: AWS::Lambda::Version
     Properties:
-      FunctionName: 'arn:aws:lambda:us-east-1:331208789346:function:ModifyOriginRequest'
+      FunctionName: !Ref TheOriginRequestLambdaFunction
       Description: !Sub 'URL rewriting for ${RecordSetDomainName}'
   TheOriginRequestLambdaFunctionExecutionRole:
     Type: AWS::IAM::Role
