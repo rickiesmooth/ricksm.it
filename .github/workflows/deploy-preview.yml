@@ -39,9 +39,9 @@ jobs:
         if: success()
         uses: alexjurkiewicz/cfn-deploy@v2.0.1
         with:
-          stackName: ricksm-it-${{ github.event.number }}
+          stackName: ricksm-it-preview
           templateFile: template.yml
-          parameters: RecordSetDomainName=${{ github.event.number }}.ricksm.it HostedZoneID=Z1U947S9YD3XG4 CertificateArn=arn:aws:acm:us-east-1:331208789346:certificate/d16ad4c0-7059-4e27-9f3e-2aa64fda0e66
+          parameters: RecordSetDomainName=*.preview.ricksm.it HostedZoneID=Z1U947S9YD3XG4 CertificateArn=arn:aws:acm:us-east-1:331208789346:certificate/d16ad4c0-7059-4e27-9f3e-2aa64fda0e66
 
       - name: Sync With S3
         if: success()
@@ -51,6 +51,7 @@ jobs:
         env:
           AWS_S3_BUCKET: ${{steps.deploy-cf.outputs.cf_output_BucketName}}
           SOURCE_DIR: 'build'
+          DEST_DIR: preview/${{ github.event.number }}
 
       - name: Set Deployment Status Success
         if: success()

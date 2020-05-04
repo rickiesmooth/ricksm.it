@@ -23,11 +23,14 @@ function generatePages([pathname, file]) {
 }
 
 module.exports = async (env, argv) => {
-  const content = glob.sync('content/pages/*.md')
-  const html = await Promise.all(
-    content.map(async (path) => [path, await fs.readFile(path, 'utf-8')])
+  const pages = glob.sync('content/pages/*.md')
+  const posts = glob.sync('content/blog/*.md')
+
+  const [htmlPages, htmlPosts] = await Promise.all(
+    content.map(async (path) => [path, await fs.readFile(path, 'utf-8')]),
+    posts.map(async (path) => [path, await fs.readFile(path, 'utf-8')])
   )
-  const pages = html.map(generatePages)
+  const pages = [...htmlPages, ...htmlPosts].map(generatePages)
 
   return {
     entry: {
