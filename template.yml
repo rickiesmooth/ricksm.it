@@ -43,8 +43,6 @@ Resources:
     Properties:
       WebsiteConfiguration:
         IndexDocument: index.html
-  Trigger:
-    Type: 'AWS::CloudFront::Distribution LambdaFunctionAssociation'
 
   Distribution:
     Type: 'AWS::CloudFront::Distribution'
