@@ -94,7 +94,7 @@ Resources:
           const path = require('path');
           exports.handler = async (event) => {
             var request = event.Records[0].cf.request;
-            
+            console.log(request)
             return request;
           };
       Handler: index.handler
