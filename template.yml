@@ -36,7 +36,7 @@ Parameters:
 Conditions:
   UseLambdaTrigger: !Equals
     - !Ref DeploymentType
-    - 'development'
+    - 'production'
 Resources:
   DeployBucket:
     Type: 'AWS::S3::Bucket'
