@@ -64,12 +64,7 @@ Resources:
             QueryString: true
           TargetOriginId: !Ref DeployBucket
           ViewerProtocolPolicy: 'redirect-to-https'
-          LambdaFunctionAssociations:
-            - !If
-              - UseLambdaTrigger
-              - EventType: origin-response
-                LambdaFunctionARN: !Ref TheOriginRequestLambdaFunctionVersion
-              - !Ref AWS::NoValue
+
   DistributionAlias:
     Type: AWS::Route53::RecordSetGroup
     Properties:
