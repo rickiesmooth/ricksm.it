@@ -92,10 +92,10 @@ Resources:
         # origin.s3.pathname = subdomain
         ZipFile: |
           const path = require('path');
-          exports.handler = async (event) => {
-            var request = event.Records[0].cf.request;
+          exports.handler = async (event, context, callback) => {
+            const request = event.Records[0].cf.request;
             console.log(request)
-            return request;
+            callback(null, request);
           };
       Handler: index.handler
       MemorySize: 128
