@@ -55,7 +55,7 @@ Resources:
         DefaultRootObject: index.html
         LambdaFunctionAssociations:
           - EventType: origin-request
-            LambdaFunctionARN: !Ref TheOriginRequestLambdaFunctionVersion
+            LambdaFunctionARN: !GetAtt TheOriginRequestLambdaFunction.Arn
         Enabled: true
         Aliases:
           - !Ref RecordSetDomainName
