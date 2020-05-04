@@ -41,7 +41,7 @@ jobs:
         with:
           stackName: ricksm-it-preview
           templateFile: template.yml
-          parameters: RecordSetDomainName= *.ricksm.it HostedZoneID=Z1U947S9YD3XG4 CertificateArn=arn:aws:acm:us-east-1:331208789346:certificate/0bc058fd-d674-472d-be19-e4179a4b4ba6
+          parameters: RecordSetDomainName=*.preview.ricksm.it HostedZoneID=Z1U947S9YD3XG4 CertificateArn=arn:aws:acm:us-east-1:331208789346:certificate/0bc058fd-d674-472d-be19-e4179a4b4ba6
 
       - name: Sync With S3
         if: success()
