@@ -3,7 +3,7 @@ Description: SAM Template for fetch function
 
 # this template should set up infra
 
-# 3.preview.ricksm.it.net
+# ricksm-it-3-deploybucket-v3hou4o3wwq.dev-env.net
 # origin.s3.domainName = request.subdomains;
 
 # for prod distribution cname ricksm.it (template.preview.yml)
@@ -62,8 +62,8 @@ Resources:
           TargetOriginId: !Ref DeployBucket
           ViewerProtocolPolicy: 'redirect-to-https'
           LambdaFunctionAssociations:
-            - EventType: origin-response
-                LambdaFunctionARN: !Ref TheOriginRequestLambdaFunctionVersion
+            - EventType: origin-request
+              LambdaFunctionARN: !Ref TheOriginRequestLambdaFunctionVersion
   DistributionAlias:
     Type: AWS::Route53::RecordSetGroup
     Properties:
