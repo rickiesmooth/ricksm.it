@@ -68,7 +68,7 @@ Resources:
           ViewerProtocolPolicy: 'redirect-to-https'
           LambdaFunctionAssociations:
             - EventType: 'origin-request'
-              LambdaFunctionARN: !Ref TheOriginRequestLambdaFunctionVersion
+              LambdaFunctionARN: 'arn:aws:lambda:us-east-1:331208789346:function:ModifyOriginRequest'
   DistributionAlias:
     Type: AWS::Route53::RecordSetGroup
     Properties:
