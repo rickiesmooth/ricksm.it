@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: SAM Template for fetch function
+
+# this template should set up infra
+# template.yml should run first, because here we need bucketname as param
+# then cloudfront distribution is made for deployBucket
+# DistributionAlias will use RecordSetDomainName
+
+# this template has a lambda that routes request to {bucketname}.ricksmi.t
+# distributionAlias also has wildcard to route all traffic to distribution
+
+# ricksm-it-3-deploybucket-v3hou4o3wwq.dev-env.net
+# origin.s3.domainName = request.subdomains;
+
+# for prod distribution cname ricksm.it (template.preview.yml)
+# ricksm.it
+
+# @TODO https://aws.amazon.com/blogs/networking-and-content-delivery/dynamically-route-viewer-requests-to-any-origin-using-lambdaedge/
+Parameters:
+  RecordSetDomainName:
+    Type: String
+    Description: 'Domain name traffic should be routed to'
+  CertificateArn:
+    Type: String
+  HostedZoneID:
+    Type: String
+    Description: 'Hosted zone ID domain is part of'
+
+Resources:
+  Distribution:
+    Type: 'AWS::CloudFront::Distribution'
+    Properties:
+      DistributionConfig:
+        Origins:
+          - DomainName: !GetAtt DeployBucket.DomainName
+            Id: !Ref DeployBucket
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+        DefaultRootObject: index.html
+        Enabled: true
+        Aliases:
+          - !Ref RecordSetDomainName
+        ViewerCertificate:
+          AcmCertificateArn: !Ref CertificateArn
+          SslSupportMethod: 'sni-only'
+        DefaultCacheBehavior:
+          MinTTL: 86400
+          MaxTTL: 31536000
+          ForwardedValues:
+            QueryString: true
+          TargetOriginId: !Ref DeployBucket
+          ViewerProtocolPolicy: 'redirect-to-https'
+  DistributionAlias:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneId: !Ref HostedZoneID
+      RecordSets:
+        - Name: !Ref RecordSetDomainName
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2
+            DNSName: !GetAtt Distribution.DomainName
+
+Outputs:
+  BucketName:
+    Description: The BucketName ID
+    Value: !Ref DeployBucket

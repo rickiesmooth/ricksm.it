@@ -8,11 +8,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Get yarn cache directory path
+      - name: Get Yarn Cache Directory
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - name: Cache npm
+      - name: Cache Install
         uses: actions/cache@v1
         id: yarn-cache
         with:
@@ -35,19 +35,29 @@ jobs:
           aws-region: eu-central-1
 
       - name: Deploy App Stack
+        id: deploy-cf
         if: success()
         uses: alexjurkiewicz/cfn-deploy@v2.0.1
         with:
-          stackName: ${{ github.event.number }}-ricksm-it
+          stackName: ricksm-it-${{ github.event.number }}
           templateFile: template.yml
+          parameters: RecordSetDomainName=${{ github.event.number }}.ricksm.it HostedZoneID=Z1U947S9YD3XG4 CertificateArn=arn:aws:acm:us-east-1:331208789346:certificate/d16ad4c0-7059-4e27-9f3e-2aa64fda0e66
 
-      - name: Deploy message
+      - name: Sync With S3
         if: success()
-        uses: unsplash/comment-on-pr@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: jakejarvis/s3-sync-action@master
         with:
-          msg: |
-            Deploy preview ready!
-            https://${{ github.event.number }}.ricksm.it
-            built from ${{ github.sha }}
+          args: --delete
+        env:
+          AWS_S3_BUCKET: ${{steps.deploy-cf.outputs.cf_output_BucketName}}
+          SOURCE_DIR: 'build'
+
+      - name: Set Deployment Status Success
+        if: success()
+        uses: pbrandone/create-status-action@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          state: success
+          description: Deploy preview ready!
+          url: http://${{steps.deploy-cf.outputs.cf_output_BucketName}}.s3-website.eu-central-1.amazonaws.com
+          context: Deploy Preview URL
