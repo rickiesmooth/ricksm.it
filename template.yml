@@ -91,11 +91,14 @@ Resources:
         # origin.s3.domainName = originB;
         # origin.s3.pathname = subdomain
         ZipFile: |
-          const path = require('path');
-          exports.handler = async (event, context, callback) => {
-            const request = event.Records[0].cf.request;
-            console.log(request)
-            callback(null, request);
+          exports.handler = (event, context, callback) => {
+            const response = event.Records[0].cf.response;
+            if (response.status >= 400 && response.status <= 599) {
+              response.status = 200;
+              response.statusDescription = 'OK';
+              response.body = 'Body generation example';
+            }
+            callback(null, response);
           };
       Handler: index.handler
       MemorySize: 128
