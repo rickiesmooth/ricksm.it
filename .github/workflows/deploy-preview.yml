@@ -40,6 +40,7 @@ jobs:
         uses: alexjurkiewicz/cfn-deploy@v2.0.1
         with:
           stackName: ricksm-it-preview
+          capabilities: CAPABILITY_IAM
           templateFile: template.yml
           parameters: RecordSetDomainName=*.preview.ricksm.it HostedZoneID=Z1U947S9YD3XG4 CertificateArn=arn:aws:acm:us-east-1:331208789346:certificate/0bc058fd-d674-472d-be19-e4179a4b4ba6
 
