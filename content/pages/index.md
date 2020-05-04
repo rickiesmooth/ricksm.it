@@ -26,16 +26,16 @@ More than 5 years experience as a developer in various roles.
 
 ### Hobby Projects
 
-More than 5 years experience as a developer in various roles.
+Fun projects nobody asked for.
 
-- WeTransfer
-- Ahold
-- Google
+TODO Fetch from service
 
 ### Open Source
 
-More than 5 years experience as a developer in various roles.
+OS is a weird and wonderful community that I enjoy contributing to where I can 🤠.
 
-- WeTransfer
-- Ahold
-- Google
+- [prateekbh/babel-esm-plugin](https://github.com/prateekbh/babel-esm-plugin/pull/41)
+- [expo/expo](https://github.com/expo/expo/pull/6214)
+- [slorber/gatsby-plugin-react-native-web](https://github.com/slorber/gatsby-plugin-react-native-web/pull/4)
+- [jtberglund/gatsby-plugin-reason](https://github.com/jtberglund/gatsby-plugin-reason/pull/10)
+- [necolas/react-native-web](https://github.com/necolas/react-native-web/pull/1123)
