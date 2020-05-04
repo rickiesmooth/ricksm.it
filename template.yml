@@ -53,9 +53,6 @@ Resources:
             S3OriginConfig:
               OriginAccessIdentity: ''
         DefaultRootObject: index.html
-        LambdaFunctionAssociations:
-          - EventType: origin-request
-            LambdaFunctionARN: !GetAtt TheOriginRequestLambdaFunction.Arn
         Enabled: true
         Aliases:
           - !Ref RecordSetDomainName
@@ -69,6 +66,9 @@ Resources:
             QueryString: true
           TargetOriginId: !Ref DeployBucket
           ViewerProtocolPolicy: 'redirect-to-https'
+          LambdaFunctionAssociations:
+            - EventType: 'origin-request'
+              LambdaFunctionARN: !Ref TheOriginRequestLambdaFunctionVersion
   DistributionAlias:
     Type: AWS::Route53::RecordSetGroup
     Properties:
