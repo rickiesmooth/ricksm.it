@@ -33,7 +33,10 @@ Parameters:
     Default: 'development'
     Description: 'Use development or production version'
     Type: String
-
+Conditions:
+  UseLambdaTrigger: !Equals
+    - !Ref DeploymentType
+    - 'production'
 Resources:
   DeployBucket:
     Type: 'AWS::S3::Bucket'
@@ -64,7 +67,12 @@ Resources:
             QueryString: true
           TargetOriginId: !Ref DeployBucket
           ViewerProtocolPolicy: 'redirect-to-https'
-
+          LambdaFunctionAssociations:
+            - !If
+              - UseLambdaTrigger
+              - EventType: origin-response
+                LambdaFunctionARN: !Ref TheOriginRequestLambdaFunctionVersion
+              - !Ref AWS::NoValue
   DistributionAlias:
     Type: AWS::Route53::RecordSetGroup
     Properties:
@@ -76,6 +84,50 @@ Resources:
             HostedZoneId: Z2FDTNDATAQYW2
             DNSName: !GetAtt Distribution.DomainName
 
+  TheOriginRequestLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: >
+        Lambda function performing request URI rewriting.
+      Code:
+        # add process.env for deploy bucket
+        # origin.s3.domainName = originB;
+        # origin.s3.pathname = subdomain
+        ZipFile: |
+          const path = require('path');
+          exports.handler = async (event) => {
+            var request = event.Records[0].cf.request;
+            console.log(request.origin.s3)
+            // Rewrite clean URLs (adding index.html)
+            if (!path.extname(request.uri)) {
+              request.uri = request.uri.replace(/\/?$/, '\/index.html');
+            }
+            return request;
+          };
+      Handler: index.handler
+      MemorySize: 128
+      Runtime: nodejs12.x
+      Role: !Sub ${TheOriginRequestLambdaFunctionExecutionRole.Arn}
+  TheOriginRequestLambdaFunctionVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName: 'arn:aws:lambda:us-east-1:331208789346:function:ModifyOriginRequest'
+      Description: !Sub 'URL rewriting for ${RecordSetDomainName}'
+  TheOriginRequestLambdaFunctionExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - edgelambda.amazonaws.com
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 Outputs:
   BucketName:
     Description: The BucketName ID
