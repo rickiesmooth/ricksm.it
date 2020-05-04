@@ -2,14 +2,8 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: SAM Template for fetch function
 
 # this template should set up infra
-# template.yml should run first, because here we need bucketname as param
-# then cloudfront distribution is made for deployBucket
-# DistributionAlias will use RecordSetDomainName
 
-# this template has a lambda that routes request to {bucketname}.ricksmi.t
-# distributionAlias also has wildcard to route all traffic to distribution
-
-# ricksm-it-3-deploybucket-v3hou4o3wwq.dev-env.net
+# 3.preview.ricksm.it
 # origin.s3.domainName = request.subdomains;
 
 # for prod distribution cname ricksm.it (template.preview.yml)
@@ -68,11 +62,8 @@ Resources:
           TargetOriginId: !Ref DeployBucket
           ViewerProtocolPolicy: 'redirect-to-https'
           LambdaFunctionAssociations:
-            - !If
-              - UseLambdaTrigger
-              - EventType: origin-response
+            - EventType: origin-response
                 LambdaFunctionARN: !Ref TheOriginRequestLambdaFunctionVersion
-              - !Ref AWS::NoValue
   DistributionAlias:
     Type: AWS::Route53::RecordSetGroup
     Properties:
