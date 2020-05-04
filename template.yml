@@ -3,7 +3,7 @@ Description: SAM Template for fetch function
 
 # this template should set up infra
 
-# 3.preview.ricksm.it
+# 3.preview.ricksm.it.net
 # origin.s3.domainName = request.subdomains;
 
 # for prod distribution cname ricksm.it (template.preview.yml)
