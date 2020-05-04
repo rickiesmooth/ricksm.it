@@ -103,7 +103,7 @@ Resources:
     Type: AWS::Lambda::Version
     Properties:
       FunctionName: !Ref TheOriginRequestLambdaFunction
-      Description: !Sub 'URL rewriting for ${DomainName}'
+      Description: !Sub 'URL rewriting for ${RecordSetDomainName}'
   TheOriginRequestLambdaFunctionExecutionRole:
     Type: AWS::IAM::Role
     Properties:
