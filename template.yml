@@ -1,6 +1,30 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: SAM Template for fetch function
 
+Parameters:
+  OriginRequestStackName:
+    Type: String
+    Description: 'Dev lambda'
+    Default: ''
+  RecordSetDomainName:
+    Type: String
+    Description: 'Domain name traffic should be routed to'
+  CertificateArn:
+    Type: String
+  HostedZoneID:
+    Type: String
+    Description: 'Hosted zone ID domain is part of'
+  DeploymentType:
+    AllowedValues:
+      - 'development'
+      - 'production'
+    Default: 'development'
+    Description: 'Use development or production version'
+    Type: String
+Conditions:
+  UseLambdaTrigger: !Equals
+    - !Ref DeploymentType
+    - 'development'
 Resources:
   DeployBucket:
     Type: 'AWS::S3::Bucket'
@@ -30,6 +54,20 @@ Resources:
             QueryString: true
           TargetOriginId: !Ref DeployBucket
           ViewerProtocolPolicy: 'redirect-to-https'
+          LambdaFunctionAssociations:
+            - !If
+              - UseLambdaTrigger
+              - EventType: viewer-request
+                LambdaFunctionARN:
+                  Fn::ImportValue: !Sub ${OriginRequestStackName}-OriginRequestLambdaFunctionVersion
+              - !Ref AWS::NoValue
+            - !If
+              - UseLambdaTrigger
+              - EventType: origin-request
+                LambdaFunctionARN:
+                  Fn::ImportValue: !Sub ${OriginRequestStackName}-OriginRequestLambdaFunctionVersion
+              - !Ref AWS::NoValue
+
   DistributionAlias:
     Type: AWS::Route53::RecordSetGroup
     Properties:
@@ -40,3 +78,28 @@ Resources:
           AliasTarget:
             HostedZoneId: Z2FDTNDATAQYW2
             DNSName: !GetAtt Distribution.DomainName
+
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DeployBucket
+      PolicyDocument:
+        Id: MyPolicy
+        Version: 2012-10-17
+        Statement:
+          - Sid: PublicRead
+            Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref DeployBucket
+                - '/*'
+Outputs:
+  BucketName:
+    Description: The BucketName ID
+    Value: !Ref DeployBucket
+  Distribution:
+    Description: The Distribution ID
+    Value: !Ref Distribution
