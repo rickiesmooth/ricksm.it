@@ -46,7 +46,7 @@ jobs:
           capabilities: CAPABILITY_IAM
           template: template.yml
           no-fail-on-empty-changeset: '1'
-          parameter-overrides: RecordSetDomainName=ricksm.it, HostedZoneID=Z1U947S9YD3XG4, CertificateArn=${{ secrets.AWS_CERTIFICATE_ARN }}, DeploymentType=production
+          parameter-overrides: RecordSetDomainName=ricksm.it, HostedZoneID=Z1U947S9YD3XG4, CertificateArn=${{ secrets.AWS_CERTIFICATE_ARN_PROD }}, DeploymentType=production
 
       - name: Save outputs
         id: cf-outputs

@@ -1,9 +1,15 @@
+const devMode = process.env.NODE_ENV !== 'production'
+
 const glob = require('glob')
 const { basename, extname, join } = require('path')
 const fs = require('fs').promises
 const gm = require('gray-matter')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
 const md = require('markdown-it')().use(require('markdown-it-attrs'))
+
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const TerserJSPlugin = require('terser-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const makeHtmlWithTemplate = (template) => (pathname) =>
   fs.readFile(pathname, 'utf-8').then((file) => {
@@ -28,15 +34,34 @@ module.exports = async (_env, _argv) => {
   ])
 
   return {
+    mode: process.env.NODE_ENV,
     entry: { main: './src/index.tsx' },
+    optimization: {
+      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+    },
     output: {
       path: join(__dirname, 'build'),
       publicPath: '/',
       filename: '[name]-[hash].js',
     },
     module: {
-      rules: [{ test: /\.tsx?$/, loader: 'babel-loader' }],
+      rules: [
+        { test: /\.tsx?$/, loader: 'babel-loader' },
+        {
+          test: /\.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            { loader: 'css-loader', options: { importLoaders: 1 } },
+            'postcss-loader',
+          ],
+        },
+      ],
     },
-    plugins: [...allHtml],
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: devMode ? '[name].css' : '[name].[hash].css',
+      }),
+      ...allHtml,
+    ],
   }
 }
