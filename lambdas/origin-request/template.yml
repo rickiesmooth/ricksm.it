@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: SAM Template for fetch function
+
+Resources:
+  TheOriginRequestLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: >
+        Lambda function performing request URI rewriting.
+      Code:
+        ZipFile: |
+          exports.handler = (event, context, callback) => {
+            const request = event.Records[0].cf.request;
+            const config = event.Records[0].cf.config;
+            const headers = request.headers
+            if (config.eventType === "viewer-request") {
+              headers['X-Pr-Id'] = [{
+                key: 'X-Pr-Id',
+                value: request.headers.host[0].value.split(".")[0]
+              }]
+              return callback(null, request);
+            }
+            if (config.eventType === "origin-request") {
+              const preview = headers['x-pr-id'][0].value
+              request.origin.s3.path = `/preview/${preview}`
+              return callback(null, request);
+            }
+          };
+      Handler: index.handler
+      MemorySize: 128
+      Runtime: nodejs12.x
+      Role: !Sub ${TheOriginRequestLambdaFunctionExecutionRole.Arn}
+  TheOriginRequestLambdaFunctionVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName: !Ref TheOriginRequestLambdaFunction
+      Description: !Sub 'URL rewriting for requests between s3 origin and cloudfront'
+  TheOriginRequestLambdaFunctionExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - edgelambda.amazonaws.com
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+Outputs:
+  OriginRequestLambdaFunctionVersion:
+    Description: The Dev Lambda
+    Value: !Ref TheOriginRequestLambdaFunctionVersion
+    Export:
+      Name: !Sub ${AWS::StackName}-OriginRequestLambdaFunctionVersion

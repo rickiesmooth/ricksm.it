@@ -1,44 +1,42 @@
 const glob = require('glob')
-const path = require('path')
+const { basename, extname, join } = require('path')
 const fs = require('fs').promises
-const fm = require('front-matter')
+const gm = require('gray-matter')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
-const markdownItAttrs = require('markdown-it-attrs')
-const md = require('markdown-it')().use(markdownItAttrs)
+const md = require('markdown-it')().use(require('markdown-it-attrs'))
 
-module.exports = async (env, argv) => {
-  const content = glob.sync('content/pages/*.md')
-  const html = await Promise.all(
-    content.map(async (path) => [path, await fs.readFile(path, 'utf-8')])
-  )
-  const pages = html.map(([filename, file]) => {
-    const {
-      attributes: { title, description, slug },
-      body,
-    } = fm(file)
+const makeHtmlWithTemplate = (template) => (pathname) =>
+  fs.readFile(pathname, 'utf-8').then((file) => {
+    const { data, content } = gm(file)
+    const { title, description, slug } = data
+    const body = md.render(content)
 
     return new HtmlWebPackPlugin({
-      template: 'src/html/template.html',
-      filename:
-        (slug || path.basename(filename, path.extname(filename))) + '.html',
-      templateParameters() {
-        return { body: md.render(body), title, description }
-      },
+      template,
+      filename: `${slug || basename(pathname, extname(pathname))}.html`,
+      templateParameters: { body, title, description },
     })
   })
 
+module.exports = async (_env, _argv) => {
+  const pages = glob.sync('content/pages/*.md')
+  const posts = glob.sync('content/blog/*.md')
+
+  const allHtml = await Promise.all([
+    ...pages.map(makeHtmlWithTemplate('src/html/template.html')),
+    ...posts.map(makeHtmlWithTemplate('src/html/template.html')),
+  ])
+
   return {
-    entry: {
-      main: './src/index.tsx',
-    },
+    entry: { main: './src/index.tsx' },
     output: {
-      path: path.join(__dirname, 'build'),
+      path: join(__dirname, 'build'),
       publicPath: '/',
-      filename: '[name].js',
+      filename: '[name]-[hash].js',
     },
     module: {
       rules: [{ test: /\.tsx?$/, loader: 'babel-loader' }],
     },
-    plugins: [...pages],
+    plugins: [...allHtml],
   }
 }

@@ -1,6 +1,9 @@
 name: Deploy Preview
 
-on: pull_request
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   deploy:
@@ -34,26 +37,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Deploy Dev Lambda
-        id: deploy-cf-dev
-        if: success()
-        uses: aws-actions/aws-cloudformation-github-deploy@v1
-        with:
-          name: ${{ secrets.NAME_DEV_ORIGIN_REQUEST_LAMBDA }}
-          capabilities: CAPABILITY_IAM
-          template: lambdas/origin-request/template.yml
-          no-fail-on-empty-changeset: '1'
-
       - name: Deploy App Stack
         id: deploy-cf
         if: success()
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
-          name: ricksm-it-preview
+          name: ricksm-it-production
           capabilities: CAPABILITY_IAM
           template: template.yml
           no-fail-on-empty-changeset: '1'
-          parameter-overrides: RecordSetDomainName=*.preview.ricksm.it, HostedZoneID=Z1U947S9YD3XG4, CertificateArn=${{ secrets.AWS_CERTIFICATE_ARN }}, OriginRequestStackName=${{ secrets.NAME_DEV_ORIGIN_REQUEST_LAMBDA }}
+          parameter-overrides: RecordSetDomainName=ricksm.it, HostedZoneID=Z1U947S9YD3XG4, CertificateArn=${{ secrets.AWS_CERTIFICATE_ARN }}, DeploymentType=production
 
       - name: Save outputs
         id: cf-outputs
@@ -70,18 +63,8 @@ jobs:
 
       - name: Sync With S3
         if: success()
-        run: aws s3 sync build s3://${{steps.cf-outputs.outputs.BucketName}}/preview/${{ github.event.number }} \
+        run: aws s3 sync build s3://${{steps.cf-outputs.outputs.BucketName}} \
 
       - name: Invalidate cache
         if: success()
         run: aws cloudfront create-invalidation --distribution-id ${{steps.cf-outputs.outputs.Distribution}} --paths /
-
-      - name: Set Deployment Status Success
-        if: success()
-        uses: pbrandone/create-status-action@master
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          state: success
-          description: Deploy preview ready!
-          url: http://${{ github.event.number }}.preview.ricksm.it
-          context: Deploy Preview URL
