@@ -1,9 +1,9 @@
 ---
 title: Home
-description: All about Rick Smit
+description: All about Rick Smit!
 ---
 
-# Rick Smit --
+# Rick Smit
 
 ## Javascript/Node developer
 
