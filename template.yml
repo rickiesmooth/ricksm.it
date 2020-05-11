@@ -9,6 +9,9 @@ Parameters:
   RecordSetDomainName:
     Type: String
     Description: 'Domain name traffic should be routed to'
+  RecordSetDomainNameApi:
+    Type: String
+    Description: 'Domain name traffic should be routed to'
   CertificateArn:
     Type: String
   HostedZoneID:
@@ -22,15 +25,39 @@ Parameters:
     Description: 'Use development or production version'
     Type: String
 Conditions:
-  UseLambdaTrigger: !Equals
+  IsDevelopment: !Equals
     - !Ref DeploymentType
     - 'development'
 Resources:
+  LambdaBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      WebsiteConfiguration:
+        IndexDocument: index.html
+  # Bucket resources for hosting static assets
   DeployBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
       WebsiteConfiguration:
         IndexDocument: index.html
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DeployBucket
+      PolicyDocument:
+        Id: MyPolicy
+        Version: 2012-10-17
+        Statement:
+          - Sid: PublicRead
+            Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref DeployBucket
+                - '/*'
+  # CDN resources
   Distribution:
     Type: 'AWS::CloudFront::Distribution'
     Properties:
@@ -56,18 +83,17 @@ Resources:
           ViewerProtocolPolicy: 'redirect-to-https'
           LambdaFunctionAssociations:
             - !If
-              - UseLambdaTrigger
+              - IsDevelopment
               - EventType: viewer-request
                 LambdaFunctionARN:
                   Fn::ImportValue: !Sub ${OriginRequestStackName}-OriginRequestLambdaFunctionVersion
               - !Ref AWS::NoValue
             - !If
-              - UseLambdaTrigger
+              - IsDevelopment
               - EventType: origin-request
                 LambdaFunctionARN:
                   Fn::ImportValue: !Sub ${OriginRequestStackName}-OriginRequestLambdaFunctionVersion
               - !Ref AWS::NoValue
-
   DistributionAlias:
     Type: AWS::Route53::RecordSetGroup
     Properties:
@@ -78,28 +104,34 @@ Resources:
           AliasTarget:
             HostedZoneId: Z2FDTNDATAQYW2
             DNSName: !GetAtt Distribution.DomainName
-
-  BucketPolicy:
-    Type: AWS::S3::BucketPolicy
+  ApiGatewayAlias:
+    Type: AWS::Route53::RecordSetGroup
     Properties:
-      Bucket: !Ref DeployBucket
-      PolicyDocument:
-        Id: MyPolicy
-        Version: 2012-10-17
-        Statement:
-          - Sid: PublicRead
-            Effect: Allow
-            Principal: '*'
-            Action: 's3:GetObject'
-            Resource: !Join
-              - ''
-              - - 'arn:aws:s3:::'
-                - !Ref DeployBucket
-                - '/*'
+      HostedZoneId: !Ref HostedZoneID
+      RecordSets:
+        - Name: preview-api.ricksm.it
+          Type: A
+          AliasTarget:
+            HostedZoneId: !GetAtt ApiGatewayDomainName.DistributionHostedZoneId
+            DNSName: !GetAtt ApiGatewayDomainName.DistributionDomainName
+  ApiGatewayDomainName:
+    Type: AWS::ApiGateway::DomainName
+    Properties:
+      CertificateArn: !Ref CertificateArn
+      DomainName: preview-api.ricksm.it
+      EndpointConfiguration:
+        Types:
+          - EDGE
 Outputs:
-  BucketName:
+  DeployBucket:
     Description: The BucketName ID
     Value: !Ref DeployBucket
+  LambdaBucket:
+    Description: The BucketName ID
+    Value: !Ref LambdaBucket
   Distribution:
     Description: The Distribution ID
     Value: !Ref Distribution
+  CertificateArn:
+    Description: The Distribution ID
+    Value: !Ref CertificateArn

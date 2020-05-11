@@ -21,12 +21,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install
-        run: yarn install --frozen-lockfile
-
-      - name: Build
-        run: npm run build
-
       - name: Load AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -53,7 +47,7 @@ jobs:
           capabilities: CAPABILITY_IAM
           template: template.yml
           no-fail-on-empty-changeset: '1'
-          parameter-overrides: RecordSetDomainName=*.preview.ricksm.it, HostedZoneID=Z1U947S9YD3XG4, CertificateArn=${{ secrets.AWS_CERTIFICATE_ARN_PREVIEW }}, OriginRequestStackName=${{ secrets.NAME_DEV_ORIGIN_REQUEST_LAMBDA }}
+          parameter-overrides: RecordSetDomainName=*.preview.ricksm.it, RecordSetDomainNameApi=preview-api.ricksm.it, HostedZoneID=Z1U947S9YD3XG4, CertificateArn=${{ secrets.AWS_CERTIFICATE_ARN_PREVIEW }}, OriginRequestStackName=${{ secrets.NAME_DEV_ORIGIN_REQUEST_LAMBDA }}
 
       - name: Save outputs
         id: cf-outputs
@@ -68,9 +62,35 @@ jobs:
               done
           fi
 
+      - name: sam build
+        uses: TractorZoom/sam-cli-action@master
+        with:
+          sam_command: build -t lambdas/api/template.yml
+
+      - name: sam package
+        uses: TractorZoom/sam-cli-action@master
+        with:
+          sam_command: package -t .aws-sam/build/template.yaml --s3-bucket ${{steps.cf-outputs.outputs.LambdaBucket}} --output-template-file .aws-sam/build/packaged.yaml
+
+      - name: sam deploy
+        uses: TractorZoom/sam-cli-action@master
+        with:
+          sam_command: |
+            deploy \
+              --template-file .aws-sam/build/packaged.yaml \
+              --stack-name website-api-${{github.event.number}} \
+              --no-fail-on-empty-changeset \
+              --parameter-overrides ParameterKey=ApiDomain,ParameterValue=preview-api.ricksm.it ParameterKey=BasePath,ParameterValue=${{github.event.number}} ParameterKey=GithubToken,ParameterValue=${{ secrets.PERSONAL_GITHUB_TOKEN }} --capabilities CAPABILITY_IAM
+
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: API_URL=https://preview-api.ricksm.it/${{github.event.number}} npm run build
+
       - name: Sync With S3
         if: success()
-        run: aws s3 sync build s3://${{steps.cf-outputs.outputs.BucketName}}/preview/${{ github.event.number }} \
+        run: aws s3 sync build s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }} \
 
       - name: Invalidate cache
         if: success()

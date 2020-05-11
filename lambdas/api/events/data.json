@@ -1,0 +1,22 @@
+{
+  "data": {
+    "viewer": {
+      "itemShowcase": {
+        "items": {
+          "edges": [
+            {
+              "node": {
+                "name": "home",
+                "url": "https://github.com/rickiesmooth/home",
+                "descriptionHTML": "<div>React UI for <a href=\"https://github.com/mozilla-iot/gateway\">https: //github.com/mozilla-iot/gateway</a>. </div>",
+                "repositoryTopics": {
+                  "edges": [{ "node": { "topic": { "name": "graphql" } } }]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
