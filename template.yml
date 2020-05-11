@@ -109,7 +109,7 @@ Resources:
     Properties:
       HostedZoneId: !Ref HostedZoneID
       RecordSets:
-        - Name: preview-api.ricksm.it
+        - Name: !Ref RecordSetDomainNameApi
           Type: A
           AliasTarget:
             HostedZoneId: !GetAtt ApiGatewayDomainName.DistributionHostedZoneId
@@ -118,7 +118,7 @@ Resources:
     Type: AWS::ApiGateway::DomainName
     Properties:
       CertificateArn: !Ref CertificateArn
-      DomainName: preview-api.ricksm.it
+      DomainName: !Ref RecordSetDomainNameApi
       EndpointConfiguration:
         Types:
           - EDGE

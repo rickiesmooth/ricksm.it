@@ -21,9 +21,7 @@ exports.handler = (_event, _context, callback) => {
       callback(null, {
         statusCode: data ? 200 : 501,
         body: JSON.stringify(data || errors),
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
+        headers: { 'Access-Control-Allow-Origin': '*' },
       })
     const sendNormalizedResponse = compose(sendResponse, normalizeGithubData)
     fetchGithubData(sendNormalizedResponse)
