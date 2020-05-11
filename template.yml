@@ -81,6 +81,7 @@ Resources:
             QueryString: true
           TargetOriginId: !Ref DeployBucket
           ViewerProtocolPolicy: 'redirect-to-https'
+          Compress: true
           LambdaFunctionAssociations:
             - !If
               - IsDevelopment
