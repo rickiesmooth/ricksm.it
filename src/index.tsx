@@ -1,6 +1,6 @@
 import './index.scss'
 
-console.log(process.env.API_URL)
+console.log('URL', process.env.API_URL)
 
 window
   .fetch(`${process.env.API_URL}/github`)
