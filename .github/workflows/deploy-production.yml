@@ -28,7 +28,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build
-        run: API_URL=https://api.ricksm.it npm run build
+        run: API_URL=https://api.ricksm.it/stable npm run build
 
       - name: Load AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
