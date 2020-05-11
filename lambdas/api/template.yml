@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SAM Template for fetch function
+
+Parameters:
+  ApiDomain:
+    Type: String
+    Default: ''
+  BasePath:
+    Type: String
+    Default: 'stable'
+  GithubToken:
+    Type: String
+    Default: ''
+
+Resources:
+  FetchGithubDataApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      Cors: "'*'"
+      StageName: Prod
+
+  FetchGithubDataFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/index.handler
+      Runtime: nodejs12.x
+      Environment:
+        Variables:
+          GITHUB_TOKEN: !Ref GithubToken
+      Events:
+        Contributions:
+          Type: Api
+          Properties:
+            RestApiId: !Ref FetchGithubDataApiGateway
+            Path: /github
+            Method: get
+  BasePathMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      BasePath: !Ref BasePath
+      Stage: !Ref FetchGithubDataApiGateway.Stage
+      DomainName: !Ref ApiDomain
+      RestApiId: !Ref FetchGithubDataApiGateway
+    DependsOn: FetchGithubDataApiGateway
+
+Outputs:
+  FetchGithubDataApi:
+    Description: 'API Gateway endpoint URL for Prod stage for FetchGithubDataFunction function'
+    Value: !Sub 'https://${FetchGithubDataApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/github/'

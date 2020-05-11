@@ -7,6 +7,10 @@ description: All about Rick Smit!
 
 ## Javascript/Node developer
 
+::: experience
+_here be dragons_
+:::
+
 ### Experience
 
 More than 5 years experience as a developer in various roles.

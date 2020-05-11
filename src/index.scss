@@ -8,34 +8,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.md-container p {
-  @apply mb-4;
-}
-
-.md-container a {
-  @apply text-blue-400;
-}
-
-.md-container a:hover {
-  @apply underline;
-}
-
-.md-container strong {
-  @apply font-semibold;
-}
-
-.md-container h1 {
-  @apply leading-tight border-b text-4xl font-semibold mb-4 mt-6 pb-2;
-}
-
-.md-container h2 {
-  @apply leading-tight border-b text-2xl font-semibold mb-4 mt-6 pb-2;
-}
-
-.md-container h3 {
-  @apply leading-snug text-lg font-semibold mb-4 mt-6;
-}
-
 @screen sm {
   .md-container h1 {
     @apply text-5xl;

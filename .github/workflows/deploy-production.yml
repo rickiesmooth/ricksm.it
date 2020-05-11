@@ -28,7 +28,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build
-        run: npm run build
+        run: API_URL=api.ricksm.it npm run build
 
       - name: Load AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -46,7 +46,7 @@ jobs:
           capabilities: CAPABILITY_IAM
           template: template.yml
           no-fail-on-empty-changeset: '1'
-          parameter-overrides: RecordSetDomainName=ricksm.it, HostedZoneID=Z1U947S9YD3XG4, CertificateArn=${{ secrets.AWS_CERTIFICATE_ARN_PROD }}, DeploymentType=production
+          parameter-overrides: RecordSetDomainName=ricksm.it, RecordSetDomainNameApi=preview-api.ricksm.it, HostedZoneID=Z1U947S9YD3XG4, CertificateArn=${{ secrets.AWS_CERTIFICATE_ARN_PROD }}, DeploymentType=production
 
       - name: Save outputs
         id: cf-outputs
@@ -60,10 +60,29 @@ jobs:
                   echo "::set-output name=$key::$value"
               done
           fi
+      - name: sam build
+        uses: TractorZoom/sam-cli-action@master
+        with:
+          sam_command: build -t lambdas/api/template.yml
+
+      - name: sam package
+        uses: TractorZoom/sam-cli-action@master
+        with:
+          sam_command: package -t .aws-sam/build/template.yaml --s3-bucket ${{steps.cf-outputs.outputs.LambdaBucket}} --output-template-file .aws-sam/build/packaged.yaml
+
+      - name: sam deploy
+        uses: TractorZoom/sam-cli-action@master
+        with:
+          sam_command: |
+            deploy \
+              --template-file .aws-sam/build/packaged.yaml \
+              --stack-name website-api-${{github.event.number}} \
+              --no-fail-on-empty-changeset \
+              --parameter-overrides ParameterKey=ApiDomain,ParameterValue=api.ricksm.it ParameterKey=GithubToken,ParameterValue=${{ secrets.PERSONAL_GITHUB_TOKEN }} --capabilities CAPABILITY_IAM
 
       - name: Sync With S3
         if: success()
-        run: aws s3 sync build s3://${{steps.cf-outputs.outputs.BucketName}} \
+        run: aws s3 sync build s3://${{steps.cf-outputs.outputs.DeployBucket}} \
 
       - name: Invalidate cache
         if: success()
