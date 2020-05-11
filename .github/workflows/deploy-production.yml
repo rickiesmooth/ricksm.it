@@ -28,7 +28,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build
-        run: API_URL=api.ricksm.it npm run build
+        run: API_URL=https://api.ricksm.it npm run build
 
       - name: Load AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -76,7 +76,7 @@ jobs:
           sam_command: |
             deploy \
               --template-file .aws-sam/build/packaged.yaml \
-              --stack-name website-api-${{github.event.number}} \
+              --stack-name website-api-prod \
               --no-fail-on-empty-changeset \
               --parameter-overrides ParameterKey=ApiDomain,ParameterValue=api.ricksm.it ParameterKey=GithubToken,ParameterValue=${{ secrets.PERSONAL_GITHUB_TOKEN }} --capabilities CAPABILITY_IAM
 
