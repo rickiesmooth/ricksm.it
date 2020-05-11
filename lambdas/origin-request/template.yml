@@ -21,8 +21,10 @@ Resources:
               return callback(null, request);
             }
             if (config.eventType === "origin-request") {
-              const preview = headers['x-pr-id'][0].value
-              request.origin.s3.path = `/preview/${preview}`
+              const preview = headers['x-pr-id'][0].value;
+              const newuri = request.uri.replace(/\/$/, '\/index.html');
+              request.uri = newuri;
+              request.origin.s3.path = `/preview/${preview}`;
               return callback(null, request);
             }
           };
