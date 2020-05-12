@@ -94,7 +94,7 @@ jobs:
       - name: Sync With S3
         if: success()
         run: |
-          find build/ -type f ! -iname 'index.html' -iname '*.html' -print0 | while read -d $'\0' f; do mv "$f" "${f%.html}"; done
+          find build/ -type f ! -iname 'index.html' -iname '*.html' -print0 | while read -d $'\0' f; do mv "$f" "${f%.html}"; done \
           aws s3 sync build/assets s3://${{steps.cf-outputs.outputs.DeployBucket}} \
           aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}}/ --content-type text/html --exclude "/assets" --delete \
 
