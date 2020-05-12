@@ -60,29 +60,26 @@ jobs:
                   echo "::set-output name=$key::$value"
               done
           fi
-      - name: sam build
-        uses: TractorZoom/sam-cli-action@master
-        with:
-          sam_command: build -t lambdas/api/template.yml
 
-      - name: sam package
-        uses: TractorZoom/sam-cli-action@master
-        with:
-          sam_command: package -t .aws-sam/build/template.yaml --s3-bucket ${{steps.cf-outputs.outputs.LambdaBucket}} --output-template-file .aws-sam/build/packaged.yaml
+      - name: SAM buld and package
+        run: sam build -t lambdas/api/template.yml && sam package -t .aws-sam/build/template.yaml --s3-bucket ${{steps.cf-outputs.outputs.LambdaBucket}} --output-template-file .aws-sam/build/packaged.yaml
 
       - name: sam deploy
-        uses: TractorZoom/sam-cli-action@master
-        with:
-          sam_command: |
-            deploy \
-              --template-file .aws-sam/build/packaged.yaml \
-              --stack-name website-api-prod \
-              --no-fail-on-empty-changeset \
-              --parameter-overrides ParameterKey=ApiDomain,ParameterValue=api.ricksm.it ParameterKey=GithubToken,ParameterValue=${{ secrets.PERSONAL_GITHUB_TOKEN }} --capabilities CAPABILITY_IAM
+        run: |
+          sam deploy \
+            --template-file .aws-sam/build/packaged.yaml \
+            --stack-name website-api-prod \
+            --no-fail-on-empty-changeset \
+            --parameter-overrides ParameterKey=ApiDomain,ParameterValue=api.ricksm.it ParameterKey=GithubToken,ParameterValue=${{ secrets.PERSONAL_GITHUB_TOKEN }} --capabilities CAPABILITY_IAM
+
+      - name: Strip file names
+        run: find build/ -type f ! -iname 'index.html' -iname '*.html' -print0 | while read -d $'\0' f; do mv "$f" "${f%.html}"; done
 
       - name: Sync With S3
         if: success()
-        run: aws s3 sync build s3://${{steps.cf-outputs.outputs.DeployBucket}} \
+        run: |
+          aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }} --content-type text/html --exclude "assets/**" --delete &&
+          aws s3 sync build/assets s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }}/assets
 
       - name: Invalidate cache
         if: success()
