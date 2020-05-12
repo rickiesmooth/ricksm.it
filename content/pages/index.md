@@ -28,7 +28,14 @@ More than 5 years experience as a developer in various roles.
 
 Fun projects nobody asked for.
 
-TODO Fetch from service
+<ul id="projects">
+  <div class="flex flex-col flex-grow">
+    <span class="skeleton-box h-5 w-1/6 inline-block mb-1"></span>
+    <span class="skeleton-box h-5 w-1/4 inline-block"></span>
+    <span class="skeleton-box h-5 w-1/6 inline-block mb-1 mt-1"></span>
+    <span class="skeleton-box h-5 w-1/5 inline-block"></span>
+  </div>
+</ul>
 
 ### Open Source
 

@@ -3,7 +3,7 @@ const fs = require('fs').promises
 const gm = require('gray-matter')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 
-const md = require('markdown-it')()
+const md = require('markdown-it')({ html: true })
   .use(require('markdown-it-attrs'))
   .use(
     require('@toycode/markdown-it-class'),
