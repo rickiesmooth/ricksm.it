@@ -8,24 +8,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-@screen sm {
-  .md-container h1 {
-    @apply text-5xl;
-  }
-
-  .md-container h2 {
-    @apply text-3xl;
-  }
-
-  .md-container h3 {
-    @apply text-3xl;
-  }
-
-  .md-container h4 {
-    @apply text-2xl;
-  }
-}
-
 .md-container li + li {
   @apply mt-1;
 }
