@@ -65,15 +65,12 @@ jobs:
               done
           fi
 
-      - name: SAM build lambdas
-        run: sam build -t lambdas/api/template.yml
+      - name: SAM build and package lambdas
+        run: sam build -t lambdas/api/template.yml && sam package -t .aws-sam/build/template.yaml --s3-bucket ${{steps.cf-outputs.outputs.LambdaBucket}} --output-template-file .aws-sam/build/packaged.yaml
 
-      - name: SAM package lambdas
-        run: sam package -t .aws-sam/build/template.yaml --s3-bucket ${{steps.cf-outputs.outputs.LambdaBucket}} --output-template-file .aws-sam/build/packaged.yaml
-
-      - name: SAM build lambdas
+      - name: SAM deploy lambdas
         run: |
-          deploy \
+          sam deploy \
             --template-file .aws-sam/build/packaged.yaml \
             --stack-name website-api-${{github.event.number}} \
             --no-fail-on-empty-changeset \
