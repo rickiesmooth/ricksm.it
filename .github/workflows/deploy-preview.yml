@@ -72,11 +72,12 @@ jobs:
         run: sam package -t .aws-sam/build/template.yaml --s3-bucket ${{steps.cf-outputs.outputs.LambdaBucket}} --output-template-file .aws-sam/build/packaged.yaml
 
       - name: SAM build lambdas
-        run: sam deploy \
-          --template-file .aws-sam/build/packaged.yaml \
-          --stack-name website-api-${{github.event.number}} \
-          --no-fail-on-empty-changeset \
-          --parameter-overrides ParameterKey=ApiDomain,ParameterValue=preview-api.ricksm.it ParameterKey=BasePath,ParameterValue=${{github.event.number}} ParameterKey=GithubToken,ParameterValue=${{ secrets.PERSONAL_GITHUB_TOKEN }} --capabilities CAPABILITY_IAM
+        run: |
+          deploy \
+            --template-file .aws-sam/build/packaged.yaml \
+            --stack-name website-api-${{github.event.number}} \
+            --no-fail-on-empty-changeset \
+            --parameter-overrides ParameterKey=ApiDomain,ParameterValue=preview-api.ricksm.it ParameterKey=BasePath,ParameterValue=${{github.event.number}} ParameterKey=GithubToken,ParameterValue=${{ secrets.PERSONAL_GITHUB_TOKEN }} --capabilities CAPABILITY_IAM
 
       - name: Install
         run: yarn install --frozen-lockfile
