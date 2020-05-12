@@ -1,6 +1,5 @@
 module.exports = {
   p: 'mb-4',
-  a: ['text-blue-400', 'hover:underline'],
   h1: [
     'leading-tight',
     'border-b',

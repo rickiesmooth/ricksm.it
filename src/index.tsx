@@ -19,7 +19,7 @@ window
   .then(({ showcaseItems }) => {
     document.getElementById('projects')!.innerHTML = showcaseItems.reduce(
       (list, { name, url, descriptionHTML }) =>
-        `${list}<li><a class="text-blue-400 hover:underline" href=${url}>${name}</a>${descriptionHTML}</li>`,
+        `${list}<li><a href=${url}>${name}</a>${descriptionHTML}</li>`,
       ''
     )
   })
