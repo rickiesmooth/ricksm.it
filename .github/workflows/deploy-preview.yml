@@ -66,9 +66,7 @@ jobs:
           fi
 
       - name: SAM build lambdas
-        uses: TractorZoom/sam-cli-action@master
-        with:
-          sam_command: build -t lambdas/api/template.yml
+        run: sam build -t lambdas/api/template.yml
 
       - name: SAM package lambdas
         uses: TractorZoom/sam-cli-action@master
@@ -98,7 +96,7 @@ jobs:
         if: success()
         run: |
           aws s3 sync build/assets s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }} &&
-          aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }} --content-type text/html --exclude "/assets" --delete
+          aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }} --content-type text/html --exclude "assets" --delete
 
       - name: Invalidate cache
         if: success()
