@@ -65,17 +65,17 @@ jobs:
               done
           fi
 
-      - name: sam build
+      - name: SAM build lambdas
         uses: TractorZoom/sam-cli-action@master
         with:
           sam_command: build -t lambdas/api/template.yml
 
-      - name: sam package
+      - name: SAM package lambdas
         uses: TractorZoom/sam-cli-action@master
         with:
           sam_command: package -t .aws-sam/build/template.yaml --s3-bucket ${{steps.cf-outputs.outputs.LambdaBucket}} --output-template-file .aws-sam/build/packaged.yaml
 
-      - name: sam deploy
+      - name: SAM build lambdas
         uses: TractorZoom/sam-cli-action@master
         with:
           sam_command: |
@@ -93,7 +93,10 @@ jobs:
 
       - name: Sync With S3
         if: success()
-        run: aws s3 sync build s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }} \
+        run: |
+          find build/ -type f ! -iname 'index.html' -iname '*.html' -print0 | while read -d $'\0' f; do mv "$f" "${f%.html}"; done
+          aws s3 sync build/assets s3://${{steps.cf-outputs.outputs.DeployBucket}} \
+          aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}}/ --content-type text/html --exclude "/assets" --delete \
 
       - name: Invalidate cache
         if: success()

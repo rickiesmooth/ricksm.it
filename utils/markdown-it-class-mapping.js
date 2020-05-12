@@ -9,6 +9,7 @@ module.exports = {
     'mb-4',
     'mt-6',
     'pb-2',
+    'sm:text-5xl',
   ],
   h2: [
     'leading-tight',
@@ -18,7 +19,15 @@ module.exports = {
     'mb-4',
     'mt-6',
     'pb-2',
+    'sm:text-3xl',
   ],
-  h3: ['leading-snug', 'text-lg', 'font-semibold', 'mb-4', 'mt-6'],
+  h3: [
+    'leading-snug',
+    'text-lg',
+    'font-semibold',
+    'mb-4',
+    'mt-6',
+    'sm:text-3xl',
+  ],
   strong: 'font-semibold',
 }

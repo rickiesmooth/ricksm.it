@@ -1,65 +1,31 @@
 const devMode = process.env.NODE_ENV !== 'production'
 
 const glob = require('glob')
-const { basename, extname, join } = require('path')
-const fs = require('fs').promises
-const gm = require('gray-matter')
+const { join } = require('path')
 
-const md = require('markdown-it')()
-  .use(require('markdown-it-attrs'))
-  .use(
-    require('@toycode/markdown-it-class'),
-    require('./utils/markdown-it-class-mapping')
-  )
-
-const HtmlWebPackPlugin = require('html-webpack-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const webpack = require('webpack')
 
+const { buildHtmlWithTemplate } = require('./utils/build-html-with-template')
+
 module.exports = async (_env, _argv) => {
   const pages = glob.sync('content/pages/*.md')
   const posts = glob.sync('content/blog/*.md')
 
-  const makeHtmlWithTemplate = (template) => (pathname) =>
-    fs.readFile(pathname, 'utf-8').then((file) => {
-      const { data, content } = gm(file)
-      const { title, description, slug } = data
-      const body = md.render(content)
-      const templateParameters = {
-        body,
-        title,
-        description,
-      }
-
-      return new HtmlWebPackPlugin({
-        template,
-        filename: `${slug || basename(pathname, extname(pathname))}.html`,
-        templateParameters,
-      })
-    })
-
-  const allHtml = await Promise.all([
-    ...pages.map(makeHtmlWithTemplate('src/html/template.html')),
-    ...posts.map(makeHtmlWithTemplate('src/html/template.html')),
-  ])
-
-  return {
+  const baseConfig = {
     mode: process.env.NODE_ENV,
-    entry: { main: './src/index.tsx' },
     optimization: {
-      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+      minimizer: [new OptimizeCSSAssetsPlugin({})],
     },
     output: {
       path: join(__dirname, 'build'),
       publicPath: '/',
-      filename: '[name]-[hash].js',
     },
     module: {
       rules: [
-        { test: /\.tsx?$/, loader: 'babel-loader' },
         {
           test: /\.scss$/,
           use: [
@@ -71,16 +37,55 @@ module.exports = async (_env, _argv) => {
       ],
     },
     plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-          API_URL: JSON.stringify(process.env.API_URL),
-        },
-      }),
-      new CopyWebpackPlugin([{ from: 'content/pages/admin', to: 'admin' }]),
       new MiniCssExtractPlugin({
-        filename: devMode ? '[name].css' : '[name].[hash].css',
+        filename: devMode
+          ? 'assets/css/[name].css'
+          : 'assets/css/[name].[hash].css',
       }),
-      ...allHtml,
     ],
   }
+
+  const allHtml = await Promise.all(
+    process.env.BLOG
+      ? posts.map(buildHtmlWithTemplate('src/html/template.html'))
+      : pages.map(buildHtmlWithTemplate('src/html/template.html'))
+  )
+
+  return process.env.BLOG
+    ? {
+        ...baseConfig,
+        entry: { main: './src/index.scss' },
+        plugins: baseConfig.plugins.concat(allHtml),
+      }
+    : {
+        ...baseConfig,
+        entry: { main: './src/index.tsx' },
+        output: {
+          ...baseConfig.output,
+          filename: 'assets/js/[name]-[hash].js',
+        },
+        optimization: {
+          minimizer: baseConfig.optimization.minimizer.concat(
+            new TerserJSPlugin({})
+          ),
+        },
+        module: {
+          rules: baseConfig.module.rules.concat({
+            test: /\.tsx?$/,
+            loader: 'babel-loader',
+          }),
+        },
+        plugins: baseConfig.plugins.concat(
+          ...allHtml,
+          new webpack.DefinePlugin({
+            'process.env': {
+              API_URL: JSON.stringify(process.env.API_URL),
+            },
+          }),
+          new CopyWebpackPlugin([
+            { from: 'content/pages/admin/index.html', to: 'admin.html' },
+            { from: 'content/pages/admin/config.yml', to: 'config.yml' },
+          ])
+        ),
+      }
 }
