@@ -9,20 +9,19 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const webpack = require('webpack')
 
-const {
-  buildHtmlWithTemplate,
-  buildBlogPage,
-} = require('./utils/build-html-with-template')
+const { buildHtmlWithTemplate, buildBlogPage } = require('./utils/build-html')
 
 module.exports = async (_env, _argv) => {
   const pages = glob.sync('content/pages/*.md')
   const posts = glob.sync('content/blog/*.md')
-  const templatePosts = buildHtmlWithTemplate('src/html/templatePages.html')
-  const templatePages = buildHtmlWithTemplate('src/html/templatePosts.html')
+  const postsTemplate = buildHtmlWithTemplate('src/html/templatePages.html')
+  const pagesTemplate = buildHtmlWithTemplate('src/html/templatePosts.html')
+
   const [allBlogHtml, allPagesHtml] = await Promise.all([
-    Promise.all(posts.map(templatePosts)),
-    Promise.all(pages.map(templatePages)),
+    Promise.all(posts.map(postsTemplate)),
+    Promise.all(pages.map(pagesTemplate)),
   ])
+
   const blogPage = buildBlogPage(allBlogHtml)
 
   return {
