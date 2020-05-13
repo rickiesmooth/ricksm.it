@@ -24,17 +24,22 @@
   </head>
 
   <body class="text-gray-800 bg-white">
-    <header class="bg-red-400">
-      <ul class="container mx-auto px-4">
-        <li>home</li>
-      </ul>
+    <header class="bg-gray-400">
+      <nav class="container mx-auto p-4">
+        <ul class="max-w-screen-md mx-auto flex">
+          <li class="mr-auto"><a href="/">home</a></li>
+          <li class="ml-auto"><a href="/blog">blog</a></li>
+        </ul>
+      </nav>
     </header>
-    <div class="md-container container mx-auto px-4">
-      <%= body %>
+    <div class="md-container max-w-screen-md container mx-auto px-4 mb-8">
+      <div class="max-w-screen-md mx-auto">
+        <%= body %>
+      </div>
     </div>
-    <footer class="bg-red-400">
+    <footer class="bg-gray-400">
       <ul class="container mx-auto px-4">
-        <li>home</li>
+        <li class="max-w-screen-md mx-auto">home</li>
       </ul>
     </footer>
   </body>

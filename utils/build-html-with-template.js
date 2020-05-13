@@ -27,3 +27,23 @@ exports.buildHtmlWithTemplate = (template) => (pathname) =>
       templateParameters,
     })
   })
+
+exports.buildBlogPage = (posts) =>
+  new HtmlWebPackPlugin({
+    template: 'src/html/templatePages.html',
+    filename: `blog.html`,
+    templateParameters: {
+      body: `<div class="flex flex-col">${posts
+        .map(
+          ({
+            options: {
+              filename,
+              templateParameters: { title },
+            },
+          }) => `<a href=${filename}>${title}</a>`
+        )
+        .join('')}</div>`,
+      title: 'Blog',
+      description: 'Blog posts',
+    },
+  })

@@ -28,5 +28,13 @@ module.exports = {
     'mt-6',
     'sm:text-3xl',
   ],
+  h4: [
+    'leading-snug',
+    'text-md',
+    'font-semibold',
+    'mb-4',
+    'mt-6',
+    'sm:text-lg',
+  ],
   strong: 'font-semibold',
 }

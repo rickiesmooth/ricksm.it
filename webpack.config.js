@@ -9,20 +9,32 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const webpack = require('webpack')
 
-const { buildHtmlWithTemplate } = require('./utils/build-html-with-template')
+const {
+  buildHtmlWithTemplate,
+  buildBlogPage,
+} = require('./utils/build-html-with-template')
 
 module.exports = async (_env, _argv) => {
   const pages = glob.sync('content/pages/*.md')
   const posts = glob.sync('content/blog/*.md')
+  const templatePosts = buildHtmlWithTemplate('src/html/templatePages.html')
+  const templatePages = buildHtmlWithTemplate('src/html/templatePosts.html')
+  const [allBlogHtml, allPagesHtml] = await Promise.all([
+    Promise.all(posts.map(templatePosts)),
+    Promise.all(pages.map(templatePages)),
+  ])
+  const blogPage = buildBlogPage(allBlogHtml)
 
-  const baseConfig = {
+  return {
     mode: process.env.NODE_ENV,
-    optimization: {
-      minimizer: [new OptimizeCSSAssetsPlugin({})],
-    },
+    entry: { main: './src/index.tsx' },
     output: {
       path: join(__dirname, 'build'),
       publicPath: '/',
+      filename: 'assets/js/[name]-[hash].js',
+    },
+    optimization: {
+      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
     },
     module: {
       rules: [
@@ -34,58 +46,30 @@ module.exports = async (_env, _argv) => {
             'postcss-loader',
           ],
         },
+        {
+          test: /\.tsx?$/,
+          loader: 'babel-loader',
+        },
       ],
     },
     plugins: [
+      ...allBlogHtml,
+      ...allPagesHtml,
+      blogPage,
       new MiniCssExtractPlugin({
         filename: devMode
           ? 'assets/css/[name].css'
           : 'assets/css/[name].[hash].css',
       }),
+      new webpack.DefinePlugin({
+        'process.env': {
+          API_URL: JSON.stringify(process.env.API_URL),
+        },
+      }),
+      new CopyWebpackPlugin([
+        { from: 'content/pages/admin/index.html', to: 'admin.html' },
+        { from: 'content/pages/admin/config.yml', to: 'config.yml' },
+      ]),
     ],
   }
-
-  const allHtml = await Promise.all(
-    process.env.BLOG
-      ? posts.map(buildHtmlWithTemplate('src/html/template.html'))
-      : pages.map(buildHtmlWithTemplate('src/html/template.html'))
-  )
-
-  return process.env.BLOG
-    ? {
-        ...baseConfig,
-        entry: { main: './src/index.scss' },
-        plugins: baseConfig.plugins.concat(allHtml),
-      }
-    : {
-        ...baseConfig,
-        entry: { main: './src/index.tsx' },
-        output: {
-          ...baseConfig.output,
-          filename: 'assets/js/[name]-[hash].js',
-        },
-        optimization: {
-          minimizer: baseConfig.optimization.minimizer.concat(
-            new TerserJSPlugin({})
-          ),
-        },
-        module: {
-          rules: baseConfig.module.rules.concat({
-            test: /\.tsx?$/,
-            loader: 'babel-loader',
-          }),
-        },
-        plugins: baseConfig.plugins.concat(
-          ...allHtml,
-          new webpack.DefinePlugin({
-            'process.env': {
-              API_URL: JSON.stringify(process.env.API_URL),
-            },
-          }),
-          new CopyWebpackPlugin([
-            { from: 'content/pages/admin/index.html', to: 'admin.html' },
-            { from: 'content/pages/admin/config.yml', to: 'config.yml' },
-          ])
-        ),
-      }
 }

@@ -3,7 +3,7 @@ module.exports = {
     './src/**/*.html',
     './src/**/*.tsx',
     './content/**/*.md',
-    './utils/markdown-it-class-mapping.js',
+    './utils/**.js',
   ],
   theme: {
     extend: {},
