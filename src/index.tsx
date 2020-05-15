@@ -12,11 +12,14 @@ type ApiResponse = {
 }
 
 function renderShowCaseItems({ showcaseItems }: ApiResponse) {
-  document.getElementById('projects')!.innerHTML = showcaseItems.reduce(
-    (list, { name, url, descriptionHTML }) =>
-      `${list}<li><a href=${url}>${name}</a>${descriptionHTML}</li>`,
-    ''
-  )
+  const element = document.getElementById('projects')
+  if (element !== null) {
+    element.innerHTML = showcaseItems.reduce(
+      (list, { name, url, descriptionHTML }) =>
+        `${list}<li><a href=${url}>${name}</a>${descriptionHTML}</li>`,
+      ''
+    )
+  }
 }
 
 function fetchAndRenderShowCaseItems() {
