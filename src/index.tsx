@@ -12,11 +12,12 @@ type ApiResponse = {
 function renderShowCaseItems({ showcaseItems }: ApiResponse) {
   const element = document.getElementById('projects')
   if (element !== null) {
-    element.innerHTML = showcaseItems.reduce(
-      (list, { name, url, descriptionHTML }) =>
-        `${list}<li><a href=${url}>${name}</a>${descriptionHTML}</li>`,
-      ''
-    )
+    element.innerHTML = showcaseItems
+      .map(
+        ({ name, url, descriptionHTML }) =>
+          `<li><a href=${url}>${name}</a>${descriptionHTML}</li>`
+      )
+      .join('')
   }
 }
 
