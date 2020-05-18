@@ -1,7 +1,7 @@
 const devMode = process.env.NODE_ENV !== 'production'
 
 const glob = require('glob')
-const { join } = require('path')
+const { basename, extname, join } = require('path')
 
 const TerserJSPlugin = require('terser-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -14,8 +14,14 @@ const { buildHtmlWithTemplate, buildBlogPage } = require('./utils/build-html')
 module.exports = async (_env, _argv) => {
   const pages = glob.sync('content/pages/*.md')
   const posts = glob.sync('content/blog/*.md')
-  const postsTemplate = buildHtmlWithTemplate('src/html/templatePages.html')
-  const pagesTemplate = buildHtmlWithTemplate('src/html/templatePosts.html')
+  const postsTemplate = buildHtmlWithTemplate(
+    (pathname, slug) =>
+      `posts/${slug || basename(pathname, extname(pathname))}/index.html`,
+    ['main']
+  )
+  const pagesTemplate = buildHtmlWithTemplate(
+    (pathname, slug) => `${slug || basename(pathname, extname(pathname))}.html`
+  )
 
   const [allBlogHtml, allPagesHtml] = await Promise.all([
     Promise.all(posts.map(postsTemplate)),
@@ -26,7 +32,7 @@ module.exports = async (_env, _argv) => {
 
   return {
     mode: process.env.NODE_ENV,
-    entry: { main: './src/index.tsx' },
+    entry: { main: './src/index.tsx', styles: './src/index.scss' },
     output: {
       path: join(__dirname, 'build'),
       publicPath: '/',
