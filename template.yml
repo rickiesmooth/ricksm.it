@@ -63,10 +63,14 @@ Resources:
     Properties:
       DistributionConfig:
         Origins:
-          - DomainName: !GetAtt DeployBucket.DomainName
-            Id: !Ref DeployBucket
+          - Id: !Ref DeployBucket
+            DomainName: !Sub '${S3BucketRoot}.s3-website.${AWS::Region}.amazonaws.com'
             S3OriginConfig:
               OriginAccessIdentity: ''
+            CustomOriginConfig:
+              HTTPPort: '80'
+              HTTPSPort: '443'
+              OriginProtocolPolicy: http-only
         DefaultRootObject: index.html
         Enabled: true
         Aliases:
