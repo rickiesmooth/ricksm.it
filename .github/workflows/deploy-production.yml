@@ -83,4 +83,4 @@ jobs:
 
       - name: Invalidate cache
         if: success()
-        run: aws cloudfront create-invalidation --distribution-id ${{steps.cf-outputs.outputs.Distribution}} --paths /
+        run: aws cloudfront create-invalidation --distribution-id ${{steps.cf-outputs.outputs.Distribution}} --paths /*
