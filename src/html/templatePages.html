@@ -24,22 +24,25 @@
   </head>
 
   <body class="text-gray-800 bg-white">
-    <header class="bg-gray-400">
-      <nav class="container mx-auto p-4">
-        <ul class="max-w-screen-md mx-auto flex">
+    <header class="bg-gray-400 p-4">
+      <nav class="container mx-auto">
+        <ul class="flex">
           <li class="mr-auto"><a href="/">home</a></li>
-          <li class="ml-auto"><a href="/blog">blog</a></li>
+          <li class="ml-auto"><a href="/work">work</a></li>
         </ul>
       </nav>
     </header>
-    <div class="md-container max-w-screen-md container mx-auto px-4 mb-8">
+    <div class="md-container max-w-screen-md container mx-auto px-4">
       <div class="max-w-screen-md mx-auto">
         <%= body %>
       </div>
     </div>
-    <footer class="bg-gray-400">
-      <ul class="container mx-auto px-4">
-        <li class="max-w-screen-md mx-auto">home</li>
+    <footer class="bg-gray-400 p-4">
+      <ul class="container mx-auto flex">
+        <li class="mr-auto"><a href="/blog">blog</a></li>
+        <li class="ml-auto">
+          <a href="mailto:rick.p.smit@gmail.com">email</a>
+        </li>
       </ul>
     </footer>
   </body>
