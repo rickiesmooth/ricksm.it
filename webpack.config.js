@@ -16,8 +16,7 @@ module.exports = async (_env, _argv) => {
   const posts = glob.sync('content/blog/*.md')
   const postsTemplate = buildHtmlWithTemplate(
     (pathname, slug) =>
-      `posts/${slug || basename(pathname, extname(pathname))}/index.html`,
-    ['main']
+      `posts/${slug || basename(pathname, extname(pathname))}/index.html`
   )
   const pagesTemplate = buildHtmlWithTemplate(
     (pathname, slug) => `${slug || basename(pathname, extname(pathname))}.html`
@@ -32,7 +31,7 @@ module.exports = async (_env, _argv) => {
 
   return {
     mode: process.env.NODE_ENV,
-    entry: { main: './src/index.tsx', styles: './src/index.scss' },
+    entry: { main: './src/index.tsx' },
     output: {
       path: join(__dirname, 'build'),
       publicPath: '/',

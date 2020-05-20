@@ -9,9 +9,7 @@ const md = require('markdown-it')({ html: true })
     require('./markdown-it-class-mapping')
   )
 
-exports.buildHtmlWithTemplate = (transformPathname, excludeChunks) => (
-  pathname
-) =>
+exports.buildHtmlWithTemplate = (transformPathname) => (pathname) =>
   fs.readFile(pathname, 'utf-8').then((file) => {
     const { data, content } = gm(file)
     const { title, description, slug } = data
@@ -21,7 +19,6 @@ exports.buildHtmlWithTemplate = (transformPathname, excludeChunks) => (
       template: 'src/html/templatePages.html',
       filename: transformPathname(pathname, slug),
       templateParameters: { body, title, description },
-      excludeChunks,
     })
   })
 
@@ -29,7 +26,6 @@ exports.buildBlogPage = (posts) =>
   new HtmlWebPackPlugin({
     template: 'src/html/templatePages.html',
     filename: `blog.html`,
-    excludeChunks: ['main'],
     templateParameters: {
       body: `<div class="flex flex-col">${posts
         .map(
