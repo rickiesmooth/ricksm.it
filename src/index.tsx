@@ -1,3 +1,5 @@
+import './index.scss'
+
 type ShowCaseItem = {
   name: string
   url: string
