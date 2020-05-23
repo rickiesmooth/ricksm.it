@@ -14,7 +14,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     <aside class="timestamp">2020</aside>
     <main class="info">
       <img src="https://www.thinkmill.com.au/static/images/logos/reactjs.png">
-      <p>yes</p>
+      <p>Currently at WeTransfer building products that creatives love</p>
     </main>
   </div>
   <div class="update">
@@ -22,7 +22,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     <aside class="timestamp">2018</aside>
     <main class="info">
       <img src="https://www.thinkmill.com.au/static/images/logos/reactjs.png">
-    <p>yes</p>
+    <p>Founded Smooth Capital Holding Enterprise International Worldwide and freelanced for large companies (Ahold, Catawiki)</p>
     </main>
   </div>
   <div class="update">
@@ -30,7 +30,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     <aside class="timestamp">2015</aside>
     <main class="info">
       <img src="https://www.thinkmill.com.au/static/images/logos/reactjs.png">
-    <p>yes</p>
+    <p>Coding always was my hobby and got to develop that professionally when I joined friends startup</p>
     </main>
   </div>
   <div class="update">
@@ -38,7 +38,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     <aside class="timestamp">2013</aside>
     <main class="info">
       <img src="https://www.thinkmill.com.au/static/images/logos/reactjs.png">
-    <p>yes</p>
+    <p>Started out as a large customer sales intern at Google.</p>
     </main>
   </div>
 
