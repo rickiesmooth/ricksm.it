@@ -48,6 +48,61 @@ a:hover {
   content: '';
 }
 
+.updates {
+  position: relative;
+}
+
+.updates .update {
+  @apply flex;
+  @apply flex-row;
+  @apply items-start;
+  @apply pb-8;
+  @apply relative;
+}
+
+.timestamp {
+  @apply text-xs;
+  @apply p-2;
+  @apply bg-gray-300;
+  @apply flex;
+  @apply justify-center;
+  @apply items-center;
+  width: 3rem;
+  border-radius: 2rem;
+  margin-right: 1rem;
+}
+
+.line {
+  @apply bg-gray-300;
+  @apply block;
+  content: '';
+  width: 1px;
+  height: 100%;
+  position: absolute;
+  top: 1rem;
+  bottom: -1rem;
+  left: 1.5rem;
+  z-index: -1;
+}
+
+.info {
+  @apply flex;
+  @apply flex-1;
+  @apply flex-row;
+  @apply items-start;
+  @apply m-0;
+}
+
+.info img {
+  width: 1.5rem;
+  margin-right: 1rem;
+}
+
+.info {
+  @apply flex-1;
+  @apply text-sm;
+}
+
 @keyframes shimmer {
   100% {
     transform: translateX(100%);
