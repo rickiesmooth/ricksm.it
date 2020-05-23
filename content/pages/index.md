@@ -36,7 +36,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
   <div class="update">
     <aside class="timestamp">2013</aside>
     <main class="info">
-      <img src="images/google-logo.png">
+      <img src="/static/images/uploads/google-logo.png">
     <p>Started out as a large customer sales intern at Google.</p>
     </main>
   </div>
