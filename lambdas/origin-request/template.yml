@@ -22,7 +22,7 @@ Resources:
             }
             if (config.eventType === "origin-request") {
               const previewId = headers['x-pr-id'][0].value;
-              request.origin.custom.path = `preview/${previewId}`;
+              request.origin.custom.path = `/preview/${previewId}`;
               return callback(null, request);
             }
           };
