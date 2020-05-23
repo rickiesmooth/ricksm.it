@@ -1,6 +1,7 @@
 ---
 title: Home
 description: All about Rick Smit!
+slug: index
 date: 2020-05-19T07:52:34.300Z
 ---
 
