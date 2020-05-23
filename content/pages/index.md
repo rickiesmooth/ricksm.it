@@ -34,7 +34,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     </main>
   </div>
   <div class="update">
-    <div class="line"></div>
     <aside class="timestamp">2013</aside>
     <main class="info">
       <img src="https://www.thinkmill.com.au/static/images/logos/reactjs.png">
