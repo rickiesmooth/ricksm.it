@@ -30,7 +30,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     <div class="line"></div>
     <aside class="timestamp">2015</aside>
     <main class="info">
-      <img src="/images/uploads/google-logo.png">
+      <span>🚀</span>
     <p>Coding always was my hobby and got to develop that professionally when I joined friends startup</p>
     </main>
   </div>
