@@ -22,7 +22,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
     <div class="line"></div>
     <aside class="timestamp">2018</aside>
     <main class="info">
-      <img src="/static/images/uploads/google-logo.png">
+      <img src="/images/uploads/google-logo.png">
     <p>Founded Smooth Capital Holding Enterprise International Worldwide and freelanced for large companies (Ahold, Catawiki)</p>
     </main>
   </div>
