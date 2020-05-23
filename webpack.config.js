@@ -18,8 +18,10 @@ module.exports = async (_env, _argv) => {
     (pathname, slug) =>
       `posts/${slug || basename(pathname, extname(pathname))}/index.html`
   )
-  const pagesTemplate = buildHtmlWithTemplate(
-    (pathname, slug) => `${slug || basename(pathname, extname(pathname))}.html`
+  const pagesTemplate = buildHtmlWithTemplate((pathname, slug) =>
+    slug === 'index'
+      ? 'index.html'
+      : `${slug || basename(pathname, extname(pathname))}/index.html`
   )
 
   const [allBlogHtml, allPagesHtml] = await Promise.all([
@@ -70,10 +72,7 @@ module.exports = async (_env, _argv) => {
           API_URL: JSON.stringify(process.env.API_URL),
         },
       }),
-      new CopyWebpackPlugin([
-        { from: 'content/pages/admin/index.html', to: 'admin.html' },
-        { from: 'content/pages/admin/config.yml', to: 'config.yml' },
-      ]),
+      new CopyWebpackPlugin([{ from: 'content/pages/admin', to: 'admin' }]),
     ],
   }
 }
