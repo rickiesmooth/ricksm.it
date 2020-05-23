@@ -12,7 +12,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
   <div class="update">
     <div class="line"></div>
     <aside class="timestamp">2020</aside>
-    <main class="timestamp">
+    <main class="info">
       <img src="https://www.thinkmill.com.au/static/images/logos/reactjs.png">
       <p>yes</p>
     </main>
@@ -20,7 +20,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
   <div class="update">
     <div class="line"></div>
     <aside class="timestamp">2018</aside>
-    <main class="timestamp">
+    <main class="info">
       <img src="https://www.thinkmill.com.au/static/images/logos/reactjs.png">
     <p>yes</p>
     </main>
@@ -28,7 +28,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
   <div class="update">
     <div class="line"></div>
     <aside class="timestamp">2015</aside>
-    <main class="timestamp">
+    <main class="info">
       <img src="https://www.thinkmill.com.au/static/images/logos/reactjs.png">
     <p>yes</p>
     </main>
@@ -36,7 +36,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
   <div class="update">
     <div class="line"></div>
     <aside class="timestamp">2013</aside>
-    <main class="timestamp">
+    <main class="info">
       <img src="https://www.thinkmill.com.au/static/images/logos/reactjs.png">
     <p>yes</p>
     </main>
