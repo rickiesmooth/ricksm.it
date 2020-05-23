@@ -24,9 +24,12 @@ function renderShowCaseItems({ showcaseItems }: ApiResponse) {
 }
 
 function fetchAndRenderShowCaseItems() {
-  fetch(`${process.env.API_URL}/github`)
-    .then((response) => response.json())
-    .then(renderShowCaseItems)
+  const element = document.getElementById('projects')
+  if (element) {
+    fetch(`${process.env.API_URL}/github`)
+      .then((response) => response.json())
+      .then(renderShowCaseItems)
+  }
 }
 
 fetchAndRenderShowCaseItems()
