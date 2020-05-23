@@ -16,7 +16,7 @@ exports.buildHtmlWithTemplate = (transformPathname) => (pathname) =>
     const body = md.render(content)
 
     return new HtmlWebPackPlugin({
-      template: 'src/html/templatePages.html',
+      template: 'src/html/template.html',
       filename: transformPathname(pathname, slug),
       templateParameters: { body, title, description },
     })
@@ -24,8 +24,8 @@ exports.buildHtmlWithTemplate = (transformPathname) => (pathname) =>
 
 exports.buildBlogPage = (posts) =>
   new HtmlWebPackPlugin({
-    template: 'src/html/templatePages.html',
-    filename: `blog.html`,
+    template: 'src/html/template.html',
+    filename: `blog/index.html`,
     templateParameters: {
       body: `<div class="flex flex-col">${posts
         .map(

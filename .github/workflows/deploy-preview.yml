@@ -82,14 +82,11 @@ jobs:
       - name: Build
         run: API_URL=https://preview-api.ricksm.it/${{github.event.number}} npm run build
 
-      - name: Strip file names
-        run: find build/ -type f ! -iname 'index.html' -iname '*.html' -print0 | while read -d $'\0' f; do mv "$f" "${f%.html}"; done
-
       - name: Sync With S3
         if: success()
         run: |
-          aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }} --content-type text/html --exclude "assets/**" --delete &&
-          aws s3 sync build/assets s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }}/assets
+          aws s3 sync build s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }}
+          aws s3 sync static s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }}/static
 
       - name: Invalidate cache
         if: success()
