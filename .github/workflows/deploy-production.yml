@@ -72,14 +72,11 @@ jobs:
             --no-fail-on-empty-changeset \
             --parameter-overrides ParameterKey=ApiDomain,ParameterValue=api.ricksm.it ParameterKey=GithubToken,ParameterValue=${{ secrets.PERSONAL_GITHUB_TOKEN }} --capabilities CAPABILITY_IAM
 
-      - name: Strip file names
-        run: find build/ -type f ! -iname 'index.html' -iname '*.html' -print0 | while read -d $'\0' f; do mv "$f" "${f%.html}"; done
-
       - name: Sync With S3
         if: success()
         run: |
-          aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}} --content-type text/html --exclude "assets/**" --delete &&
-          aws s3 sync build/assets s3://${{steps.cf-outputs.outputs.DeployBucket}}/assets
+          aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}} &&
+          aws s3 sync static/images s3://${{steps.cf-outputs.outputs.DeployBucket}}/images
 
       - name: Invalidate cache
         if: success()
