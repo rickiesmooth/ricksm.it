@@ -93,9 +93,17 @@ a:hover {
   @apply m-0;
 }
 
+.info svg,
+.info span,
 .info img {
+  height: 1.5rem;
   width: 1.5rem;
   margin-right: 1rem;
+}
+
+.info .emoji {
+  font-size: 1.2rem;
+  text-align: center;
 }
 
 .info {
@@ -103,8 +111,31 @@ a:hover {
   @apply text-sm;
 }
 
+.info .progress {
+  animation: dash 5s linear forwards, rotate 2s linear infinite;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 200ms linear, stroke 200ms linear;
+  will-change: auto;
+  transform-origin: 50% 50%;
+}
+
 @keyframes shimmer {
   100% {
     transform: translateX(100%);
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

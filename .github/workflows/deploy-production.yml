@@ -75,8 +75,7 @@ jobs:
       - name: Sync With S3
         if: success()
         run: |
-          aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}} &&
-          aws s3 sync static/images s3://${{steps.cf-outputs.outputs.DeployBucket}}/images
+          aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}}
 
       - name: Invalidate cache
         if: success()

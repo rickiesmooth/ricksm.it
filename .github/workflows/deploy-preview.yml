@@ -86,7 +86,6 @@ jobs:
         if: success()
         run: |
           aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }} --delete &&
-          aws s3 sync static/ s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }}/static/images
 
       - name: Invalidate cache
         if: success()
