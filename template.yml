@@ -67,7 +67,7 @@ Resources:
           - CustomOriginConfig:
               HTTPPort: '80'
               HTTPSPort: '443'
-              OriginProtocolPolicy: https-only
+              OriginProtocolPolicy: http-only
             Id: !Ref DeployBucket
             DomainName: !Sub '${DeployBucket}.s3-website.${AWS::Region}.amazonaws.com'
         DefaultRootObject: index.html
