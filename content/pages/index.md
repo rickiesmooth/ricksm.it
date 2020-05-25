@@ -32,7 +32,7 @@ date: 2020-05-19T07:52:34.300Z
     <div class="line"></div>
     <aside class="timestamp">2018</aside>
     <main class="info">
-      <img src="/images/uploads/globe-logo.png">
+      <img src="/images/uploads/globe-logo.png" alt="Globe logo">
     <p>Registered Smooth Capital Holding Enterprise International Worldwide and freelanced for big companies (Ahold, Catawiki)</p>
     </main>
   </div>
@@ -47,7 +47,7 @@ date: 2020-05-19T07:52:34.300Z
   <div class="update">
     <aside class="timestamp">2013</aside>
     <main class="info">
-      <img src="/images/uploads/google-logo.png">
+      <img src="/images/uploads/google-logo.png" alt="Google logo">
     <p>Started out as a large customer sales intern at Google.</p>
     </main>
   </div>
