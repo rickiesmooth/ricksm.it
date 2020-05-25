@@ -24,6 +24,25 @@ a:hover {
   @apply mt-6;
 }
 
+.logo {
+  @apply h-2;
+  @apply w-2;
+
+  background: rgb(16, 43, 154);
+  display: flex;
+  filter: blur(3px);
+  border-radius: 50%;
+  margin: auto;
+}
+
+.logo:after {
+  content: '';
+  @apply h-3;
+  @apply w-3;
+  background: rgb(16, 43, 154);
+  filter: blur(6px);
+}
+
 .skeleton-box {
   position: relative;
   overflow: hidden;

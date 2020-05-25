@@ -24,10 +24,12 @@
   </head>
 
   <body class="text-gray-800 bg-white">
-    <header class="fixed w-full top-0 bg-gray-300 p-4">
+    <header class="fixed flex items-center w-full top-0 bg-gray-200 h-12">
       <nav class="container mx-auto">
         <ul class="flex">
-          <li class="mr-auto"><a href="/">home</a></li>
+          <li class="mr-auto flex">
+            <a class="logo" href="/" title="home"></a>
+          </li>
           <li class="ml-auto"><a href="/work">work</a></li>
         </ul>
       </nav>
@@ -37,7 +39,7 @@
         <%= body %>
       </div>
     </div>
-    <footer class="bg-gray-300 p-4 fixed w-full bottom-0">
+    <footer class="bg-gray-200 fixed flex items-center w-full bottom-0 h-12">
       <ul class="container mx-auto flex">
         <li class="mr-auto"><a href="/blog">blog</a></li>
         <li class="ml-auto">

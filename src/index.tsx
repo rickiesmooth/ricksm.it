@@ -35,11 +35,10 @@ function fetchAndRenderShowCaseItems() {
 function animateWetransferSpinnerSvg() {
   const element = document.getElementById('wetransfer-spinner')
   if (element === null) return
-
   // clone node to overlay with progress
   const backgroundCircle = element.getElementsByTagName('circle')[0]
   const progressCircle = backgroundCircle.cloneNode() as typeof backgroundCircle
-  const pathLength = backgroundCircle.getTotalLength()
+  const pathLength = backgroundCircle.getTotalLength() || 502 // iOS Safari fallback
 
   backgroundCircle.setAttribute('stroke-dasharray', `${pathLength}`)
 

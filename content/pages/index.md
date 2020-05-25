@@ -5,9 +5,11 @@ slug: index
 date: 2020-05-19T07:52:34.300Z
 ---
 
-<h1 class="leading-tight text-4xl font-semibold mb-4 mt-6 text-center pb-2 sm:text-5xl">Hi, I'm Rick</h1>
-
-<p class="mb-12 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<p>
+<div class="py-12">
+  <h1 class="leading-tight text-4xl font-semibold mb-4 mt-6 text-center pb-2 sm:text-5xl">Hi, I'm Rick</h1>
+  <p class="mb-12 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<p>
+</div>
+<hr class="border-dotted border-b-2 border-t-2 mb-16 pb-1">
 
 <div class="updates">
   <div class="update">
@@ -41,7 +43,7 @@ date: 2020-05-19T07:52:34.300Z
     <aside class="timestamp">2015</aside>
     <main class="info">
       <span class="emoji">🚀</span>
-    <p>Coding always was my hobby and got to develop that professionally when I joined friends startup</p>
+    <p>Coding always was my hobby and I got to that that professionally when I joined my friends' startup building products for companies like MTV</p>
     </main>
   </div>
   <div class="update">
