@@ -112,7 +112,7 @@ a:hover {
 }
 
 .info .progress {
-  animation: dash 5s linear forwards, rotate 2s linear infinite;
+  animation: dash 8s linear forwards, rotate 2s linear infinite;
   stroke-linecap: round;
   transition: stroke-dashoffset 200ms linear, stroke 200ms linear;
   will-change: auto;

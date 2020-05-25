@@ -62,11 +62,12 @@ Resources:
     Type: 'AWS::CloudFront::Distribution'
     Properties:
       DistributionConfig:
+        HttpVersion: 'http2'
         Origins:
           - CustomOriginConfig:
               HTTPPort: '80'
               HTTPSPort: '443'
-              OriginProtocolPolicy: http-only
+              OriginProtocolPolicy: https-only
             Id: !Ref DeployBucket
             DomainName: !Sub '${DeployBucket}.s3-website.${AWS::Region}.amazonaws.com'
         DefaultRootObject: index.html
