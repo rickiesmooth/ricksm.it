@@ -11,25 +11,22 @@ type ApiResponse = {
   showcaseItems: ShowCaseItem[]
 }
 
-function renderShowCaseItems({ showcaseItems }: ApiResponse) {
+function fetchAndRenderShowCaseItems() {
   const element = document.getElementById('projects')
-  if (element !== null) {
-    element.innerHTML = showcaseItems
+  if (element === null) return
+
+  function renderShowCaseItems({ showcaseItems }: ApiResponse) {
+    element!.innerHTML = showcaseItems
       .map(
         ({ name, url, descriptionHTML }) =>
           `<li><a href=${url}>${name}</a>${descriptionHTML}</li>`
       )
       .join('')
   }
-}
 
-function fetchAndRenderShowCaseItems() {
-  const element = document.getElementById('projects')
-  if (element) {
-    fetch(`${process.env.API_URL}/github`)
-      .then((response) => response.json())
-      .then(renderShowCaseItems)
-  }
+  fetch(`${process.env.API_URL}/github`)
+    .then((response) => response.json())
+    .then(renderShowCaseItems)
 }
 
 function animateWetransferSpinnerSvg() {
