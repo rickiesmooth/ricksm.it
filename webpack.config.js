@@ -73,7 +73,7 @@ module.exports = async (_env, _argv) => {
         },
       }),
       new CopyWebpackPlugin([{ from: 'content/pages/admin', to: 'admin' }]),
-      new CopyWebpackPlugin([{ from: 'static/images', to: 'images' }]),
+      new CopyWebpackPlugin([{ from: 'static' }]),
     ],
   }
 }
