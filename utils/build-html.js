@@ -34,7 +34,7 @@ exports.buildBlogPage = (posts) =>
               filename,
               templateParameters: { title },
             },
-          }) => `<a href=${filename.replace('index.html', '')}>${title}</a>`
+          }) => `<a href=/${filename.replace('index.html', '')}>${title}</a>`
         )
         .join('')}</div>`,
       title: 'Blog',
