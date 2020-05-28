@@ -10,7 +10,7 @@ date: 2020-05-19T07:52:34.300Z
   <p class="mb-12 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<p>
 </div>
 <hr class="border-dotted border-b-2 border-t-2 mb-16 pb-1">
-<div class="main flex flex-row mb-24">
+<div class="main flex md:flex-row flex-col  mb-24">
   <div class="updates flex flex-col flex-1 self-center">
     <div class="update">
       <div class="line"></div>
@@ -56,7 +56,7 @@ date: 2020-05-19T07:52:34.300Z
   </div>
   <span class="border-dotted w-2 border-l-2 border-r-2 mx-16"></span>
   <div class="relative flex-1">
-    <video class="max-w-xs min-h-full rounded-lg" autoplay loop muted playsInline>
+    <video class="sm:max-w-xs w-full min-h-full rounded-lg" autoplay loop muted playsInline>
       <source src="dash/bg-tahoe.mpd">
       <source src="dash/video_1280x720_1500k.webm">
       <source src="hls/hls.m3u8">
