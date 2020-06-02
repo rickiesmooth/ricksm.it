@@ -1,7 +1,7 @@
 const devMode = process.env.NODE_ENV !== 'production'
 
 const glob = require('glob')
-const { basename, extname, join } = require('path')
+const { basename, extname, join, resolve } = require('path')
 
 const TerserJSPlugin = require('terser-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -33,11 +33,17 @@ module.exports = async (_env, _argv) => {
 
   return {
     mode: process.env.NODE_ENV,
-    entry: { main: './src/index.tsx' },
+    entry: { main: './src/index.ts' },
     output: {
       path: join(__dirname, 'build'),
       publicPath: '/',
       filename: 'assets/js/[name]-[hash].js',
+    },
+    resolve: {
+      alias: {
+        '@packages': resolve(__dirname, 'packages'),
+      },
+      extensions: ['.ts', '.tsx', '.js'],
     },
     optimization: {
       minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],

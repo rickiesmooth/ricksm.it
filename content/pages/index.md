@@ -34,7 +34,7 @@ date: 2020-05-19T07:52:34.300Z
       <div class="line"></div>
       <aside class="timestamp">2018</aside>
       <main class="info">
-        <img src="/images/uploads/globe-logo.png" alt="Globe logo">
+        <canvas id="canvas" width="51" height="51"></canvas>
       <p>Registered Smooth Capital Holding Enterprise International Worldwide and freelanced for big companies (Ahold, Catawiki)</p>
       </main>
     </div>
