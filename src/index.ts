@@ -1,8 +1,8 @@
 import './index.scss'
 
-import(/* webpackChunkName: "webgl" */ './webgl').then(({ initEarth }) => {
+import(/* webpackChunkName: "webgl" */ './webgl').then(({ initEarth }) =>
   initEarth()
-})
+)
 
 type ShowCaseItem = {
   name: string
