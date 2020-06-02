@@ -2,6 +2,7 @@ import { mat4, ReadonlyVec3 } from 'gl-matrix'
 import WebGLUtils from './vendor/webgl-utils'
 import { Camera, Sphere, Material, Shader, Scene } from '@packages/webgl'
 
+const earthImage = new Image()
 const vertexShaderSource = `
   attribute vec3 a_Position;
   attribute vec2 a_TexCoord;
@@ -27,7 +28,7 @@ const fragmentShaderSource = `
   }
 `
 
-function setupScene({ originalTarget }: any) {
+function setupScene() {
   let angle = 0
   // Setup camera.
   const eye: ReadonlyVec3 = [0.0, 0.0, 5.0]
@@ -44,14 +45,7 @@ function setupScene({ originalTarget }: any) {
   if (gl) {
     const shader = new Shader(gl, vertexShaderSource, fragmentShaderSource)
     // Setup Earth.
-    const earthMaterial = new Material(
-      gl,
-      null,
-      null,
-      null,
-      null,
-      originalTarget
-    )
+    const earthMaterial = new Material(gl, null, null, null, null, earthImage)
     const earth = new Sphere(gl, earthMaterial, 2, 250, 250)
 
     // Setup scene.
@@ -83,7 +77,6 @@ function setupScene({ originalTarget }: any) {
 }
 
 export function initEarth() {
-  const earthImage = new Image()
   earthImage.src = '/images/uploads/logo.jpg'
   earthImage.onload = setupScene
 }
