@@ -1,24 +1,16 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"type": "npm",
-			"script": "build",
-			"group": "build",
-			"problemMatcher": [],
-			"label": "npm: build",
-			"detail": "echo \"Error: no test specified\" && exit 1"
-		},
-		{
-			"type": "npm",
-			"script": "watch",
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"problemMatcher": [],
-			"label": "npm: watch",
-			"detail": "echo \"Error: no test specified\" && exit 1"
-		}
-	]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "watch",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "label": "npm: watch",
+      "detail": "NODE_ENV=development webpack -w"
+    }
+  ]
 }

@@ -1,35 +1,32 @@
 const devMode = process.env.NODE_ENV !== 'production'
 
 const glob = require('glob')
-const { basename, extname, join, resolve } = require('path')
+const { join, resolve } = require('path')
 
 const TerserJSPlugin = require('terser-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const webpack = require('webpack')
+const workboxPlugin = require('workbox-webpack-plugin')
 
-const { buildHtmlWithTemplate, buildBlogPage } = require('./utils/build-html')
+const {
+  pagesTemplate,
+  postsTemplate,
+  buildBlogPage,
+  shells,
+} = require('./utils/build-html')
 
 module.exports = async (_env, _argv) => {
   const pages = glob.sync('content/pages/*.md')
   const posts = glob.sync('content/blog/*.md')
-  const postsTemplate = buildHtmlWithTemplate(
-    (pathname, slug) =>
-      `posts/${slug || basename(pathname, extname(pathname))}/index.html`
-  )
-  const pagesTemplate = buildHtmlWithTemplate((pathname, slug) =>
-    slug === 'index'
-      ? 'index.html'
-      : `${slug || basename(pathname, extname(pathname))}/index.html`
-  )
 
-  const [allBlogHtml, allPagesHtml] = await Promise.all([
+  const [allPostsHtml, allPagesHtml] = await Promise.all([
     Promise.all(posts.map(postsTemplate)),
     Promise.all(pages.map(pagesTemplate)),
   ])
 
-  const blogPage = buildBlogPage(allBlogHtml)
+  const blogPage = buildBlogPage(allPostsHtml)
 
   return {
     mode: process.env.NODE_ENV,
@@ -40,9 +37,7 @@ module.exports = async (_env, _argv) => {
       filename: 'assets/js/[name]-[hash].js',
     },
     resolve: {
-      alias: {
-        '@packages': resolve(__dirname, 'packages'),
-      },
+      alias: { '@packages': resolve(__dirname, 'packages') },
       extensions: ['.ts', '.tsx', '.js'],
     },
     optimization: {
@@ -50,6 +45,10 @@ module.exports = async (_env, _argv) => {
     },
     module: {
       rules: [
+        {
+          test: /\.hbs$/,
+          use: [{ loader: 'handlebars-loader' }],
+        },
         {
           test: /\.scss$/,
           use: [
@@ -65,9 +64,8 @@ module.exports = async (_env, _argv) => {
       ],
     },
     plugins: [
-      ...allBlogHtml,
-      ...allPagesHtml,
-      blogPage,
+      ...[...allPostsHtml, ...allPagesHtml, ...blogPage].flat(),
+      ...shells,
       new MiniCssExtractPlugin({
         filename: devMode
           ? 'assets/css/[name].css'
@@ -80,6 +78,9 @@ module.exports = async (_env, _argv) => {
       }),
       new CopyWebpackPlugin([{ from: 'content/pages/admin', to: 'admin' }]),
       new CopyWebpackPlugin([{ from: 'static' }]),
+      new workboxPlugin.InjectManifest({
+        swSrc: './src/sw.ts',
+      }),
     ],
   }
 }
