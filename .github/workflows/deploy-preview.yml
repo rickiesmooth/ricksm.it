@@ -85,7 +85,7 @@ jobs:
       - name: Sync With S3
         if: success()
         run: |
-          aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }} --delete &&
+          aws s3 sync build/ s3://${{steps.cf-outputs.outputs.DeployBucket}}/preview/${{ github.event.number }} --delete
 
       - name: Invalidate cache
         if: success()

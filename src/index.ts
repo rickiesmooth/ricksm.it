@@ -1,4 +1,5 @@
 import './index.scss'
+import { init as initRouter } from './router'
 
 import(/* webpackChunkName: "webgl" */ './webgl').then(({ initEarth }) =>
   initEarth()
@@ -51,9 +52,34 @@ function animateWetransferSpinnerSvg() {
   element.appendChild(progressCircle)
 }
 
+const CONTENT_SUFFIX = '.partial.html'
+
+const getContentPartialPath = (pagePath: string) => {
+  if (pagePath.endsWith('/')) {
+    pagePath += 'index.html'
+  }
+  if (!pagePath.includes(CONTENT_SUFFIX)) {
+    pagePath = pagePath.replace(/\.html$/, CONTENT_SUFFIX)
+  }
+  return pagePath
+}
+
+const fetchPageContent = (path: string) =>
+  fetch(getContentPartialPath(path)).then((res) => res.text())
+
+const updatePageContent = (content: string) => {
+  document!.getElementById('content')!.innerHTML = content
+}
+
 function init() {
   animateWetransferSpinnerSvg()
   fetchAndRenderShowCaseItems()
+  initRouter({
+    onChange: async (pathname) => {
+      const content = await fetchPageContent(pathname)
+      updatePageContent(content)
+    },
+  })
 }
 
 init()
