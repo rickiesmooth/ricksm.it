@@ -1,4 +1,3 @@
-// import { precacheAndRoute } from 'workbox-precaching/precacheAndRoute'
 import { cacheNames, skipWaiting, clientsClaim } from 'workbox-core'
 import { getCacheKeyForURL, precacheAndRoute } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
@@ -38,4 +37,4 @@ registerRoute(
 
 registerRoute(({ request }) => request.mode === 'navigate', navigationHandler)
 
-precacheAndRoute((self as any).__precacheManifest || [])
+precacheAndRoute((self as any).__precacheManifest)

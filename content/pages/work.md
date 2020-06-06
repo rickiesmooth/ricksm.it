@@ -1,8 +1,10 @@
 ---
 layout: blog
 title: Work
+slug: work
 date: 2020-05-19T14:23:20.713Z
 ---
+
 ### Experience
 
 More than 5 years experience as a developer in various roles.

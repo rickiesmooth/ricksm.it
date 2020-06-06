@@ -15,10 +15,16 @@ const buildHtmlWithTemplate = (transformPathname) => (pathname) =>
     const { title, description, slug } = data
     const body = md.render(content)
 
+    const scriptsMap = {
+      index: 'home',
+      work: 'work',
+    }
+
     return [
       new HtmlWebPackPlugin({
         templateContent: body,
-        inject: false,
+        inject: 'body',
+        chunks: [scriptsMap[slug]],
         filename: `${transformPathname({
           pathname,
           slug,
@@ -29,6 +35,7 @@ const buildHtmlWithTemplate = (transformPathname) => (pathname) =>
         inject: false,
         template: 'src/html/template.hbs',
         filename: transformPathname({ pathname, slug }),
+        chunks: ['main', scriptsMap[slug]],
         templateParameters: { body, title, description },
       }),
     ]

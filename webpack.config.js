@@ -30,7 +30,11 @@ module.exports = async (_env, _argv) => {
 
   return {
     mode: process.env.NODE_ENV,
-    entry: { main: './src/index.ts' },
+    entry: {
+      main: './src/main.ts',
+      home: './src/home.ts',
+      work: './src/work.ts',
+    },
     output: {
       path: join(__dirname, 'build'),
       publicPath: '/',

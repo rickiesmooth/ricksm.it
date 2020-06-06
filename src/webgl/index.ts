@@ -1,5 +1,5 @@
 import { mat4, ReadonlyVec3 } from 'gl-matrix'
-import WebGLUtils from './vendor/webgl-utils'
+import WebGLUtils from '../vendor/webgl-utils'
 import { Camera, Sphere, Material, Shader, Scene } from '@packages/webgl'
 
 const earthImage = new Image()
