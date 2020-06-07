@@ -1,6 +1,7 @@
 const fs = require('fs').promises
 const gm = require('gray-matter')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 const { basename, extname } = require('path')
 
 const md = require('markdown-it')({ html: true })
@@ -20,14 +21,8 @@ const buildHtmlWithTemplate = (transformPathname) => (pathname) =>
       work: 'work',
     }
 
-    //     <% htmlWebpackPlugin.files.js.forEach((jsFile) => {%>
-    // <script>
-    //   <%=compilation.assets[jsFile.substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
-    // </script>
-    // <%}) %>
-
     return [
-      new HtmlWebPackPlugin({
+      new HtmlWebpackPlugin({
         template: 'src/html/template.js',
         inject: false,
         chunks: [scriptsMap[slug]],
@@ -38,8 +33,8 @@ const buildHtmlWithTemplate = (transformPathname) => (pathname) =>
         })}`,
         templateParameters: { body, partial: true },
       }),
-      new HtmlWebPackPlugin({
-        inject: 'body',
+      new HtmlWebpackPlugin({
+        inject: false,
         template: 'src/html/template.js',
         filename: transformPathname({ pathname, slug }),
         chunks: ['main', scriptsMap[slug]],
@@ -82,12 +77,12 @@ exports.buildBlogPage = (posts) => {
     .join('')
   const body = `<div class="flex flex-col">${postlist}</div>`
   return [
-    new HtmlWebPackPlugin({
+    new HtmlWebpackPlugin({
       templateContent: body,
       inject: false,
       filename: `blog/index.partial.html`,
     }),
-    new HtmlWebPackPlugin({
+    new HtmlWebpackPlugin({
       template: 'src/html/template.js',
       filename: `blog/index.html`,
       inject: false,
@@ -101,12 +96,12 @@ exports.buildBlogPage = (posts) => {
 }
 
 exports.shells = [
-  new HtmlWebPackPlugin({
+  new HtmlWebpackPlugin({
     template: 'src/html/shell-end.ejs',
     filename: 'shell-end.html',
     inject: false,
   }),
-  new HtmlWebPackPlugin({
+  new HtmlWebpackPlugin({
     template: 'src/html/shell-start.ejs',
     filename: 'shell-start.html',
     inject: false,

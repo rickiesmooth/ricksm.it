@@ -4,7 +4,9 @@
     </li>
   </ul>
 </footer>
-<% htmlWebpackPlugin.tags.bodyTags %>
+<% htmlWebpackPlugin.files.js.forEach((jsFile) => {%>
+  <script src=" <%= jsFile %>"></script>
+<%}) %>
 
 </body>
 
