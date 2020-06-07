@@ -24,12 +24,11 @@ const updatePageContent = (content: string) => {
 const executeContainerScripts = () => {
   const container = document.getElementById('content')
   const containerScripts = Array.from(container!.getElementsByTagName('script'))
-
   for (const containerScript of containerScripts) {
     // Remove the unexecuted container script.
     containerScript!.parentNode!.removeChild(containerScript)
     const activeScript = document.createElement('script')
-    activeScript.src = containerScript.src
+    activeScript.text = containerScript.text
     container!.appendChild(activeScript)
   }
 }

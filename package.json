@@ -35,7 +35,6 @@
     "gray-matter": "^4.0.2",
     "handlebars": "^4.7.6",
     "handlebars-loader": "^1.7.1",
-    "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
     "markdown-it": "^10.0.0",
     "markdown-it-attrs": "^3.0.2",
@@ -68,6 +67,7 @@
     ]
   },
   "devDependencies": {
+    "ejs-loader": "^0.4.1",
     "workbox-webpack-plugin": "^5.1.3"
   }
 }

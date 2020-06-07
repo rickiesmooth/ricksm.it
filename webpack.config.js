@@ -49,10 +49,8 @@ module.exports = async (_env, _argv) => {
     },
     module: {
       rules: [
-        {
-          test: /\.hbs$/,
-          use: [{ loader: 'handlebars-loader' }],
-        },
+        { test: /\.ejs$/, loader: 'ejs-loader' },
+
         {
           test: /\.scss$/,
           use: [

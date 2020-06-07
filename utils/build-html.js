@@ -20,20 +20,27 @@ const buildHtmlWithTemplate = (transformPathname) => (pathname) =>
       work: 'work',
     }
 
+    //     <% htmlWebpackPlugin.files.js.forEach((jsFile) => {%>
+    // <script>
+    //   <%=compilation.assets[jsFile.substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
+    // </script>
+    // <%}) %>
+
     return [
       new HtmlWebPackPlugin({
-        templateContent: body,
-        inject: 'body',
+        template: 'src/html/template.js',
+        inject: false,
         chunks: [scriptsMap[slug]],
         filename: `${transformPathname({
           pathname,
           slug,
           fileSuffix: '.partial',
         })}`,
+        templateParameters: { body, partial: true },
       }),
       new HtmlWebPackPlugin({
-        inject: false,
-        template: 'src/html/template.hbs',
+        inject: 'body',
+        template: 'src/html/template.js',
         filename: transformPathname({ pathname, slug }),
         chunks: ['main', scriptsMap[slug]],
         templateParameters: { body, title, description },
@@ -81,7 +88,7 @@ exports.buildBlogPage = (posts) => {
       filename: `blog/index.partial.html`,
     }),
     new HtmlWebPackPlugin({
-      template: 'src/html/template.hbs',
+      template: 'src/html/template.js',
       filename: `blog/index.html`,
       inject: false,
       templateParameters: {
@@ -95,12 +102,12 @@ exports.buildBlogPage = (posts) => {
 
 exports.shells = [
   new HtmlWebPackPlugin({
-    template: 'src/html/shell-end.hbs',
+    template: 'src/html/shell-end.ejs',
     filename: 'shell-end.html',
     inject: false,
   }),
   new HtmlWebPackPlugin({
-    template: 'src/html/shell-start.hbs',
+    template: 'src/html/shell-start.ejs',
     filename: 'shell-start.html',
     inject: false,
   }),
