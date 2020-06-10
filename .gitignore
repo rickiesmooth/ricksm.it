@@ -108,3 +108,5 @@ env.json
 
 
 .aws-sam
+
+.DS_Store
