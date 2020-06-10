@@ -13,7 +13,7 @@ const md = require('markdown-it')({ html: true })
 const buildHtmlWithTemplate = (transformPathname) => (pathname) =>
   fs.readFile(pathname, 'utf-8').then((file) => {
     const { data, content } = gm(file)
-    const { title, description, slug } = data
+    const { title, description, slug, layout } = data
     const body = md.render(content)
 
     const scriptsMap = {
@@ -31,14 +31,14 @@ const buildHtmlWithTemplate = (transformPathname) => (pathname) =>
           slug,
           fileSuffix: '.partial',
         })}`,
-        templateParameters: { body, partial: true },
+        templateParameters: { body, slug, partial: true },
       }),
       new HtmlWebpackPlugin({
         inject: false,
         template: 'src/html/template.js',
         filename: transformPathname({ pathname, slug }),
         chunks: ['main', scriptsMap[slug]],
-        templateParameters: { body, title, description },
+        templateParameters: { body, title, description, slug },
       }),
     ]
   })
@@ -81,6 +81,7 @@ exports.buildBlogPage = (posts) => {
       templateContent: body,
       inject: false,
       filename: `blog/index.partial.html`,
+      templateParameters: { slug: 'blog' },
     }),
     new HtmlWebpackPlugin({
       template: 'src/html/template.js',
@@ -90,6 +91,7 @@ exports.buildBlogPage = (posts) => {
         body,
         title: 'Blog',
         description: 'Blog posts',
+        slug: 'blog',
       },
     }),
   ]

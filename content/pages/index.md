@@ -62,10 +62,6 @@ date: 2020-05-19T07:52:34.300Z
   <span class="border-dotted w-2 border-l-2 border-r-2 md:mx-16 md:my-0 my-16"></span>
   <div class="relative group">
     <video class="w-full min-h-full rounded-lg" autoplay loop muted playsInline>
-      <source src="dash/bg-tahoe.mpd">
-      <source src="dash/video_1280x720_1500k.webm">
-      <source src="hls/hls.m3u8">
-      Your browser does not support the video tag.
     </video>
     <a class="absolute left-0 bottom-0 top-0 left-0 right-0 p-8 text-white flex justify-end flex-col" href="/blog/">
       <h4>my blog</h4>
