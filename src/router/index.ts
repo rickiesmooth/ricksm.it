@@ -1,3 +1,6 @@
+type NavigationState = { url: string; title?: string; isPopState?: boolean }
+type Update = (args: NavigationState) => Promise<void>
+
 const handleClick = (update: Update) =>
   function (event: MouseEvent) {
     if (
@@ -23,9 +26,7 @@ const handleClick = (update: Update) =>
 
       if (link.origin == page.origin && link.pathname != page.pathname) {
         event.preventDefault()
-        update({
-          url: link.href,
-        })
+        update({ url: link.href })
       }
     }
   }
@@ -34,12 +35,8 @@ const handlePopState = (update: Update) =>
   function (event: PopStateEvent) {
     const url = location.href
     const title = event.state && event.state.title
-
     update({ url, title, isPopState: true })
   }
-
-type NavigationState = { url: string; title?: string; isPopState?: boolean }
-type Update = (args: NavigationState) => Promise<void>
 
 export function init({
   onChange,

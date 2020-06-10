@@ -23,6 +23,8 @@ function initVideo() {
     vp9: 'video/webm; codecs="vp9"',
     hls: 'application/x-mpegURL; codecs="avc1.42E01E"',
   }
+  video.defaultPlaybackRate = 0.5
+
   if (video.canPlayType(formats['vp9'])) {
     video.src = 'video/640p-vp9.webm'
   } else if (video.canPlayType(formats['webm'])) {
