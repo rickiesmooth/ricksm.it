@@ -9,10 +9,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-button {
-  text-decoration: none;
-}
-
 a {
   @apply text-blue-500;
 }
@@ -20,12 +16,13 @@ a:not(button):hover {
   @apply underline;
 }
 
-.md-container li + li {
-  @apply mt-1;
-}
-
-.md-container li > p + p {
-  @apply mt-6;
+.md-container {
+  li + li {
+    @apply mt-1;
+  }
+  li > p + p {
+    @apply mt-6;
+  }
 }
 
 .logo {
@@ -37,50 +34,82 @@ a:not(button):hover {
   filter: blur(3px);
   border-radius: 50%;
   margin: auto;
-}
 
-.logo:after {
-  content: '';
-  @apply h-3;
-  @apply w-3;
-  background: rgb(16, 43, 154);
-  filter: blur(6px);
+  &:after {
+    content: '';
+    @apply h-3;
+    @apply w-3;
+    background: rgb(16, 43, 154);
+    filter: blur(6px);
+  }
 }
 
 .skeleton-box {
   position: relative;
   overflow: hidden;
   background-color: #e2e8f0;
-}
 
-.skeleton-box:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  transform: translateX(-100%);
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0,
-    rgba(255, 255, 255, 0.2) 20%,
-    rgba(255, 255, 255, 0.5) 60%,
-    rgba(255, 255, 255, 0)
-  );
-  animation: shimmer 3s infinite;
-  content: '';
+  &:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0.2) 20%,
+      rgba(255, 255, 255, 0.5) 60%,
+      rgba(255, 255, 255, 0)
+    );
+    animation: shimmer 3s infinite;
+    content: '';
+  }
 }
 
 .updates {
   position: relative;
-}
 
-.updates .update {
-  @apply flex;
-  @apply flex-row;
-  @apply items-start;
-  @apply pb-8;
-  @apply relative;
+  .update {
+    @apply flex;
+    @apply flex-row;
+    @apply items-start;
+    @apply pb-8;
+    @apply relative;
+
+    .info {
+      @apply flex;
+      @apply flex-1;
+      @apply flex-row;
+      @apply items-start;
+      @apply m-0;
+      @apply text-sm;
+
+      canvas,
+      svg,
+      span,
+      img {
+        height: 1.5rem;
+        max-width: 1.5rem;
+        width: 100%;
+        margin-right: 1rem;
+      }
+
+      .emoji {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+
+      .progress {
+        animation: dash 8s linear forwards, rotate 2s linear infinite;
+        stroke-linecap: round;
+        transition: stroke-dashoffset 200ms linear, stroke 200ms linear;
+        will-change: auto;
+        transform-origin: 50% 50%;
+      }
+    }
+  }
 }
 
 .timestamp {
@@ -90,7 +119,6 @@ a:not(button):hover {
   @apply flex;
   @apply justify-center;
   @apply items-center;
-  width: 3rem;
   border-radius: 2rem;
   margin-right: 1rem;
 }
@@ -104,44 +132,30 @@ a:not(button):hover {
   position: absolute;
   top: 1rem;
   bottom: -1rem;
-  left: 1.5rem;
+  left: 0;
   z-index: -1;
 }
 
-.info {
-  @apply flex;
-  @apply flex-1;
-  @apply flex-row;
-  @apply items-start;
-  @apply m-0;
-}
-
-.info canvas,
-.info svg,
-.info span,
-.info img {
-  height: 1.5rem;
-  max-width: 1.5rem;
-  width: 100%;
-  margin-right: 1rem;
-}
-
-.info .emoji {
-  font-size: 1.2rem;
-  text-align: center;
-}
-
-.info {
-  @apply flex-1;
-  @apply text-sm;
-}
-
-.info .progress {
-  animation: dash 8s linear forwards, rotate 2s linear infinite;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 200ms linear, stroke 200ms linear;
-  will-change: auto;
-  transform-origin: 50% 50%;
+main[data-route='work'] > ul:first-of-type {
+  & > li {
+    @apply px-2;
+    @apply pb-4;
+    @apply mb-4;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-bottom: 2rem;
+    position: relative;
+    // li:first-of-type {
+    //   border: 1px solid red;
+    // }
+    // & ul {
+    //   margin-left: 15px;
+    // }
+    h4 {
+      @apply mt-0;
+    }
+  }
 }
 
 @keyframes shimmer {

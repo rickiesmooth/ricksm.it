@@ -102,9 +102,9 @@ export class Mesh {
 }
 
 export class Sphere extends Mesh {
-  radius: any
-  latitudeBands: any
-  longitudeBands: any
+  radius: number
+  latitudeBands: number
+  longitudeBands: number
   positionsBuffer!: ReturnType<WebGLRenderingContext['createBuffer']>
   normalsBuffer!: ReturnType<WebGLRenderingContext['createBuffer']>
   textureCoordsBuffer!: ReturnType<WebGLRenderingContext['createBuffer']>
@@ -120,10 +120,10 @@ export class Sphere extends Mesh {
 
   constructor(
     gl: WebGLRenderingContext,
-    material: any,
-    radius: any,
-    latitude: any,
-    longitude: any
+    material: Material,
+    radius: number,
+    latitude: number,
+    longitude: number
   ) {
     super(material)
 
@@ -208,7 +208,7 @@ export class Sphere extends Mesh {
 export class Shader {
   gl: WebGLRenderingContext
   program: ReturnType<WebGLRenderingContext['createProgram']>
-  constructor(gl: WebGLRenderingContext, vertex: any, fragment: any) {
+  constructor(gl: WebGLRenderingContext, vertex: string, fragment: string) {
     this.gl = gl
     this.program = this.createProgram(gl, vertex, fragment)
     if (this.program) {
@@ -237,7 +237,7 @@ export class Shader {
     }
     return vertexShader
   }
-  createProgram(gl: WebGLRenderingContext, vertex: string, fragment: any) {
+  createProgram(gl: WebGLRenderingContext, vertex: string, fragment: string) {
     const vertexShader = this.loadShader(gl, gl.VERTEX_SHADER, vertex)
     const fragementShader = this.loadShader(gl, gl.FRAGMENT_SHADER, fragment)
     if (!vertexShader || !fragementShader) {

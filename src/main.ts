@@ -4,23 +4,24 @@ import './main.scss'
 
 const CONTENT_SUFFIX = '.partial.html'
 
-const getContentPartialPath = (pagePath: string) => {
-  if (pagePath.endsWith('/')) {
-    pagePath += 'index.html'
+const getContentPartialPath = (pathname: string) => {
+  if (pathname.endsWith('/')) {
+    pathname += 'index.html'
   }
 
-  if (!pagePath.includes(CONTENT_SUFFIX)) {
-    pagePath = pagePath.replace(/\.html$/, CONTENT_SUFFIX)
+  if (!pathname.includes(CONTENT_SUFFIX)) {
+    pathname = pathname.replace(/\.html$/, CONTENT_SUFFIX)
   }
 
-  return pagePath
+  return pathname
 }
 
-const fetchPageContent = (path: string) =>
-  fetch(getContentPartialPath(path)).then((res) => res.text())
+const fetchPageContent = (pathname: string) =>
+  fetch(getContentPartialPath(pathname)).then((res) => res.text())
 
 const updatePageContent = (content: string) => {
-  document!.getElementById('content')!.innerHTML = content
+  const node = document!.getElementById('content')!
+  node.innerHTML = content
 }
 
 const executeContainerScripts = () => {

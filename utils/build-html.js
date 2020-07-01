@@ -4,12 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const { basename, extname } = require('path')
 
-const md = require('markdown-it')({ html: true })
-  .use(require('markdown-it-attrs'))
-  .use(
-    require('@toycode/markdown-it-class'),
-    require('./markdown-it-class-mapping')
-  )
+const md = require('markdown-it')({ html: true }).use(
+  require('@toycode/markdown-it-class'),
+  require('./markdown-it-class-mapping')
+)
 const buildHtmlWithTemplate = (transformPathname) => (pathname) =>
   fs.readFile(pathname, 'utf-8').then((file) => {
     const { data, content } = gm(file)
