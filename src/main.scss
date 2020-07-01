@@ -139,21 +139,21 @@ a:not(button):hover {
 main[data-route='work'] > ul:first-of-type {
   & > li {
     @apply px-2;
-    @apply pb-4;
-    @apply mb-4;
+    @apply pb-16;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    padding-bottom: 2rem;
     position: relative;
     // li:first-of-type {
     //   border: 1px solid red;
     // }
-    // & ul {
-    //   margin-left: 15px;
-    // }
+    & ul li:first-child,
+    & ul li:nth-child(2) {
+      display: inline-block;
+    }
     h4 {
-      @apply mt-0;
+      @apply m-0;
+      @apply mr-2;
     }
   }
 }
