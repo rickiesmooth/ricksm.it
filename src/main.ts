@@ -36,6 +36,11 @@ const executeContainerScripts = () => {
 }
 
 function initMain() {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+    })
+  }
   initRouter({
     onChange: async (pathname) => {
       const content = await fetchPageContent(pathname)

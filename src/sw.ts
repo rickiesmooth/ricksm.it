@@ -37,4 +37,4 @@ registerRoute(
 
 registerRoute(({ request }) => request.mode === 'navigate', navigationHandler)
 
-precacheAndRoute((self as any).__precacheManifest)
+precacheAndRoute((self as any).__precacheManifest || [])
