@@ -57,6 +57,7 @@ module.exports = async (_env, _argv) => {
             MiniCssExtractPlugin.loader,
             { loader: 'css-loader', options: { importLoaders: 1 } },
             'postcss-loader',
+            'sass-loader',
           ],
         },
         {

@@ -9,17 +9,21 @@ date: 2020-05-19T14:23:20.713Z
 
 More than 5 years experience as a developer in various roles.
 
-- #### WeTransfer
-  - Frontend Developer | Feb 2020 - present
+- <i class="line ml-20"></i><span class="timestamp w-40">Feb 2020 - present</span>
+  - #### WeTransfer
+  - Frontend Developer
   - React, Typescript, GraphQL, Redux, Kubernetes, Docker
-- #### Ahold Delhaize
-  - Frontend Developer | Apr 2018 - Oct 2019
+- <i class="line ml-20"></i><span class="timestamp w-40">Apr 2018 - Oct 2019</span>
+  - #### Ahold Delhaize
+  - Frontend Developer
   - React, Typescript, GraphQL, Redux, Kubernetes, Docker
-- #### Vigour
-  - Fullstack Developer | Apr 2014 - May 2018
+- <i class="line ml-20"></i><span class="timestamp w-40">Apr 2014 - May 2018</span>
+  - #### Vigour
+  - Fullstack Developer
   - Vanilla JS, Socket-io, Browserify, ES6, React
-- #### Google
-  - Business Intern LCS | Apr 2013 - Sep 2013
+- <span class="timestamp w-40">Apr 2013 - Sep 2013</span>
+  - #### Google
+  - Business Intern LCS
   - DFP, Google Apps, MySQL, GTM
 
 ### Hobby Projects
@@ -37,7 +41,7 @@ Fun projects nobody asked for.
 
 ### Open Source
 
-OS is a weird and wonderful community that I enjoy contributing to where I can 🤠.
+I usually learn so much by reading a codebase, I like trying to fix my issue before filing it.
 
 - [prateekbh/babel-esm-plugin](https://github.com/prateekbh/babel-esm-plugin/pull/41)
 - [expo/expo](https://github.com/expo/expo/pull/6214)

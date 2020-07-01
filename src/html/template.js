@@ -9,16 +9,19 @@ module.exports = (templateData) => {
         jsFile.substr(htmlWebpackPlugin.files.publicPath.length)
       ].source()}</script>`
     )}
+    <script>document.getElementById('content').setAttribute('data-route', '${
+      templateParameters.slug
+    }')</script>
     `
   }
 
   return `
     ${require('./shell-start.ejs')(templateData)}
-    <div id="content" class="${
+    <main id="content" class="md-container max-w-screen-md container mx-auto px-4 my-16" data-route="${
       templateParameters.slug
-    } md-container max-w-screen-md container mx-auto px-4 my-16">
+    }">
       ${htmlWebpackPlugin.options.templateParameters.body}
-    </div>
+    </main>
     ${require('./shell-end.ejs')(templateData)}
   `
 }
