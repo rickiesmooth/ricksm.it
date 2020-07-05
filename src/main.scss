@@ -105,6 +105,7 @@ a:not(button):hover {
     @apply items-start;
     @apply pb-8;
     @apply relative;
+
     .info {
       @apply flex;
       @apply flex-1;
@@ -146,16 +147,11 @@ a:not(button):hover {
 main[data-route='work'] > ul:first-of-type {
   & > li {
     @apply px-2;
-    @apply pb-16;
+    @apply pb-8;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     position: relative;
-
-    & ul li:first-child,
-    & ul li:nth-child(2) {
-      display: inline-block;
-    }
 
     h4 {
       @apply m-0;
@@ -163,13 +159,24 @@ main[data-route='work'] > ul:first-of-type {
     }
 
     ul {
+      @apply py-4;
       @apply ml-24;
     }
-    @media (min-width: theme('screens.sm')) {
+  }
+
+  @media (min-width: theme('screens.sm')) {
+    & > li {
+      @apply pb-16;
       flex-direction: row;
 
       ul {
         @apply ml-4;
+        @apply py-0;
+      }
+
+      & ul li:first-child,
+      & ul li:nth-child(2) {
+        display: inline-block;
       }
     }
   }

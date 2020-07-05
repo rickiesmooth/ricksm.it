@@ -30,18 +30,6 @@ exports.buildHtmlWithTemplate = ({ directoryPrefix } = {}) => (pathname) =>
     })
   })
 
-const getFilename = ({
-  pathname,
-  slug,
-  fileSuffix = '',
-  directoryPrefix = '',
-}) =>
-  slug === 'index'
-    ? `index${fileSuffix}.html`
-    : `${directoryPrefix}${
-        slug || basename(pathname, extname(pathname))
-      }/index${fileSuffix}.html`
-
 exports.buildBlogPage = (posts) => {
   const postlist = posts
     .map(
@@ -123,3 +111,15 @@ function generatePageAndPartialHtml({
     }),
   ]
 }
+
+const getFilename = ({
+  pathname,
+  slug,
+  fileSuffix = '',
+  directoryPrefix = '',
+}) =>
+  slug === 'index'
+    ? `index${fileSuffix}.html`
+    : `${directoryPrefix}${
+        slug || basename(pathname, extname(pathname))
+      }/index${fileSuffix}.html`
