@@ -2,6 +2,10 @@
 @tailwind utilities;
 @tailwind components;
 
+/*
+  RESETS
+*/
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
@@ -16,13 +20,33 @@ a:not(button):hover {
   @apply underline;
 }
 
-.md-container {
-  li + li {
-    @apply mt-1;
-  }
-  li > p + p {
-    @apply mt-6;
-  }
+/*
+  REUSABLE UTILITIES
+*/
+
+.timestamp {
+  @apply text-xs;
+  @apply p-2;
+  @apply bg-gray-300;
+  @apply flex;
+  @apply justify-center;
+  @apply items-center;
+  @apply flex-shrink-0;
+  border-radius: 2rem;
+  margin-right: 1rem;
+}
+
+.line {
+  @apply bg-gray-300;
+  @apply block;
+  content: '';
+  width: 1px;
+  height: 100%;
+  position: absolute;
+  top: 1rem;
+  bottom: -1rem;
+  left: 0;
+  z-index: -1;
 }
 
 .logo {
@@ -68,6 +92,10 @@ a:not(button):hover {
   }
 }
 
+/*
+  HOME PAGE
+*/
+
 .updates {
   position: relative;
 
@@ -77,7 +105,6 @@ a:not(button):hover {
     @apply items-start;
     @apply pb-8;
     @apply relative;
-
     .info {
       @apply flex;
       @apply flex-1;
@@ -112,30 +139,9 @@ a:not(button):hover {
   }
 }
 
-.timestamp {
-  @apply text-xs;
-  @apply p-2;
-  @apply bg-gray-300;
-  @apply flex;
-  @apply justify-center;
-  @apply items-center;
-  @apply flex-shrink-0;
-  border-radius: 2rem;
-  margin-right: 1rem;
-}
-
-.line {
-  @apply bg-gray-300;
-  @apply block;
-  content: '';
-  width: 1px;
-  height: 100%;
-  position: absolute;
-  top: 1rem;
-  bottom: -1rem;
-  left: 0;
-  z-index: -1;
-}
+/*
+  WORK PAGE
+*/
 
 main[data-route='work'] > ul:first-of-type {
   & > li {
@@ -168,6 +174,23 @@ main[data-route='work'] > ul:first-of-type {
     }
   }
 }
+
+/*
+  MD/BLOG stuff
+*/
+
+.md-container {
+  li + li {
+    @apply mt-1;
+  }
+  li > p + p {
+    @apply mt-6;
+  }
+}
+
+/*
+  ANIMATIONS
+*/
 
 @keyframes shimmer {
   100% {

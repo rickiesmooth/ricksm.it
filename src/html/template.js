@@ -1,14 +1,17 @@
 module.exports = (templateData) => {
   const { htmlWebpackPlugin } = templateData
   const { templateParameters } = htmlWebpackPlugin.options
+
   if (htmlWebpackPlugin.options.templateParameters.partial) {
     return `${htmlWebpackPlugin.options.templateParameters.body}
-    ${htmlWebpackPlugin.files.js.map(
-      (jsFile) => `<script>
+    ${htmlWebpackPlugin.files.js
+      .map(
+        (jsFile) => `<script>
       ${templateData.compilation.assets[
         jsFile.substr(htmlWebpackPlugin.files.publicPath.length)
       ].source()}</script>`
-    )}
+      )
+      .join('')}
     <script>document.getElementById('content').setAttribute('data-route', '${
       templateParameters.slug
     }')</script>

@@ -8,10 +8,10 @@ const md = require('markdown-it')({ html: true }).use(
   require('@toycode/markdown-it-class'),
   require('./markdown-it-class-mapping')
 )
-const buildHtmlWithTemplate = (transformPathname) => (pathname) =>
+exports.buildHtmlWithTemplate = ({ directoryPrefix } = {}) => (pathname) =>
   fs.readFile(pathname, 'utf-8').then((file) => {
     const { data, content } = gm(file)
-    const { title, description, slug, layout } = data
+    const { title, description, slug } = data
     const body = md.render(content)
 
     const scriptsMap = {
@@ -19,26 +19,15 @@ const buildHtmlWithTemplate = (transformPathname) => (pathname) =>
       work: 'work',
     }
 
-    return [
-      new HtmlWebpackPlugin({
-        template: 'src/html/template.js',
-        inject: false,
-        chunks: [scriptsMap[slug]],
-        filename: `${transformPathname({
-          pathname,
-          slug,
-          fileSuffix: '.partial',
-        })}`,
-        templateParameters: { body, slug, partial: true },
-      }),
-      new HtmlWebpackPlugin({
-        inject: false,
-        template: 'src/html/template.js',
-        filename: transformPathname({ pathname, slug }),
-        chunks: ['main', scriptsMap[slug]],
-        templateParameters: { body, title, description, slug },
-      }),
-    ]
+    return generatePageAndPartialHtml({
+      pathname,
+      title,
+      slug,
+      description,
+      body,
+      chunks: ['main', scriptsMap[slug]],
+      directoryPrefix,
+    })
   })
 
 const getFilename = ({
@@ -53,12 +42,6 @@ const getFilename = ({
         slug || basename(pathname, extname(pathname))
       }/index${fileSuffix}.html`
 
-exports.postsTemplate = buildHtmlWithTemplate((opts) =>
-  getFilename({ ...opts, directoryPrefix: 'blog/' })
-)
-
-exports.pagesTemplate = buildHtmlWithTemplate(getFilename)
-
 exports.buildBlogPage = (posts) => {
   const postlist = posts
     .map(
@@ -68,31 +51,23 @@ exports.buildBlogPage = (posts) => {
           options: { filename, templateParameters },
         },
       ]) =>
-        `<a href=/${filename.replace('index.html', '')}>${
+        `<a href=/${filename.replace(
+          'index.html',
+          ''
+        )}><h4 class="leading-snug text-md font-semibold sm:text-lg">${
           templateParameters.title
-        }</a>`
+        }</h4></a>`
     )
     .join('')
   const body = `<div class="flex flex-col">${postlist}</div>`
-  return [
-    new HtmlWebpackPlugin({
-      templateContent: body,
-      inject: false,
-      filename: `blog/index.partial.html`,
-      templateParameters: { slug: 'blog' },
-    }),
-    new HtmlWebpackPlugin({
-      template: 'src/html/template.js',
-      filename: `blog/index.html`,
-      inject: false,
-      templateParameters: {
-        body,
-        title: 'Blog',
-        description: 'Blog posts',
-        slug: 'blog',
-      },
-    }),
-  ]
+
+  return generatePageAndPartialHtml({
+    pathname: 'blog',
+    title: 'Blog',
+    slug: 'blog',
+    description: 'Blog posts',
+    body,
+  })
 }
 
 exports.shells = [
@@ -107,3 +82,44 @@ exports.shells = [
     inject: false,
   }),
 ]
+
+function generatePageAndPartialHtml({
+  body,
+  pathname,
+  slug,
+  title,
+  description,
+  chunks = [],
+  directoryPrefix,
+}) {
+  return [
+    new HtmlWebpackPlugin({
+      template: 'src/html/template.js',
+      inject: false,
+      chunks,
+      filename: getFilename({
+        pathname,
+        slug,
+        fileSuffix: '.partial',
+        directoryPrefix,
+      }),
+      templateParameters: { body, slug, partial: true },
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/html/template.js',
+      inject: false,
+      chunks,
+      filename: getFilename({
+        pathname,
+        slug,
+        directoryPrefix,
+      }),
+      templateParameters: {
+        body,
+        slug,
+        title,
+        description,
+      },
+    }),
+  ]
+}
