@@ -25,7 +25,7 @@ exports.buildHtmlWithTemplate = ({ directoryPrefix } = {}) => (pathname) =>
       slug,
       description,
       body,
-      chunks: ['main', scriptsMap[slug]],
+      chunks: [scriptsMap[slug]],
       directoryPrefix,
     })
   })
@@ -108,7 +108,7 @@ function generatePageAndPartialHtml({
     new HtmlWebpackPlugin({
       template: 'src/html/template.js',
       inject: false,
-      chunks,
+      chunks: ['main', ...chunks],
       filename: getFilename({
         pathname,
         slug,
