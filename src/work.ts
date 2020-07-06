@@ -17,7 +17,7 @@ function fetchAndRenderShowCaseItems() {
     element!.innerHTML = showcaseItems
       .map(
         ({ name, url, descriptionHTML }) =>
-          `<li><a href=${url}>${name}</a>${descriptionHTML}</li>`
+          `<li><a href=${url}><h4 class="leading-snug text-md font-semibold mb-4 mt-6 sm:text-lg">${name}</h4></a>${descriptionHTML}</li>`
       )
       .join('')
   }
