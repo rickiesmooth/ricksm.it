@@ -1,9 +1,11 @@
+const map = require('../../utils/markdown-it-class-mapping')
+
 module.exports = (templateData) => {
   const { htmlWebpackPlugin } = templateData
   const { templateParameters } = htmlWebpackPlugin.options
 
   if (htmlWebpackPlugin.options.templateParameters.partial) {
-    return `${htmlWebpackPlugin.options.templateParameters.body}
+    return `${templateParameters.body}
     ${htmlWebpackPlugin.files.js
       .map(
         (jsFile) => `<script>
@@ -12,10 +14,25 @@ module.exports = (templateData) => {
       ].source()}</script>`
       )
       .join('')}
-    <script>document.getElementById('content').setAttribute('data-route', '${
+    <script>
+    document.getElementById('content').setAttribute('data-route', '${
       templateParameters.slug
-    }')</script>
+    }')
+    document.title = '${templateParameters.title}'
+    </script>
     `
+  }
+
+  function getBody() {
+    if (templateParameters.isPost) {
+      const classes = map['h1'].join(' ')
+      return `
+      <p>${templateParameters.date}<p>
+      <h1 class="${classes}">${templateParameters.title}</h1>
+      ${templateParameters.body}
+      `
+    }
+    return `${templateParameters.body}`
   }
 
   return `
@@ -23,7 +40,8 @@ module.exports = (templateData) => {
     <main id="content" class="md-container max-w-screen-md container mx-auto px-4 my-16" data-route="${
       templateParameters.slug
     }">
-      ${htmlWebpackPlugin.options.templateParameters.body}
+      
+      ${getBody()}
     </main>
     ${require('./shell-end.ejs')(templateData)}
   `

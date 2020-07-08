@@ -3,7 +3,9 @@ title: TODO
 description: My intro
 date: 2020-05-11T18:00:16.631Z
 rating: 4
+layout: blog
 ---
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum egestas neque in ex vestibulum rhoncus. Ut facilisis pharetra nulla, vitae blandit neque condimentum vel. Nulla volutpat eu metus elementum auctor. Nam laoreet ante eros, ut elementum magna imperdiet vel. Donec consectetur risus et metus ullamcorper, eget imperdiet nisi scelerisque. Vestibulum eget enim orci. Nam maximus consequat diam sit amet porttitor. Nunc feugiat ligula sed blandit lacinia.
 
 Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus facilisis malesuada magna, id euismod diam commodo non. Nam eget nisi eleifend nibh consequat euismod vel a lorem. Nam vel elementum quam, sed volutpat ex. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer non odio vitae erat interdum pulvinar. Integer mattis turpis urna, vel ultrices erat imperdiet vel.

@@ -144,6 +144,28 @@ a:not(button):hover {
   WORK PAGE
 */
 
+main[data-route='work'] {
+  .projects li {
+    @apply p-6;
+    @apply mb-4;
+    background-image: radial-gradient(
+        theme('colors.blue.400') 1px,
+        transparent 1px
+      ),
+      radial-gradient(theme('colors.green.400') 1px, transparent 1px);
+    background-position: 0 0, 12px 12px;
+    background-size: 24px 24px;
+  }
+  @media (min-width: theme('screens.md')) {
+    .projects li {
+      @apply mb-0;
+      &:not(:last-child) {
+        @apply mr-8;
+      }
+    }
+  }
+}
+
 main[data-route='work'] > ul:first-of-type {
   & > li {
     @apply px-2;

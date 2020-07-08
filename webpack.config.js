@@ -21,8 +21,8 @@ module.exports = async (_env, _argv) => {
   const posts = glob.sync('content/blog/*.md')
 
   const [allPostsHtml, allPagesHtml] = await Promise.all([
-    Promise.all(posts.map(buildHtmlWithTemplate({ directoryPrefix: 'blog/' }))),
-    Promise.all(pages.map(buildHtmlWithTemplate())),
+    Promise.all(posts.map(buildHtmlWithTemplate)),
+    Promise.all(pages.map(buildHtmlWithTemplate)),
   ])
 
   const blogPage = buildBlogPage(allPostsHtml)

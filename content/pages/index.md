@@ -1,4 +1,5 @@
 ---
+layout: page
 title: Home
 description: All about Rick Smit!
 slug: index

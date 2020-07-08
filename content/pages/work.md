@@ -1,5 +1,5 @@
 ---
-layout: blog
+layout: page
 title: Work
 slug: work
 date: 2020-05-19T14:23:20.713Z
@@ -30,7 +30,7 @@ More than 5 years experience as a developer in various roles.
 
 Fun projects nobody asked for.
 
-<ul id="projects">
+<ul class="projects md:flex md:justify-between w-full" id="projects">
   <div class="flex flex-col flex-grow">
     <span class="skeleton-box h-5 w-1/6 inline-block mb-1"></span>
     <span class="skeleton-box h-5 w-1/4 inline-block"></span>

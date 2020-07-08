@@ -8,12 +8,12 @@ const md = require('markdown-it')({ html: true }).use(
   require('@toycode/markdown-it-class'),
   require('./markdown-it-class-mapping')
 )
-exports.buildHtmlWithTemplate = ({ directoryPrefix } = {}) => (pathname) =>
+exports.buildHtmlWithTemplate = (pathname) =>
   fs.readFile(pathname, 'utf-8').then((file) => {
     const { data, content } = gm(file)
-    const { title, description, slug } = data
     const body = md.render(content)
-
+    const isPost = data.layout === 'blog'
+    console.log(isPost)
     const scriptsMap = {
       index: 'home',
       work: 'work',
@@ -21,12 +21,11 @@ exports.buildHtmlWithTemplate = ({ directoryPrefix } = {}) => (pathname) =>
 
     return generatePageAndPartialHtml({
       pathname,
-      title,
-      slug,
-      description,
       body,
-      chunks: [scriptsMap[slug]],
-      directoryPrefix,
+      chunks: [scriptsMap[data.slug]],
+      isPost,
+      data,
+      ...(isPost && { directoryPrefix: 'blog/' }),
     })
   })
 
@@ -51,9 +50,11 @@ exports.buildBlogPage = (posts) => {
 
   return generatePageAndPartialHtml({
     pathname: 'blog',
-    title: 'Blog',
-    slug: 'blog',
-    description: 'Blog posts',
+    data: {
+      title: 'Blog',
+      slug: 'blog',
+      description: 'Blog posts',
+    },
     body,
   })
 }
@@ -71,46 +72,38 @@ exports.shells = [
   }),
 ]
 
-function generatePageAndPartialHtml({
-  body,
+const generatePageAndPartialHtml = ({
   pathname,
-  slug,
-  title,
-  description,
   chunks = [],
+  isPost = false,
   directoryPrefix,
-}) {
-  return [
-    new HtmlWebpackPlugin({
-      template: 'src/html/template.js',
-      inject: false,
-      chunks,
-      filename: getFilename({
-        pathname,
-        slug,
-        fileSuffix: '.partial',
-        directoryPrefix,
-      }),
-      templateParameters: { body, slug, partial: true },
+  data,
+  body,
+}) => [
+  new HtmlWebpackPlugin({
+    template: 'src/html/template.js',
+    inject: false,
+    chunks,
+    filename: getFilename({
+      pathname,
+      slug: data.slug,
+      fileSuffix: '.partial',
+      directoryPrefix,
     }),
-    new HtmlWebpackPlugin({
-      template: 'src/html/template.js',
-      inject: false,
-      chunks: ['main', ...chunks],
-      filename: getFilename({
-        pathname,
-        slug,
-        directoryPrefix,
-      }),
-      templateParameters: {
-        body,
-        slug,
-        title,
-        description,
-      },
+    templateParameters: { ...data, body, isPost, partial: true },
+  }),
+  new HtmlWebpackPlugin({
+    template: 'src/html/template.js',
+    inject: false,
+    chunks: ['main', ...chunks],
+    filename: getFilename({
+      pathname,
+      slug: data.slug,
+      directoryPrefix,
     }),
-  ]
-}
+    templateParameters: { ...data, body, isPost },
+  }),
+]
 
 const getFilename = ({
   pathname,
