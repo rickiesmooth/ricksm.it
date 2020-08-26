@@ -109,4 +109,6 @@ env.json
 
 .aws-sam
 
-.DS_Store
+*.DS_Store
+
+cypress/videos/

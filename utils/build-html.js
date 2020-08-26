@@ -13,7 +13,6 @@ exports.buildHtmlWithTemplate = (pathname) =>
     const { data, content } = gm(file)
     const body = md.render(content)
     const isPost = data.layout === 'blog'
-    console.log(isPost)
     const scriptsMap = {
       index: 'home',
       work: 'work',

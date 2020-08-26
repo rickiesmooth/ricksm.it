@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cypress run --config-file cypress/cypress.json",
+    "cypress:open": "cypress open --config-file cypress/cypress.json",
     "build": "NODE_ENV=production webpack",
     "watch": "NODE_ENV=development API_URL=http://localhost:3000/ webpack -w"
   },
@@ -30,6 +31,7 @@
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.5.3",
+    "ejs-loader": "^0.4.1",
     "gl-matrix": "^3.3.0",
     "glob": "^7.1.6",
     "gray-matter": "^4.0.2",
@@ -49,7 +51,8 @@
     "workbox-precaching": "^5.1.3",
     "workbox-routing": "^5.1.3",
     "workbox-strategies": "^5.1.3",
-    "workbox-streams": "^5.1.3"
+    "workbox-streams": "^5.1.3",
+    "workbox-webpack-plugin": "^5.1.3"
   },
   "babel": {
     "presets": [
@@ -66,7 +69,6 @@
     ]
   },
   "devDependencies": {
-    "ejs-loader": "^0.4.1",
-    "workbox-webpack-plugin": "^5.1.3"
+    "cypress": "^5.0.0"
   }
 }
