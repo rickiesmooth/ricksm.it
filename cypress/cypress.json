@@ -3,5 +3,6 @@
   "supportFile": false,
   "pluginsFile": false,
   "experimentalFetchPolyfill": true,
-  "projectId": "i76wpe"
+  "projectId": "i76wpe",
+  "baseUrl": "http://localhost:5000"
 }
