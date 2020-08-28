@@ -48,7 +48,13 @@ module.exports = async (_env, _argv) => {
     },
     module: {
       rules: [
-        { test: /\.ejs$/, loader: 'ejs-loader' },
+        {
+          test: /\.ejs$/,
+          loader: 'ejs-loader',
+          options: {
+            esModule: false,
+          },
+        },
 
         {
           test: /\.scss$/,
