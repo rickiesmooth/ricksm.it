@@ -22,7 +22,7 @@ function fetchAndRenderShowCaseItems() {
       .join('')
   }
 
-  fetch(`${process.env.API_URL}/github`)
+  fetch(`${process.env.API_URL || ''}/github`)
     .then((response) => response.json())
     .then(renderShowCaseItems)
 }
