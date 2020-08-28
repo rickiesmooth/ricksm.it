@@ -28,7 +28,7 @@
     "@toycode/markdown-it-class": "^1.2.3",
     "@types/glob": "^7.1.1",
     "@types/node": "^13.13.4",
-    "autoprefixer": "^9.7.6",
+    "autoprefixer": "^9.8.6",
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^6.0.3",
     "css-loader": "^3.5.3",
