@@ -78,8 +78,10 @@ module.exports = async (_env, _argv) => {
           API_URL: JSON.stringify(process.env.API_URL),
         },
       }),
-      new CopyWebpackPlugin([{ from: 'content/pages/admin', to: 'admin' }]),
-      new CopyWebpackPlugin([{ from: 'static' }]),
+      new CopyWebpackPlugin({
+        patterns: [{ from: 'content/pages/admin', to: 'admin' }],
+      }),
+      new CopyWebpackPlugin({ patterns: [{ from: 'static' }] }),
       new workboxPlugin.InjectManifest({
         swSrc: './src/sw.ts',
       }),
