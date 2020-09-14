@@ -52,7 +52,8 @@ date: 2020-05-19T07:52:34.300Z
         </svg>
         <p>Currently at WeTransfer building products that creatives love</p>
       </main>
-    </div>
+    </div>\
+   </div>
   <span class="border-dotted w-2 border-l-2 border-r-2 md:mx-16 md:my-0 my-16"></span>
   <div class="relative group">
     <video poster="/images/uploads/lake-tahoe.jpg" class="w-full min-h-full rounded-lg" autoplay loop muted playsInline >
