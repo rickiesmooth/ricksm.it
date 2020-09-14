@@ -12,7 +12,8 @@ date: 2020-05-19T07:52:34.300Z
 <hr class="border-dotted border-b-2 border-t-2 mb-16 pb-1">
 <div class="main flex md:flex-row flex-col mb-24">
   <div class="updates flex flex-col flex-2 self-center">
-    <div class="update">
+    <div class="update">\
+      <div class="line ml-6"></div>
       <aside class="timestamp w-12">2013</aside>
       <main class="info">
         <img src="/images/uploads/google-logo.png" alt="Google logo">
@@ -36,7 +37,6 @@ date: 2020-05-19T07:52:34.300Z
       </main>
     </div>
     <div class="update">
-      <div class="line ml-6"></div>
       <aside class="timestamp w-12">2020</aside>
       <main class="info">
         <svg id="wetransfer-spinner" viewBox="0 0 170 170" height="170" width="170" shapeRendering="geometricPrecision"  xmlns="http://www.w3.org/2000/svg">
@@ -53,20 +53,6 @@ date: 2020-05-19T07:52:34.300Z
         <p>Currently at WeTransfer building products that creatives love</p>
       </main>
     </div>
-    <div class="update">
-      <div class="line ml-6"></div>
-      <aside class="timestamp w-12">2018</aside>
-      <main class="info">
-        <canvas id="canvas" width="51" height="51"></canvas>
-      <p>Registered Smooth Capital Holding Enterprise International Worldwide and freelanced for big companies (Ahold, Catawiki)</p>
-      </main>
-    </div>
-    <a class="bg-gray-800 hover:bg-gray-900 text-white y-2 px-4 p-2 rounded-full flex flex-row text-center" href='/work/'>
-    <p class="m-auto">more about work</p>
-    <svg class="fill-current w-4 h-4 mr-2 self-center transform -rotate-90 absolute right-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-    </a>
-
-  </div>
   <span class="border-dotted w-2 border-l-2 border-r-2 md:mx-16 md:my-0 my-16"></span>
   <div class="relative group">
     <video poster="/images/uploads/lake-tahoe.jpg" class="w-full min-h-full rounded-lg" autoplay loop muted playsInline >
