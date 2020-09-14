@@ -7,3 +7,6 @@ Most of the examples can be reproduced with couple of examples.
 
 Start with image carousel, see how far we get.
 
+```javascript
+const a = []
+```
