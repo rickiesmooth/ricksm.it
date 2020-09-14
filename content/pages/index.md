@@ -5,14 +5,36 @@ description: All about Rick Smit!
 slug: index
 date: 2020-05-19T07:52:34.300Z
 ---
-
 <div class="py-12">
   <h1 class="leading-tight text-4xl font-semibold mb-4 mt-6 text-center pb-2 sm:text-5xl">Hi, I'm Rick</h1>
   <p class="mb-12 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<p>
 </div>
 <hr class="border-dotted border-b-2 border-t-2 mb-16 pb-1">
 <div class="main flex md:flex-row flex-col mb-24">
-  <div class="updates flex flex-col flex-2 self-center">
+  <div class="updates flex flex-col flex-2 self-center">\
+    <div class="update">
+      <aside class="timestamp w-12">2013</aside>
+      <main class="info">
+        <img src="/images/uploads/google-logo.png" alt="Google logo">
+      <p>Started out as a large customer sales intern at Google.</p>
+      </main>
+    </div>\
+    <div class="update">
+      <div class="line ml-6"></div>
+      <aside class="timestamp w-12">2015</aside>
+      <main class="info">
+        <span class="emoji">🚀</span>
+      <p>Coding always was my hobby and I got to that that professionally when I joined my friends' startup building products for companies like MTV</p>
+      </main>
+    </div>\
+    <div class="update">
+      <div class="line ml-6"></div>
+      <aside class="timestamp w-12">2018</aside>
+      <main class="info">
+        <canvas id="canvas" width="51" height="51"></canvas>
+      <p>Registered Smooth Capital Holding Enterprise International Worldwide and freelanced for big companies (Ahold, Catawiki)</p>
+      </main>
+    </div>
     <div class="update">
       <div class="line ml-6"></div>
       <aside class="timestamp w-12">2020</aside>
@@ -37,21 +59,6 @@ date: 2020-05-19T07:52:34.300Z
       <main class="info">
         <canvas id="canvas" width="51" height="51"></canvas>
       <p>Registered Smooth Capital Holding Enterprise International Worldwide and freelanced for big companies (Ahold, Catawiki)</p>
-      </main>
-    </div>
-    <div class="update">
-      <div class="line ml-6"></div>
-      <aside class="timestamp w-12">2015</aside>
-      <main class="info">
-        <span class="emoji">🚀</span>
-      <p>Coding always was my hobby and I got to that that professionally when I joined my friends' startup building products for companies like MTV</p>
-      </main>
-    </div>
-    <div class="update">
-      <aside class="timestamp w-12">2013</aside>
-      <main class="info">
-        <img src="/images/uploads/google-logo.png" alt="Google logo">
-      <p>Started out as a large customer sales intern at Google.</p>
       </main>
     </div>
     <a class="bg-gray-800 hover:bg-gray-900 text-white y-2 px-4 p-2 rounded-full flex flex-row text-center" href='/work/'>
