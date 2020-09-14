@@ -18,7 +18,7 @@ date: 2020-05-19T07:52:34.300Z
         <img src="/images/uploads/google-logo.png" alt="Google logo">
       <p>Started out as a large customer sales intern at Google.</p>
       </main>
-    </div>\
+    </div>
     <div class="update">
       <div class="line ml-6"></div>
       <aside class="timestamp w-12">2015</aside>
@@ -26,7 +26,7 @@ date: 2020-05-19T07:52:34.300Z
         <span class="emoji">🚀</span>
       <p>Coding always was my hobby and I got to that that professionally when I joined my friends' startup building products for companies like MTV</p>
       </main>
-    </div>\
+    </div>
     <div class="update">
       <div class="line ml-6"></div>
       <aside class="timestamp w-12">2018</aside>
