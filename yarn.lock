@@ -6890,10 +6890,10 @@ symbol-observable@^1.1.0:
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
   integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
-tailwindcss@^1.8.6:
-  version "1.8.6"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.8.6.tgz#7ec08777d6cc50bd79e9bedf381f1f10f132bdd5"
-  integrity sha512-iUbDjwkBdbY+9hlVfuHRXJN3lC7h4Fc4Vz/YqjMMeL0AeCH73MMgVDmto0ulCzh1KM1sv0VV9WmV0bcDMgw5Tw==
+tailwindcss@^1.8.9:
+  version "1.8.9"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.8.9.tgz#86aa05f019b4975675d1c67a2c9962d9c833ea13"
+  integrity sha512-VgoBxIyF+Ipf+x3eDz3tPA8A5blGBPkswA2xM6fxCmAwAmhlIr9Zk3exft44BUf3q9mxorvjCRtxBrklfPDSoQ==
   dependencies:
     "@fullhuman/postcss-purgecss" "^2.1.2"
     autoprefixer "^9.4.5"
@@ -7533,33 +7533,17 @@ workbox-range-requests@^5.1.4:
   dependencies:
     workbox-core "^5.1.4"
 
-workbox-routing@^5.1.3, workbox-routing@^5.1.4:
+workbox-routing@^5.1.4:
   version "5.1.4"
   resolved "https://registry.yarnpkg.com/workbox-routing/-/workbox-routing-5.1.4.tgz#3e8cd86bd3b6573488d1a2ce7385e547b547e970"
   integrity sha512-8ljknRfqE1vEQtnMtzfksL+UXO822jJlHTIR7+BtJuxQ17+WPZfsHqvk1ynR/v0EHik4x2+826Hkwpgh4GKDCw==
   dependencies:
     workbox-core "^5.1.4"
 
-workbox-strategies@^5.1.3, workbox-strategies@^5.1.4:
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/workbox-strategies/-/workbox-strategies-5.1.4.tgz#96b1418ccdfde5354612914964074d466c52d08c"
-  integrity sha512-VVS57LpaJTdjW3RgZvPwX0NlhNmscR7OQ9bP+N/34cYMDzXLyA6kqWffP6QKXSkca1OFo/v6v7hW7zrrguo6EA==
-  dependencies:
-    workbox-core "^5.1.4"
-    workbox-routing "^5.1.4"
-
 workbox-strategies@^5.1.4:
   version "5.1.4"
   resolved "https://registry.yarnpkg.com/workbox-strategies/-/workbox-strategies-5.1.4.tgz#96b1418ccdfde5354612914964074d466c52d08c"
   integrity sha512-VVS57LpaJTdjW3RgZvPwX0NlhNmscR7OQ9bP+N/34cYMDzXLyA6kqWffP6QKXSkca1OFo/v6v7hW7zrrguo6EA==
-  dependencies:
-    workbox-core "^5.1.4"
-    workbox-routing "^5.1.4"
-
-workbox-streams@^5.1.4:
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/workbox-streams/-/workbox-streams-5.1.3.tgz#8f381d395ea2e57106b7b6542b9ffcd769a3047b"
-  integrity sha512-8kt70eBd1RXL0qenxEnch3Cd7VyW3O0CkeGBN4Bikt307nIV5Q0JciLA5o0CRteijawYOiTq0/px4GDBv1obgQ==
   dependencies:
     workbox-core "^5.1.4"
     workbox-routing "^5.1.4"
