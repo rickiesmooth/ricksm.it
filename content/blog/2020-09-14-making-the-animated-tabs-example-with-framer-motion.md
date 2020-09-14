@@ -5,12 +5,33 @@ date: 2020-09-14T13:19:00.368Z
 ---
 For a while now, I've kept a close eye on Framer. It's a prototyping tool (based in Amsterdam) and is one of the startups that is trying to make the design handoff easier and bring development closer to design and vice versa.
 
-Over on their website they have this [beautiful pattern library](https://www.framer.com/examples/), so I was hoping to _not_ get my hands dirty and copy and paste some of those examples in the project I was working on. Unfortunately I couldn't find any drop in examples but luckily there was an example of something that came pretty close - the image carousel which I'll tweak a bit to fit my use case and learn more about framer motion in the process.
+Over on their website they have this [beautiful pattern library](https://www.framer.com/examples/), so I was hoping to _not_ get my hands dirty and copy and paste some of those examples in the project I was working on. Unfortunately I couldn't find any drop in examples but luckily there was an example of something that came pretty close - the image carousel which I'll tweak a bit to fit my use case and learn more about framer motion.
 
 
-Start with image carousel, see how far we get.
+Lets have a look at the code of the image carousel component
 
 ```javascript
+const variants = {
+  enter: (direction: number) => {
+    return {
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0
+    };
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1
+  },
+  exit: (direction: number) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0
+    };
+  }
+};
+
 export const Example = () => {
   const [[page, direction], setPage] = useState([0, 0]);
 
@@ -64,4 +85,11 @@ export const Example = () => {
 };
 ```
 
-This is great! Exactly what I need, I only need to add the tab indicator, tweak the pagination behaviour a bit and loop over its children.
+This is great! Exactly what I need, I only need to add the tab indicator, tweak the pagination behaviour a bit and loop over its children. So lets have a look at what we see here:
+
+* `variants` - Variants are a declarative way to orchestrate complex animations throughout a component tree. By providing multiple components with a variants object with visual states of the same name, they can all be animated in sync by the switch of a single animate prop.
+* `AnimatePresence` - Animate components when they're removed from the React tree.
+
+* `motion.img` - motion component's flexible animate property.
+
+
