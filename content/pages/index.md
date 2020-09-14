@@ -11,7 +11,7 @@ date: 2020-05-19T07:52:34.300Z
 </div>
 <hr class="border-dotted border-b-2 border-t-2 mb-16 pb-1">
 <div class="main flex md:flex-row flex-col mb-24">
-  <div class="updates flex flex-col flex-2 self-center">\
+  <div class="updates flex flex-col flex-2 self-center">
     <div class="update">
       <aside class="timestamp w-12">2013</aside>
       <main class="info">
