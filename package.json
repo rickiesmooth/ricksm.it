@@ -46,7 +46,7 @@
     "serve": "^11.3.2",
     "style-loader": "^1.2.1",
     "tailwindcss": "^1.8.9",
-    "terser-webpack-plugin": "^4.2.0",
+    "terser-webpack-plugin": "^4.2.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "workbox-core": "^5.1.3",
