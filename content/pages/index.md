@@ -7,7 +7,7 @@ date: 2020-05-19T07:52:34.300Z
 ---
 <div class="py-12">
   <h1 class="leading-tight text-4xl font-semibold mb-4 mt-6 text-center pb-2 sm:text-5xl">Hi, I'm Rick</h1>
-  <p class="mb-12 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<p>
+  <p class="mb-12 text-center">I'm a curious fullstack developer and a good communicator. At the moment I'm interested in Functional Programming, Epistemology and DevOps.<p>
 </div>
 <hr class="border-dotted border-b-2 border-t-2 mb-16 pb-1">
 <div class="main flex md:flex-row flex-col mb-24">
