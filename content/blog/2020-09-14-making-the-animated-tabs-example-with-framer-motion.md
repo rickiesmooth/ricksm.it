@@ -101,6 +101,11 @@ With a few small tweaks, we have something that comes pretty close:
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
 
-* css stuff
-* AnimateSharedLayout
-* setPage([i, i - page]);
+## CSS stuff
+Position relative, width
+
+## AnimateSharedLayout
+Activity indicator
+
+## setPage([i, i - page]);
+Direction
