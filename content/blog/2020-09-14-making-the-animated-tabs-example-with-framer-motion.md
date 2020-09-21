@@ -101,11 +101,11 @@ With a few small tweaks, we have something that comes pretty close:
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
 
-## CSS stuff
+## CSS tweaks
 Position relative, width
 
-## AnimateSharedLayout
+## it's an animated shared layout
 Activity indicator
 
-## setPage([i, i - page]);
+## ↔️ 🔤 setPage([i, i - page]);
 Direction
