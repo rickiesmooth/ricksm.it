@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: Recreating the Animated Tabs example with framer motion
+title: Recreating the Animated Tabs example with Framer Motion
 date: 2020-09-14T13:19:00.368Z
 ---
 For a while now, I've kept a close eye on Framer. It's a prototyping tool (based in Amsterdam) and is one of the startups that is trying to make the design handoff easier and bring development closer to design and vice versa.
