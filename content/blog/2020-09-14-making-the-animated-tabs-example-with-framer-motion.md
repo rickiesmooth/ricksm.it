@@ -95,7 +95,12 @@ This is great! Exactly what I need, I only need to add the tab indicator, tweak 
 
 With a few small tweaks, we have something that comes pretty close:
 <iframe src="https://codesandbox.io/embed/framer-motion-image-gallery-forked-7h9kq?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Framer Motion: Image gallery (forked)"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
+* css stuff
 * AnimateSharedLayout
 * setPage([i, i - page]);
-* css stuff
