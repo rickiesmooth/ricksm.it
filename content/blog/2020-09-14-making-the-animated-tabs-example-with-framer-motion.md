@@ -102,7 +102,8 @@ With a few small tweaks, we have something that comes pretty close:
    ></iframe>
 
 ## CSS tweaks
-Position relative, width
+The Animated Tabs example is a bit different than the image gallery in the sense that there's a "window" that masks the other images, so we just need to position the container relatively and the cards absolute and set the width of the content of the cards.
+
 
 ## it's an animated shared layout
 Activity indicator, Animate layout changes across, and between, multiple components.
