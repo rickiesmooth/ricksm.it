@@ -10,7 +10,7 @@ Over on their website they have this [beautiful pattern library](https://www.fra
 
 Lets have a look at the code of the image carousel component
 
-```javascript
+```jsx
 const variants = {
   enter: (direction: number) => {
     return {
