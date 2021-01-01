@@ -42,7 +42,7 @@ exports.buildBlogPage = (posts) => {
           options: { filename, templateParameters },
         },
       ]) =>
-        `<a href=/${filename.replace(
+        `<a class="mb-4" href=/${filename.replace(
           'index.html',
           ''
         )}><h4 class="leading-snug text-md font-semibold sm:text-lg">${
