@@ -33,6 +33,7 @@ module.exports = async (_env, _argv) => {
       main: './src/main.ts',
       home: './src/home.ts',
       work: './src/work.ts',
+      blog: './src/blog.ts',
     },
     output: {
       path: join(__dirname, 'build'),
@@ -57,7 +58,7 @@ module.exports = async (_env, _argv) => {
         },
 
         {
-          test: /\.scss$/,
+          test: /\.(sa|sc|c)ss$/,
           use: [
             MiniCssExtractPlugin.loader,
             { loader: 'css-loader', options: { importLoaders: 1 } },

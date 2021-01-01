@@ -13,15 +13,20 @@ exports.buildHtmlWithTemplate = (pathname) =>
     const { data, content } = gm(file)
     const body = md.render(content)
     const isPost = data.layout === 'blog'
-    const scriptsMap = {
+    const script = {
       index: 'home',
       work: 'work',
-    }
+    }[data.slug]
+
+    const chunks = []
+
+    if (script) chunks.push(script)
+    if (isPost) chunks.push('blog')
 
     return generatePageAndPartialHtml({
       pathname,
       body,
-      chunks: [scriptsMap[data.slug]],
+      chunks,
       isPost,
       data,
       ...(isPost && { directoryPrefix: 'blog/' }),
@@ -78,31 +83,34 @@ const generatePageAndPartialHtml = ({
   directoryPrefix,
   data,
   body,
-}) => [
-  new HtmlWebpackPlugin({
-    template: 'src/html/template.js',
-    inject: false,
-    chunks,
-    filename: getFilename({
-      pathname,
-      slug: data.slug,
-      fileSuffix: '.partial',
-      directoryPrefix,
+}) => {
+  console.log('chunks', chunks)
+  return [
+    new HtmlWebpackPlugin({
+      template: 'src/html/template.js',
+      inject: false,
+      chunks,
+      filename: getFilename({
+        pathname,
+        slug: data.slug,
+        fileSuffix: '.partial',
+        directoryPrefix,
+      }),
+      templateParameters: { ...data, body, isPost, partial: true },
     }),
-    templateParameters: { ...data, body, isPost, partial: true },
-  }),
-  new HtmlWebpackPlugin({
-    template: 'src/html/template.js',
-    inject: false,
-    chunks: ['main', ...chunks],
-    filename: getFilename({
-      pathname,
-      slug: data.slug,
-      directoryPrefix,
+    new HtmlWebpackPlugin({
+      template: 'src/html/template.js',
+      inject: false,
+      chunks: ['main', ...chunks],
+      filename: getFilename({
+        pathname,
+        slug: data.slug,
+        directoryPrefix,
+      }),
+      templateParameters: { ...data, body, isPost },
     }),
-    templateParameters: { ...data, body, isPost },
-  }),
-]
+  ]
+}
 
 const getFilename = ({
   pathname,

@@ -205,16 +205,10 @@ main[data-route='work'] > ul:first-of-type {
 }
 
 /*
-  MD/BLOG stuff
+  ANIMATIONS
 */
-
-.md-container {
-  li + li {
-    @apply mt-1;
-  }
-  li > p + p {
-    @apply mt-6;
-  }
+main[data-route='post'] {
+  @apply max-w-screen-md;
 }
 
 /*
