@@ -15,7 +15,7 @@ Eventually I used the `uploadAsync` method of the `expo-file-system` which uploa
 
 ```ts
 /* FileSystem.FileInfo */
-const meta = await FileSystem.getInfoAsync(photo.uri, { md5: true }
+const meta = await FileSystem.getInfoAsync(photo.uri, { md5: true })
 
 /* Base 64 of the MD5 hash of the file */
 const checksum = Buffer.from(meta.md5, 'hex').toString('base64')
@@ -25,19 +25,21 @@ const {
   blob_signed_id,
   direct_upload: { headers, url },
 } = await fetch('/rails/active_storage/direct_uploads', {
-    method: 'POST',
-    body: {
-      file: {
-        filename: "photo.jpeg",
-        content_type: "image/jpeg",
-        byte_size: meta.size,
-        checksum
-      }
-    })
+  method: 'POST',
+  body: {
+    file: {
+      filename: 'photo.jpeg',
+      content_type: 'image/jpeg',
+      byte_size: meta.size,
+      checksum,
+    },
+  },
+})
 
 /* Upload the file */
 await FileSystem.uploadAsync(url, photo.uri, {
   headers,
   httpMethod: 'PUT',
 })
+
 ```
