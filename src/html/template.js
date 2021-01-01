@@ -16,7 +16,7 @@ module.exports = (templateData) => {
       .join('')}
     <script>
     document.getElementById('content').setAttribute('data-route', '${
-      templateParameters.slug
+      templateParameters.slug || 'post'
     }')
     document.title = '${templateParameters.title}'
     </script>
@@ -38,7 +38,7 @@ module.exports = (templateData) => {
   return `
     ${require('./shell-start.ejs')(templateData)}
     <main id="content" class="md-container max-w-screen-md container mx-auto px-4 my-16" data-route="${
-      templateParameters.slug
+      templateParameters.slug || 'post'
     }">
       
       ${getBody()}
