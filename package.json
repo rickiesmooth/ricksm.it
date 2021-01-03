@@ -72,7 +72,8 @@
           ],
           "plugins": [
             "line-numbers",
-            "show-language"
+            "show-language",
+            "diff-highlight"
           ],
           "theme": "solarizedlight",
           "css": true
