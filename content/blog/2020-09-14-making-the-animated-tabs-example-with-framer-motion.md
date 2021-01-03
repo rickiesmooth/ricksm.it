@@ -85,7 +85,7 @@ export const Example = () => {
 };
 ```
 
-This is great! Exactly what I need, I only need to add the tab indicator, tweak the pagination behaviour a bit and loop over its children. So lets have a look at what we see here:
+That's exactly what I need, I only need to add the tab indicator, tweak the pagination behaviour a bit and instead of using images display components. So lets have a look at what we see here:
 
 * `variants` - Variants are a declarative way to orchestrate complex animations throughout a component tree. By providing multiple components with a variants object with visual states of the same name, they can all be animated in sync by the switch of a single animate prop.
 * `AnimatePresence` - Animate components when they're removed from the React tree.
@@ -102,7 +102,61 @@ With a few small tweaks, we have something that comes pretty close:
    ></iframe>
 
 ## CSS tweaks
-The Animated Tabs example is a bit different than the image gallery in the sense that there's a "window" that masks the other images, so we just need to position the container relatively and the cards absolute and set the width of the content of the cards.
+```language-diff-css diff-highlight
+body {
+  width: 100vw;
+  height: 100vh;
+  background: #151515;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+- .next,
+- .prev {
+-   top: calc(50% - 20px);
+-   position: absolute;
+-   background: white;
+-   border-radius: 30px;
+-   width: 40px;
+-   height: 40px;
+-   display: flex;
+-   justify-content: center;
+-   align-items: center;
+-   user-select: none;
+-   cursor: pointer;
+-   font-weight: bold;
+-   font-size: 18px;
+-   z-index: 2;
+- }
+
+- .next {
+-   right: 10px;
+- }
+
+- .prev {
+-   left: 10px;
+-   transform: scale(-1);
+- }
+
+img {
+  position: absolute;
+  max-width: 100vw;
+}
+
+```
 
 
 ## it's an animated shared layout
