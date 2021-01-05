@@ -4573,6 +4573,13 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+markdown-it-prism@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/markdown-it-prism/-/markdown-it-prism-2.1.4.tgz#d7f52d811eb5f96813ec6a6013f85d939e99619c"
+  integrity sha512-KjQBiGkSQPivHN7+kDxQy6qKJe3YWLfHqaD97XGVCkwlt2w6zrbJh9xuQvn+sFGhJxiMwIjjHspFIi0YRrLQtQ==
+  dependencies:
+    prismjs "1.23.0"
+
 markdown-it@^12.0.4:
   version "12.0.4"
   resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-12.0.4.tgz#eec8247d296327eac3ba9746bdeec9cfcc751e33"
@@ -5750,7 +5757,7 @@ pretty-hrtime@^1.0.3:
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
 
-prismjs@^1.23.0:
+prismjs@1.23.0, prismjs@^1.23.0:
   version "1.23.0"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.23.0.tgz#d3b3967f7d72440690497652a9d40ff046067f33"
   integrity sha512-c29LVsqOaLbBHuIbsTxaKENh1N2EQBOHaWv7gkHN4dgRbxSREqDnDbtFJYdpPauS4YCplMSNCABQ6Eeor69bAA==

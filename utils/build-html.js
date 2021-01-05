@@ -4,7 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const { basename, extname } = require('path')
 
-const md = require('markdown-it')({ html: true }).use(
+const md = require('markdown-it')({
+  html: true,
+  langPrefix: 'diff-highlight language-',
+}).use(
   require('@toycode/markdown-it-class'),
   require('./markdown-it-class-mapping')
 )
