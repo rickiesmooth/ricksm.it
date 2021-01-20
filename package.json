@@ -95,6 +95,6 @@
   },
   "devDependencies": {
     "babel-plugin-prismjs": "^2.0.1",
-    "cypress": "^6.2.0"
+    "cypress": "^6.3.0"
   }
 }
