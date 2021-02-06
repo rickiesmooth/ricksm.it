@@ -3,10 +3,9 @@ layout: blog
 title: Recreating the Animated Tabs example with Framer Motion
 date: 2020-09-14T13:19:00.368Z
 ---
-
 For a while now, I've kept a close eye on Framer. It's a prototyping tool (based in Amsterdam) and is one of the startups that is trying to make the design handoff easier and bring development closer to design and vice versa.
 
-Over on their website they have this [beautiful pattern library](https://www.framer.com/examples/), so I was hoping to _not_ get my hands dirty and copy and paste some of those examples in the project I was working on. Unfortunately I couldn't find any drop in examples but luckily there was an example of something that came pretty close - the image carousel which I'll tweak a bit to fit my use case and learn more about framer motion.
+Over on their website they have this [beautiful pattern library](https://www.framer.com/examples/), so I was hoping to *not* get my hands dirty and copy and paste some of those examples in the project I was working on. Unfortunately I couldn't find any drop in examples but luckily there was an example of something that came pretty close - the image carousel which I'll tweak a bit to fit my use case and learn more about framer motion.
 
 Lets have a look at the code of the image carousel component
 
@@ -87,10 +86,9 @@ export const Example = () => {
 
 That's exactly what I need, I only need to add the tab indicator, tweak the pagination behaviour a bit and instead of using images display components. So lets have a look at what we see here:
 
-- `variants` - Variants are a declarative way to orchestrate complex animations throughout a component tree. By providing multiple components with a variants object with visual states of the same name, they can all be animated in sync by the switch of a single animate prop.
-- `AnimatePresence` - Animate components when they're removed from the React tree.
-
-- `motion.img` - motion component's flexible animate property.
+* `variants` - Variants are a declarative way to orchestrate complex animations throughout a component tree. By providing multiple components with a variants object with visual states of the same name, they can all be animated in sync by the switch of a single animate prop.
+* `AnimatePresence` - Animate components when they're removed from the React tree.
+* `motion.img` - motion component's flexible animate property.
 
 With a few small tweaks, we have something that comes pretty close:
 
@@ -114,7 +112,7 @@ export const tabs = [
 ]
 ```
 
-Our animated tabs will use a different header instead of the arrows so we can remove the arrows, and add the heading in the `AnimateSharedLayout` (why?):
+Our animated tabs will use a different header instead of the arrows so we can remove the arrows, and add the heading in the `AnimateSharedLayout` to enable [layout animations](https://www.framer.com/api/) between the components that share `layoutId` \`underLine\` as they're added/removed.
 
 ```diff-tsx
 -    <>
@@ -171,28 +169,4 @@ And instead of changing an images source, we render some content based on page's
        </AnimatePresence>
 ```
 
-then we need to update our css, to style our heading bar, target our section as a body instead of an image, and remove some old styles:
-
-```diff-css
-@@ -19,49 +19,7 @@
-
--img {
-+section {
-   position: absolute;
-   max-width: 100vw;
-}
-
-```
-
-## it's an animated shared layout
-
-Activity indicator, Animate layout changes across, and between, multiple components.
-layoutId="underline"
-
-## ↔️ 🔤 setPage([i, i - page]);
-
-Direction
-
-```
-
-```
+then we need to update our css, to style our heading bar, target our section as a body instead of an image, and remove some old styles
