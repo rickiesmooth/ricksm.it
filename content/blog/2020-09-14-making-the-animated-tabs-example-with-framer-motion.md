@@ -112,7 +112,7 @@ export const tabs = [
 ]
 ```
 
-Our animated tabs will use a different header instead of the arrows so we can remove the arrows, and add the heading in the `AnimateSharedLayout` to enable [layout animations](https://www.framer.com/api/) between the components that share `layoutId` \`underLine\` as they're added/removed so that it appears to slide between the headings.
+Our animated tabs will use a different header instead of the arrows so we can remove the arrows, and add the heading in the `AnimateSharedLayout` to enable [layout animations](https://www.framer.com/api/) between the components that share `layoutId` `underLine` as they're added/removed so that it appears to slide between the headings.
 
 ```diff-tsx
 -    <>
@@ -170,3 +170,11 @@ And instead of changing an images source, we render some content based on page's
 ```
 
 then we need to update our css, to style our heading bar, target our section as a body instead of an image, and remove some old styles
+
+```diff-css
+-img {
++section {
+  position: absolute;
+  max-width: 100vw;
+}
+```
