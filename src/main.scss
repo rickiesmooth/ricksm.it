@@ -20,6 +20,20 @@ a:not(button):hover {
   @apply underline;
 }
 
+blockquote {
+  @apply bg-gray-300;
+  @apply p-2;
+  @apply p-4;
+  border-left: 10px solid #ccc;
+}
+
+blockquote:before {
+  @apply text-xl;
+}
+blockquote p {
+  display: inline;
+}
+
 /*
   REUSABLE UTILITIES
 */
