@@ -149,8 +149,8 @@ And instead of changing an images source, we render some content based on page's
 
 ```diff-tsx
        <AnimatePresence initial={false} custom={direction}>
--        <motion.img
 +        <motion.section
+-        <motion.img
            key={page}
 -          src={images[imageIndex]}
            custom={direction}
