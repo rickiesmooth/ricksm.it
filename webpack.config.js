@@ -18,7 +18,7 @@ const {
 
 module.exports = async (_env, _argv) => {
   const pages = glob.sync('content/pages/*.md')
-  const posts = glob.sync('content/blog/*.md')
+  const posts = glob.sync('content/blog/*.md').reverse()
 
   const [allPostsHtml, allPagesHtml] = await Promise.all([
     Promise.all(posts.map(buildHtmlWithTemplate)),

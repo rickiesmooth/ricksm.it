@@ -20,20 +20,6 @@ a:not(button):hover {
   @apply underline;
 }
 
-blockquote {
-  @apply bg-gray-300;
-  @apply p-2;
-  @apply p-4;
-  border-left: 10px solid #ccc;
-}
-
-blockquote:before {
-  @apply text-xl;
-}
-blockquote p {
-  display: inline;
-}
-
 /*
   REUSABLE UTILITIES
 */
@@ -154,6 +140,7 @@ blockquote p {
   }
 }
 
+
 /*
   WORK PAGE
 */
@@ -218,11 +205,19 @@ main[data-route='work'] > ul:first-of-type {
   }
 }
 
-/*
-  ANIMATIONS
-*/
+
 main[data-route='post'] {
   @apply max-w-screen-md;
+  .markdown-body {
+    ol,
+    ul {
+      list-style: disc;
+    }
+  }
+}
+
+.twitter-tweet {
+  margin: auto
 }
 
 /*

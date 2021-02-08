@@ -87,7 +87,6 @@ const generatePageAndPartialHtml = ({
   data,
   body,
 }) => {
-  console.log('chunks', chunks)
   return [
     new HtmlWebpackPlugin({
       template: 'src/html/template.js',

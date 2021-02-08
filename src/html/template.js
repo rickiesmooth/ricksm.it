@@ -26,10 +26,14 @@ module.exports = (templateData) => {
   function getBody() {
     if (templateParameters.isPost) {
       const classes = map['h1'].join(' ')
+      const date = new Date(templateParameters.date).toLocaleString()
       return `
-      <p>${templateParameters.date}<p>
-      <h1 class="${classes}">${templateParameters.title}</h1>
-      ${templateParameters.body}
+      <div class="markdown-body">
+        <p>Published on ${date}<p>
+        <a href="/blog/">back</a>
+        <h1 class="${classes}">${templateParameters.title}</h1>
+        ${templateParameters.body}
+      </div>
       `
     }
     return `${templateParameters.body}`
