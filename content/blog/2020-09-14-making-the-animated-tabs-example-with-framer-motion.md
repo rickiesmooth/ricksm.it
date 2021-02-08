@@ -115,8 +115,6 @@ export const tabs = [
 Our animated tabs will use a different header instead of the arrows so we can remove the arrows, and add the heading in the `AnimateSharedLayout` to enable [layout animations](https://www.framer.com/api/) between the components that share `layoutId` `underLine` as they're added/removed so that it appears to slide between the headings.
 
 ```diff-tsx
--    <>
-
 +    <AnimateSharedLayout>
 +      <ul className="tabs-header">
 +        {tabs.map(({ title }, i) => (
