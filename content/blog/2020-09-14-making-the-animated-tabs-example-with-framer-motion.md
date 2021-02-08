@@ -156,10 +156,7 @@ And instead of changing an images source, we render some content based on page's
            custom={direction}
            variants={variants}
            initial="enter"
-@@ -76,14 +90,10 @@ export const Example = () => {
-               paginate(-1);
-             }
-           }}
+           ...
 -        />
 +        >
 +          {tabs[page].body}
