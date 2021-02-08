@@ -7524,7 +7524,7 @@ workbox-cacheable-response@^6.1.0:
   dependencies:
     workbox-core "^6.1.0"
 
-workbox-core@^6.0.2, workbox-core@^6.1.0:
+workbox-core@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/workbox-core/-/workbox-core-6.1.0.tgz#2671b64f76550e83a4c2202676b67ce372e10881"
   integrity sha512-s3KqTJfBreO4xCZpR2LB5p/EknAx8eg0QumKiIgxM4hRO0RtwS2pJvTieNEM23X3RqxRhqweriLD8To19KUvjg==
@@ -7552,15 +7552,6 @@ workbox-navigation-preload@^6.1.0:
   integrity sha512-N0c5Kmzu7lPKvirukbeZ3lN8KEAZU9xA4b1wmpV0VXUfRXVEk2ayXXqwHwMGFVi6FNCHiDLOcC8a2zW5kFLAeg==
   dependencies:
     workbox-core "^6.1.0"
-
-workbox-precaching@^6.0.2, workbox-precaching@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/workbox-precaching/-/workbox-precaching-6.1.0.tgz#9ee3d28f27cd78daa62f5bd6a0d33f5682ac97a7"
-  integrity sha512-zjye8MVzieBVJ3sS0hFcbKLp7pTHMfJM17YqxCxB0KykXWnxLOpYnStQ9M+bjWJsKJOQvbkPqvq5u9+mtA923g==
-  dependencies:
-    workbox-core "^6.1.0"
-    workbox-routing "^6.1.0"
-    workbox-strategies "^6.1.0"
 
 workbox-precaching@^6.1.0:
   version "6.1.0"
@@ -7590,7 +7581,7 @@ workbox-recipes@^6.1.0:
     workbox-routing "^6.1.0"
     workbox-strategies "^6.1.0"
 
-workbox-routing@^6.0.2, workbox-routing@^6.1.0:
+workbox-routing@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/workbox-routing/-/workbox-routing-6.1.0.tgz#f885cb7801e2c9c5678f197656cf27a2b649c1d5"
   integrity sha512-FXQ5cwb6Mk90fC0rfQLX0pN+r/N4eBafwkh/QanJUq0e6jMPdDFLrlsikZL/0LcXEx+yAkWLytoiS+d2HOEBOw==
@@ -7603,21 +7594,6 @@ workbox-strategies@^6.0.2, workbox-strategies@^6.1.0:
   integrity sha512-HvUknzJdZWeV3x7Eq33a7TGAv9/r1TEiQK6kQ1QNzN+IKiqhIjnhKFHmMxb5hK1Gw9/aDSJTLNPDaLPfIJRQFQ==
   dependencies:
     workbox-core "^6.1.0"
-
-workbox-strategies@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/workbox-strategies/-/workbox-strategies-6.1.0.tgz#9ddcee44408d2fb403f22a7989803b5c58560590"
-  integrity sha512-HvUknzJdZWeV3x7Eq33a7TGAv9/r1TEiQK6kQ1QNzN+IKiqhIjnhKFHmMxb5hK1Gw9/aDSJTLNPDaLPfIJRQFQ==
-  dependencies:
-    workbox-core "^6.1.0"
-
-workbox-streams@^6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/workbox-streams/-/workbox-streams-6.0.2.tgz#07c19025af309ad3475e737018a05ed538bffacd"
-  integrity sha512-bckftu/iMlg5LFXPZ6NX/FUc/w4illgxSuwtsZkQAO6Uen1EeegjfLyenO01/dwoyc3D/AlZepMdhv87XhE7HQ==
-  dependencies:
-    workbox-core "^6.0.2"
-    workbox-routing "^6.0.2"
 
 workbox-streams@^6.1.0:
   version "6.1.0"
