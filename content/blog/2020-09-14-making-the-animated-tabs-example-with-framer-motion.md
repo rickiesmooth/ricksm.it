@@ -148,9 +148,10 @@ Our animated tabs will use a different header instead of the arrows so we can re
 And instead of changing an images source, we render some content based on page's index in a section element:
 
 ```diff-tsx
+@@ -2 +3 @@
        <AnimatePresence initial={false} custom={direction}>
-+        <motion.section
 -        <motion.img
++        <motion.section
            key={page}
 -          src={images[imageIndex]}
            custom={direction}
