@@ -5,7 +5,7 @@ date: 2021-02-07T14:47:20.362Z
 ---
 For the last couple of months, I've been working on refactoring a core piece of wetransfer.com. The transfer window for Pro users. Currently the Pro features are a bit hidden, and with a new design we wanted to highlight all the extra functionality you get as a paying customer (password protected passwords, extended transfer expiry dates etc.). Changing the transfer window was a big deal, because it's a core piece of functionality and has been largely untouched for years! This resulted in a quit complex component and I decided to do a complete rewrite (in TypeScript), and start from scratch with accessibility in mind. 
 
-<video loop src="/images/uploads/demo.webm"></video>
+<video autoplay loop src="/images/uploads/demo.webm"></video>
 
 The component might seem like it has a lot going on, but when you break it down, it's pretty simple. We have a container component (`TransferWindowPro`) that manages most of the state and is connected with Redux, switches between the expanded and collapsed UI. The expanded UI is used during the configuration of the transfer, and the collapsed UI is used to display different uploading states. When the window expands we transform the `scale` of the SVG to animate the layout of the file list, and it appears as if the configuration component slides out of the files list. All these transitions are triggered as components are added and removed from the DOM, with the use of a prop and `react-transition-group`.
 
