@@ -173,3 +173,12 @@ then we need to update our css, to style our heading bar, target our section as 
   max-width: 100vw;
 }
 ```
+
+And here's the final result:
+
+<iframe src="https://codesandbox.io/embed/animated-tabs-20k7l?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Animated Tabs"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
