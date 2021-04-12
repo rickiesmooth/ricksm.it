@@ -7665,14 +7665,6 @@ workbox-strategies@^6.1.1, workbox-strategies@^6.1.2:
   dependencies:
     workbox-core "^6.1.2"
 
-workbox-streams@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/workbox-streams/-/workbox-streams-6.1.1.tgz#0f204f070861eb1afccddeca4a5a8ba069596bd1"
-  integrity sha512-EMhY+Y2O7+XVy8MFRmiDwKezAXLzbgjQOJDbxWaGKtwNPbwOF6gGZjCvmnNAU1K+MAvvUNsAFR6AAUKMSfOyaw==
-  dependencies:
-    workbox-core "^6.1.1"
-    workbox-routing "^6.1.1"
-
 workbox-streams@^6.1.2:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/workbox-streams/-/workbox-streams-6.1.2.tgz#d7c2fd49bca6e0594e046144248730a245294c6d"
