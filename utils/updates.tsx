@@ -1,41 +1,5 @@
 import React from 'react'
 
-function Spinner () {
-  const spinnerRef = React.useRef()
-
-  return <svg
-    ref={spinnerRef}
-    className="w-full h-full"
-    viewBox="0 0 170 170"
-    height="170"
-    width="170"
-    shapeRendering="geometricPrecision"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle
-      r="80"
-      cx="85"
-      cy="85"
-      fill="transparent"
-      stroke="rgb(232, 235, 237)"
-      strokeDashoffset="0"
-      strokeWidth="10"
-    />
-    <circle
-      className="animate-spin origin-center"
-      style={{ animationDuration: '4s' }}
-      r="80"
-      cx="85"
-      cy="85"
-      fill="transparent"
-      stroke="rgb(64, 159, 255)"
-      strokeDashoffset="200"
-      strokeDasharray="200"
-      strokeWidth="10"
-    />
-  </svg>
-}
-
 export const updates = [
   {
     year: 2013,
@@ -69,3 +33,41 @@ export const updates = [
     logo: <Spinner />,
   },
 ]
+
+function Spinner() {
+  const spinnerRef = React.useRef()
+
+  return (
+    <svg
+      ref={spinnerRef}
+      className="w-full h-full"
+      viewBox="0 0 170 170"
+      height="170"
+      width="170"
+      shapeRendering="geometricPrecision"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        r="80"
+        cx="85"
+        cy="85"
+        fill="transparent"
+        stroke="rgb(232, 235, 237)"
+        strokeDashoffset="0"
+        strokeWidth="10"
+      />
+      <circle
+        className="animate-spin origin-center"
+        style={{ animationDuration: '4s' }}
+        r="80"
+        cx="85"
+        cy="85"
+        fill="transparent"
+        stroke="rgb(64, 159, 255)"
+        strokeDashoffset="200"
+        strokeDasharray="200"
+        strokeWidth="10"
+      />
+    </svg>
+  )
+}

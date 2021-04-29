@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@mapbox/rehype-prism": "^0.6.0",
-    "@sls-next/serverless-component": "^1.18.0",
-    "github-markdown-css": "^4.0.0",
     "gray-matter": "^4.0.2",
     "next": "latest",
     "next-mdx-remote": "^2.0.0",
