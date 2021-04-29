@@ -6,7 +6,8 @@
     "dev": "next",
     "dev:watch": "next-remote-watch ./posts",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy": "serverless"
   },
   "dependencies": {
     "@mapbox/rehype-prism": "^0.6.0",
