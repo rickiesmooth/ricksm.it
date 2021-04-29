@@ -92,12 +92,7 @@ That's exactly what I need, I only need to add the tab indicator, tweak the pagi
 
 With a few small tweaks, we have something that comes pretty close:
 
-<!-- <iframe src="https://codesandbox.io/embed/framer-motion-image-gallery-forked-7h9kq?fontsize=14&hidenavigation=1&theme=dark"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="Framer Motion: Image gallery (forked)"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe> -->
+<CodeSandbox src="https://codesandbox.io/embed/framer-motion-image-gallery-forked-7h9kq?fontsize=14&hidenavigation=1&theme=dark"/>
 
 ## CSS tweaks
 
@@ -115,27 +110,27 @@ export const tabs = [
 Our animated tabs will use a different header instead of the arrows so we can remove the arrows, and add the heading in the `AnimateSharedLayout` to enable [layout animations](https://www.framer.com/api/) between the components that share `layoutId` `underLine` as they're added/removed so that it appears to slide between the headings.
 
 ```tsx
-  <AnimateSharedLayout>
-    <ul className="tabs-header">
-      {tabs.map(({ title }, i) => (
-        <li
-          onClick={() => {
-            // set page and determine which direction we're going
-            console.log("we are on page", page, "and want to go to", i);
-            setPage([i, i - page]);
-          }}
-        >
-          <h4>{title}</h4>
-          {i === page && (
-            <motion.div className="underline" layoutId="underline" />
-          )}
-        </li>
-      ))}
-    </ul>
+<AnimateSharedLayout>
+  <ul className="tabs-header">
+    {tabs.map(({ title }, i) => (
+      <li
+        onClick={() => {
+          // set page and determine which direction we're going
+          console.log("we are on page", page, "and want to go to", i);
+          setPage([i, i - page]);
+        }}
+      >
+        <h4>{title}</h4>
+        {i === page && (
+          <motion.div className="underline" layoutId="underline" />
+        )}
+      </li>
+    ))}
+  </ul>
     <AnimatePresence initial={false} custom={direction}>
       {...}
     </AnimatePresence>
-  </AnimateSharedLayout>
+</AnimateSharedLayout>
 ```
 
 And instead of changing an images source, we render some content based on page's index in a section element:
@@ -143,11 +138,11 @@ And instead of changing an images source, we render some content based on page's
 ```tsx
 <AnimatePresence initial={false} custom={direction}>
   <motion.section
-    key={page}
-    custom={direction}
-    variants={variants}
-    initial="enter"
-    ...
+      key={page}
+      custom={direction}
+      variants={variants}
+      initial="enter"
+      ...
   >
     {tabs[page].body}
   </motion.section>
@@ -162,3 +157,6 @@ section {
   max-width: 100vw;
 }
 ```
+
+And here's the final result:
+<CodeSandbox src="https://codesandbox.io/embed/animated-tabs-20k7l?fontsize=14&hidenavigation=1&theme=dark"/>

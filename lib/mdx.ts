@@ -6,7 +6,7 @@ import { mdxComponents } from '../components/MDXComponents'
 
 const root = process.cwd()
 
-export async function getFiles() {
+export function getFiles() {
   return fs.readdirSync(path.join(root, 'posts'))
 }
 
@@ -30,16 +30,17 @@ export async function getFileBySlug(slug: string) {
     frontMatter: {
       slug: slug || null,
       ...data,
+      date: new Date(data.date).toLocaleDateString(),
     },
   }
 }
 
-export async function getAllFilesFrontMatter(type) {
-  const files = fs.readdirSync(path.join(root, 'data', type))
+export function getAllFilesFrontMatter() {
+  const files = fs.readdirSync(path.join(root, 'posts'))
 
   return files.reduce((allPosts, postSlug) => {
     const source = fs.readFileSync(
-      path.join(root, 'data', type, postSlug),
+      path.join(root, 'posts', postSlug),
       'utf8'
     )
     const { data } = matter(source)
@@ -47,7 +48,8 @@ export async function getAllFilesFrontMatter(type) {
     return [
       {
         ...data,
-        slug: postSlug.replace('.mdx', ''),
+        date: data.date.toLocaleDateString(),
+        slug: postSlug.replace('.md', ''),
       },
       ...allPosts,
     ]

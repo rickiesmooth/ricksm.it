@@ -5,7 +5,7 @@ import { Code } from './Code'
 import { Heading } from './Heading'
 import { Link } from './Link'
 import { Callout } from './Callout'
-
+import { CodeSandbox } from './CodeSandbox'
 export const mdxComponents = {
   a: Link,
   p: ({ children }) => <p className="mb-4">{children}</p>,
@@ -16,4 +16,5 @@ export const mdxComponents = {
   code: Code,
   Head,
   Callout,
+  CodeSandbox,
 }

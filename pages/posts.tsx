@@ -1,10 +1,8 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
 import { Link } from '../components/Link'
-
 import { Heading } from '../components/Heading'
 import Layout from '../components/Layout'
+
+import { getAllFilesFrontMatter } from '../lib/mdx'
 
 export default function Blog({ posts }) {
   return (
@@ -17,12 +15,12 @@ export default function Blog({ posts }) {
       <Heading>Blog</Heading>
       <ul>
         {posts.map((post) => (
-          <li key={post.filePath} className="mb-4 font-medium">
+          <li key={post.slug} className="mb-4 font-medium">
             <Link
-              as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
+              as={`/posts/${post.slug}`}
               href={`/posts/[slug]`}
             >
-              {post.data.title}
+              {post.title}
             </Link>
           </li>
         ))}
@@ -32,19 +30,5 @@ export default function Blog({ posts }) {
 }
 
 export function getStaticProps() {
-  // const posts = postFilePaths.map((filePath) => {
-  //   const source = fs.readFileSync(path.join(POSTS_PATH, filePath))
-  //   const {
-  //     content,
-  //     data: { title },
-  //   } = matter(source)
-
-  //   return {
-  //     content,
-  //     data: { title },
-  //     filePath,
-  //   }
-  // })
-
-  return { props: { posts: [] } }
+  return { props: { posts: getAllFilesFrontMatter() } }
 }

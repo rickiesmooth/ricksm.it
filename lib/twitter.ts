@@ -16,17 +16,20 @@ export const getTweets = async (ids) => {
       'duration_ms,height,media_key,preview_image_url,type,url,width,public_metrics',
   })
 
+  
+
   const response = await fetch(
     `https://api.twitter.com/2/tweets?${queryParams}`,
     {
       headers: {
-        Authorization: `Bearer AAAAAAAAAAAAAAAAAAAAALYdPAEAAAAAt%2B3K%2Bewx%2BVzSrd5bJt%2BN4YGBmgI%3Do8NQ3dirxso37ab9Sw9sfQmdJto8tChMMwNDLcEgZFAD0q0SRc`,
+        Authorization: `Bearer ${process.env.TWITTER_API_KEY}`,
       },
     }
   )
-    console.log("RESPONSE", response)
-  const tweets = await response.json()
 
+  
+
+  const tweets = await response.json()
   const getAuthorInfo = (author_id) => {
     return tweets.includes.users.find((user) => user.id === author_id)
   }

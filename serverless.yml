@@ -1,0 +1,11 @@
+name: ricksm.it
+
+nextApp:
+  component: "@sls-next/serverless-component@1.18.0"
+  inputs:
+    domain:
+      - ${env.SUB_DOMAIN}
+      - ${env.DOMAIN}
+    memory: 1024
+    env:
+      TWITTER_API_KEY: ${env.MY_SECRET_API_KEY}
