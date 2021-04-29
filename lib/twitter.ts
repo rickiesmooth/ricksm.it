@@ -17,7 +17,6 @@ export const getTweets = async (ids) => {
   })
 
   
-
   const response = await fetch(
     `https://api.twitter.com/2/tweets?${queryParams}`,
     {
