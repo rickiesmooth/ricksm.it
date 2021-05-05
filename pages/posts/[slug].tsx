@@ -1,14 +1,13 @@
 import hydrate from 'next-mdx-remote/hydrate'
 
-import { getFileBySlug, getFiles } from '../../lib/mdx';
+import { getFileBySlug, getFiles } from '../../lib/mdx'
 
 import { Link } from '../../components/Link'
 import Layout from '../../components/Layout'
 import { Heading } from '../../components/Heading'
 import { mdxComponents } from '../../components/MDXComponents'
-import { getTweets } from '../../lib/twitter';
-import Tweet from '../../components/Tweet';
-
+import { getTweets } from '../../lib/twitter'
+import Tweet from '../../components/Tweet'
 
 export default function PostPage({ mdxSource, frontMatter, tweets = [] }) {
   const StaticTweet = ({ id }) => {
@@ -21,7 +20,7 @@ export default function PostPage({ mdxSource, frontMatter, tweets = [] }) {
   })
 
   return (
-    <Layout>
+    <Layout pageTitle={frontMatter.title} description={frontMatter.description}>
       <header className="mb-5">
         <nav>
           <Link href="/posts">👈 Go back to posts</Link>
@@ -36,10 +35,10 @@ export default function PostPage({ mdxSource, frontMatter, tweets = [] }) {
 }
 
 export const getStaticProps = async ({ params }) => {
-    const post = await getFileBySlug(params.slug)
-    const tweets = await getTweets(post.tweetIDs)
+  const post = await getFileBySlug(params.slug)
+  const tweets = await getTweets(post.tweetIDs)
 
-    return { props: { ...post, tweets } }
+  return { props: { ...post, tweets } }
 }
 
 export const getStaticPaths = async () => {

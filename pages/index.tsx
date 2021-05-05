@@ -39,7 +39,10 @@ export default function Index() {
   }, [])
 
   return (
-    <Layout>
+    <Layout
+      pageTitle="Home"
+      description="My development blog. Focus on React, AWS, DevOps, and more!"
+    >
       <div className="py-12">
         <h1 className="leading-tight text-4xl font-semibold mb-4 mt-6 text-center pb-2 sm:text-5xl">
           Hi, I'm Rick
