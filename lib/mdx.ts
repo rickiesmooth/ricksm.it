@@ -1,7 +1,7 @@
 import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
-import renderToString from 'next-mdx-remote/render-to-string'
+import { serialize } from 'next-mdx-remote/serialize'
 import { mdxComponents } from '../components/MDXComponents'
 
 const root = process.cwd()
@@ -17,9 +17,7 @@ export async function getFileBySlug(slug: string) {
     isMdx ? mdxPath : mdxPath.replace('.mdx', '.md')
   )
   const { data, content } = matter(source)
-  const mdxSource = await renderToString(content, {
-    components: mdxComponents,
-  })
+  const mdxSource = await serialize(content)
 
   const tweetMatches = content.match(/<StaticTweet\sid="[0-9]+"\s\/>/g)
   const tweetIDs = tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)[0])

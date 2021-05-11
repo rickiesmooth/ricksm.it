@@ -1,4 +1,4 @@
-import hydrate from 'next-mdx-remote/hydrate'
+import { MDXRemote } from 'next-mdx-remote'
 
 import { getFileBySlug, getFiles } from '../../lib/mdx'
 
@@ -15,10 +15,6 @@ export default function PostPage({ mdxSource, frontMatter, tweets = [] }) {
     return <Tweet {...tweet} />
   }
 
-  const content = hydrate(mdxSource, {
-    components: { ...mdxComponents, StaticTweet },
-  })
-
   return (
     <Layout pageTitle={frontMatter.title} description={frontMatter.description}>
       <header className="mb-5">
@@ -29,7 +25,12 @@ export default function PostPage({ mdxSource, frontMatter, tweets = [] }) {
       <Heading>{frontMatter.title}</Heading>
       <p className="mb-8 text-sm text-gray-400">{`published: ${frontMatter.date}`}</p>
       {frontMatter.description && <p>{frontMatter.description}</p>}
-      <main>{content}</main>
+      <main>
+        <MDXRemote
+          {...mdxSource}
+          components={{ ...mdxComponents, StaticTweet }}
+        />
+      </main>
     </Layout>
   )
 }
