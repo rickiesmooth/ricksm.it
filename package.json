@@ -19,7 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/react": "^17.0.8",
-    "autoprefixer": "^10.2.5",
+    "autoprefixer": "^10.2.6",
     "postcss": "^8.3.0",
     "serverless": "^2.44.0",
     "tailwindcss": "^2.1.2",
