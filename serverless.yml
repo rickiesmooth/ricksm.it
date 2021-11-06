@@ -1,7 +1,7 @@
 name: ricksm.it
 
 nextApp:
-  component: "@sls-next/serverless-component@3.1.0"
+  component: "@sls-next/serverless-component@3.5.2"
   inputs:
     domain:
       - ${env.SUB_DOMAIN}
