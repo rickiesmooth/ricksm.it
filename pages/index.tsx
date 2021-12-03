@@ -81,6 +81,7 @@ export default function Index() {
           </Link>
         </div>
       </div>
+      <center>fingerprint: 51D5 6BB0 17A3 2B9F BB17  84F6 3DEF 4FED D177 C6FB </center>
     </Layout>
   )
 }
