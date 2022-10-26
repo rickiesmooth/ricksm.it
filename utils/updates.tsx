@@ -29,7 +29,13 @@ export const updates = [
   {
     year: 2020,
     description:
-      'Currently at WeTransfer building products that creatives love',
+      'WeTransfer building products that creatives love',
+    logo: <Spinner />,
+  },
+  {
+    year: 2021,
+    description:
+      'Framer',
     logo: <Spinner />,
   },
 ]
