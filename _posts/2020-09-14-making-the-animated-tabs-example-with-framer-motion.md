@@ -18,16 +18,14 @@ That's exactly what I need, I only need to add the tab indicator, tweak the pagi
 
 With a few small tweaks, we have something that comes pretty close:
 
-<!-- <CodeSandbox src="https://codesandbox.io/embed/framer-motion-image-gallery-forked-7h9kq?fontsize=14&hidenavigation=1&theme=dark"/> -->
-<iframe
-  src={"https://codesandbox.io/embed/animated-tabs-20k7l?fontsize=14&hidenavigation=1&theme=dark"}
-  className="w-full border-none rounded-md overflow-hidden mb-5"
-  style={{ height: 500 }}
-  title="Framer Motion: Image gallery (forked)"
-  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-></iframe>
-
+<div class="iframe-container">
+<iframe src="https://codesandbox.io/embed/framer-motion-image-gallery-forked-7h9kq?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="Framer Motion: Image gallery (forked)"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
+</div>
 
 ## CSS tweaks
 
@@ -93,12 +91,11 @@ section {
 }
 ```
 
-And here's the final result:
-<iframe
-  src={"https://codesandbox.io/embed/animated-tabs-20k7l?fontsize=14&hidenavigation=1&theme=dark"}
-  className="w-full border-none rounded-md overflow-hidden mb-5"
-  style={{ height: 500 }}
-  title="Framer Motion: Image gallery (forked)"
+<div class="iframe-container">
+<iframe src="https://codesandbox.io/embed/animated-tabs-20k7l?fontsize=14&hidenavigation=1&theme=dark"
+  style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+  title="Animated Tabs"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
+</div>
