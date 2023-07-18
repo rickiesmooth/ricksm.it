@@ -27,9 +27,6 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ricksm.it" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  rickiesmooth
 
-sass:
-  sass_dir: _sass
-
 # Build settings
 plugins:
   - jekyll-feed
