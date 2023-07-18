@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Recreating the Animated Tabs example with Framer Motion | Ricksm.it</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Recreating the Animated Tabs example with Framer Motion" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="For a while now, I’ve kept a close eye on Framer. It’s a prototyping tool (based in Amsterdam) and is one of the startups that is trying to make the design handoff easier and bring development closer to design and vice versa." />
+<meta property="og:description" content="For a while now, I’ve kept a close eye on Framer. It’s a prototyping tool (based in Amsterdam) and is one of the startups that is trying to make the design handoff easier and bring development closer to design and vice versa." />
+<link rel="canonical" href="http://localhost:4000/2020/09/14/making-the-animated-tabs-example-with-framer-motion.html" />
+<meta property="og:url" content="http://localhost:4000/2020/09/14/making-the-animated-tabs-example-with-framer-motion.html" />
+<meta property="og:site_name" content="Ricksm.it" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-14T15:19:00+02:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Recreating the Animated Tabs example with Framer Motion" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-09-14T15:19:00+02:00","datePublished":"2020-09-14T15:19:00+02:00","description":"For a while now, I’ve kept a close eye on Framer. It’s a prototyping tool (based in Amsterdam) and is one of the startups that is trying to make the design handoff easier and bring development closer to design and vice versa.","headline":"Recreating the Animated Tabs example with Framer Motion","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/09/14/making-the-animated-tabs-example-with-framer-motion.html"},"url":"http://localhost:4000/2020/09/14/making-the-animated-tabs-example-with-framer-motion.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Ricksm.it" /></head><body><header class="site-header">
+
+    <div class="wrapper"><a class="site-title" rel="author" href="/">Ricksm.it</a></div>
+  </header><main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Recreating the Animated Tabs example with Framer Motion</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-09-14T15:19:00+02:00" itemprop="datePublished">
+        Sep 14, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>For a while now, I’ve kept a close eye on Framer. It’s a prototyping tool (based in Amsterdam) and is one of the startups that is trying to make the design handoff easier and bring development closer to design and vice versa.</p>
+
+<p>Over on their website they have this <a href="https://www.framer.com/examples/">beautiful pattern library</a>, so I was hoping to <em>not</em> get my hands dirty and copy and paste some of those examples in the project I was working on. Unfortunately I couldn’t find any drop in examples but luckily there was an example of something that came pretty close - the image carousel which I’ll tweak a bit to fit my use case and learn more about framer motion.</p>
+
+<p>Lets have a look at the code of the image carousel component</p>
+
+<p>That’s exactly what I need, I only need to add the tab indicator, tweak the pagination behaviour a bit and instead of using images display components. So lets have a look at what we see here:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">variants</code> - Variants are a declarative way to orchestrate complex animations throughout a component tree. By providing multiple components with a variants object with visual states of the same name, they can all be animated in sync by the switch of a single animate prop.</li>
+  <li><code class="language-plaintext highlighter-rouge">AnimatePresence</code> - Animate components when they’re removed from the React tree.</li>
+  <li><code class="language-plaintext highlighter-rouge">motion.img</code> - motion component’s flexible animate property.</li>
+</ul>
+
+<p>With a few small tweaks, we have something that comes pretty close:</p>
+
+<!-- <CodeSandbox src="https://codesandbox.io/embed/framer-motion-image-gallery-forked-7h9kq?fontsize=14&hidenavigation=1&theme=dark"/> -->
+<p>&lt;iframe
+  src={“https://codesandbox.io/embed/animated-tabs-20k7l?fontsize=14&amp;hidenavigation=1&amp;theme=dark”}
+  className=”w-full border-none rounded-md overflow-hidden mb-5”
+  style=
+  title=”Framer Motion: Image gallery (forked)”
+  allow=”accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking”
+  sandbox=”allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts”</p>
+<blockquote>
+  <p>&lt;/iframe&gt;</p>
+</blockquote>
+
+<h2 id="css-tweaks">CSS tweaks</h2>
+
+<p>First change Example.js, make file tabs.tsx and export some dummy content with a title and a body:</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// tabs.tsx</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">tabs</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">A</span><span class="dl">'</span><span class="p">,</span> <span class="na">body</span><span class="p">:</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>A<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">B</span><span class="dl">'</span><span class="p">,</span> <span class="na">body</span><span class="p">:</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>B<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">C</span><span class="dl">'</span><span class="p">,</span> <span class="na">body</span><span class="p">:</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>C<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="p">},</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>Our animated tabs will use a different header instead of the arrows so we can remove the arrows, and add the heading in the <code class="language-plaintext highlighter-rouge">AnimateSharedLayout</code> to enable <a href="https://www.framer.com/api/">layout animations</a> between the components that share <code class="language-plaintext highlighter-rouge">layoutId</code> <code class="language-plaintext highlighter-rouge">underLine</code> as they’re added/removed so that it appears to slide between the headings.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nc">AnimateSharedLayout</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">className</span><span class="p">=</span><span class="s">"tabs-header"</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="nx">tabs</span><span class="p">.</span><span class="nf">map</span><span class="p">(({</span> <span class="nx">title</span> <span class="p">},</span> <span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">li</span>
+        <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="c1">// set page and determine which direction we're going</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">we are on page</span><span class="dl">"</span><span class="p">,</span> <span class="nx">page</span><span class="p">,</span> <span class="dl">"</span><span class="s2">and want to go to</span><span class="dl">"</span><span class="p">,</span> <span class="nx">i</span><span class="p">);</span>
+          <span class="nf">setPage</span><span class="p">([</span><span class="nx">i</span><span class="p">,</span> <span class="nx">i</span> <span class="o">-</span> <span class="nx">page</span><span class="p">]);</span>
+        <span class="p">}</span><span class="si">}</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">title</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">i</span> <span class="o">===</span> <span class="nx">page</span> <span class="o">&amp;&amp;</span> <span class="p">(</span>
+          <span class="p">&lt;</span><span class="nt">motion</span><span class="p">.</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"underline"</span> <span class="na">layoutId</span><span class="p">=</span><span class="s">"underline"</span> <span class="p">/&gt;</span>
+        <span class="p">)</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">))</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">AnimatePresence</span> <span class="na">initial</span><span class="p">=</span><span class="si">{</span><span class="kc">false</span><span class="si">}</span> <span class="na">custom</span><span class="p">=</span><span class="si">{</span><span class="nx">direction</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="p">...</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nc">AnimatePresence</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nc">AnimateSharedLayout</span><span class="p">&gt;</span>
+</code></pre></div></div>
+
+<p>And instead of changing an images source, we render some content based on page’s index in a section element:</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nc">AnimatePresence</span> <span class="na">initial</span><span class="p">=</span><span class="si">{</span><span class="kc">false</span><span class="si">}</span> <span class="na">custom</span><span class="p">=</span><span class="si">{</span><span class="nx">direction</span><span class="si">}</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">motion</span><span class="p">.</span><span class="nt">section</span>
+      <span class="na">key</span><span class="p">=</span><span class="si">{</span><span class="nx">page</span><span class="si">}</span>
+      <span class="na">custom</span><span class="p">=</span><span class="si">{</span><span class="nx">direction</span><span class="si">}</span>
+      <span class="na">variants</span><span class="p">=</span><span class="si">{</span><span class="nx">variants</span><span class="si">}</span>
+      <span class="na">initial</span><span class="p">=</span><span class="s">"enter"</span>
+      <span class="err">...</span>
+  <span class="p">&gt;</span>
+    <span class="si">{</span><span class="nx">tabs</span><span class="p">[</span><span class="nx">page</span><span class="p">].</span><span class="nx">body</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nt">motion</span><span class="p">.</span><span class="nt">section</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nc">AnimatePresence</span><span class="p">&gt;</span>
+</code></pre></div></div>
+
+<p>then we need to update our css, to style our heading bar, target our section as a body instead of an image, and remove some old styles</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">section</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+  <span class="nl">max-width</span><span class="p">:</span> <span class="m">100vw</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>And here’s the final result:
+&lt;iframe
+  src={“https://codesandbox.io/embed/animated-tabs-20k7l?fontsize=14&amp;hidenavigation=1&amp;theme=dark”}
+  className=”w-full border-none rounded-md overflow-hidden mb-5”
+  style=
+  title=”Framer Motion: Image gallery (forked)”
+  allow=”accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking”
+  sandbox=”allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts”</p>
+<blockquote>
+  <p>&lt;/iframe&gt;</p>
+</blockquote>
+
+  </div><a class="u-url" href="/2020/09/14/making-the-animated-tabs-example-with-framer-motion.html" hidden></a>
+</article>
+      </div>
+    </main><footer>
+    <data class="u-url" href="/"></data>
+  
+    <div class="wrapper">
+  
+      <div class="footer-col-wrapper">
+        <div class="footer-col">
+          <p class="feed-subscribe">
+            <a href="http://localhost:4000/feed.xml">
+              <svg class="svg-icon orange">
+                <use xlink:href="/assets/rss.svg"></use>
+              </svg><span>Subscribe</span>
+            </a>
+          </p>
+      </div>
+  
+    </div>
+  
+  </footer></body>
+
+</html>

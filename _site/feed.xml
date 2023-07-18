@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-07-18T15:22:04+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Ricksm.it</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Refactoring with accessibility in mind</title><link href="http://localhost:4000/2021/02/07/refactoring-with-accessibility-in-mind.html" rel="alternate" type="text/html" title="Refactoring with accessibility in mind" /><published>2021-02-07T15:47:20+01:00</published><updated>2021-02-07T15:47:20+01:00</updated><id>http://localhost:4000/2021/02/07/refactoring-with-accessibility-in-mind</id><content type="html" xml:base="http://localhost:4000/2021/02/07/refactoring-with-accessibility-in-mind.html"><![CDATA[<p>For the last couple of months, I’ve been working on refactoring a core piece of wetransfer.com. The transfer window for Pro users. Currently the Pro features are a bit hidden, and with a new design we wanted to highlight all the extra functionality you get as a paying customer (password protected passwords, extended transfer expiry dates etc.). Changing the transfer window was a big deal, because it’s a core piece of functionality and has been largely untouched for years! This resulted in a quit complex component and I decided to do a complete rewrite (in TypeScript), and start from scratch with accessibility in mind.</p>
+
+<!-- <video autoPlay muted loop src="/uploads/demo.webm" /> -->
+
+<p>The component might seem like it has a lot going on, but when you break it down, it’s pretty simple. We have a container component (<code class="language-plaintext highlighter-rouge">TransferWindowPro</code>) that manages most of the state and is connected with Redux, switches between the expanded and collapsed UI. The expanded UI is used during the configuration of the transfer, and the collapsed UI is used to display different uploading states. When the window expands we transform the <code class="language-plaintext highlighter-rouge">scale</code> of the SVG to animate the layout of the file list, and it appears as if the configuration component slides out of the files list. All these transitions are triggered as components are added and removed from the DOM, with the use of a prop and <code class="language-plaintext highlighter-rouge">react-transition-group</code>.</p>
+
+<h2 id="accessibility-improvements">accessibility improvements</h2>
+
+<p>From the beginning we wanted everything to be fully keyboard accessible and have clear focus states which sometimes wasn’t optimal from a design point of view (e.g. chrome doesn’t remove the outline after a click, the standard outline doesn’t adhere to rounded borders). So to solve these issues we decided to use <code class="language-plaintext highlighter-rouge">:focus-visible</code> to provide a different focus indicator based on the user’s input modality (mouse vs. keyboard). Because we need to support IE11 we also had to add the polyfill and a postCSS plugin so we can start using it today. For the rounded outline Josh Cameau had a great tip:</p>
+
+<!-- <StaticTweet id="1356713502954635274" /> -->
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">🔥 Focus outlines are important for accessibility, but they can&#39;t be rounded. Simulate &#39;em with box-shadow!<br /><br />This neat trick uses the semi-obscure “spread” property:<br /><br />.btn {<br /> box-shadow: <br /> 0px 0px 0px 2px <a href="https://twitter.com/hashtag/2960C5?src=hash&amp;ref_src=twsrc%5Etfw">#2960C5</a>,<br /> 0px 0px 0px 3px <a href="https://twitter.com/hashtag/FFFFFF?src=hash&amp;ref_src=twsrc%5Etfw">#FFFFFF</a>;<br />}<br /><br />Demo: <a href="https://t.co/NvY0qIEkPV">https://t.co/NvY0qIEkPV</a> <a href="https://t.co/naE019qEcS">pic.twitter.com/naE019qEcS</a></p>&mdash; Josh W. Comeau (@JoshWComeau) <a href="https://twitter.com/JoshWComeau/status/1356713502954635274?ref_src=twsrc%5Etfw">February 2, 2021</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>While I was writing these components, I wrote my unit tests with <code class="language-plaintext highlighter-rouge">react-testing-library</code>, which helps you to write your components in an accessible way:</p>
+
+<blockquote>
+  <p>One of the guiding principles of the Testing Library APIs is that they should enable you to test your app the way your users use it, including through accessibility interfaces like screen readers.</p>
+</blockquote>
+
+<p>So while I was testing my code I used <code class="language-plaintext highlighter-rouge">*ByRole</code> selectors a lot, and found multiple accessibility improvements while I was developing and when I first went through the new transfer window VoiceOver over enabled, the text gave an ok representation what was on the screen.</p>
+
+<p>In the transfer window we Reach UI (an accessible foundation for React components) where we can, and this helps making something like an <a href="https://www.w3.org/TR/wai-aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html">accessibility complex</a> component like a combobox, very easy. It was really cool to hear the VoiceOver highlighting that there are multiple items in the list.</p>
+
+<p>I did run into some issues with the switch component I made, where the screenreader did not read out the label when you focussed. And when I came across the aria <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Switch_role">switch role</a>, I rewrote that a bit and was able to describe the switches correctly.</p>
+
+<p>my tips:
+&lt;Callout list={[
+    <code class="language-plaintext highlighter-rouge">write tests with react-testing-libary and follow their tips for good accessibility.</code>,
+    <code class="language-plaintext highlighter-rouge">use something like reach-ui for more complex accessibility patterns</code>,
+    <code class="language-plaintext highlighter-rouge">Use VoiceOver for mac to check your component.</code>,
+    <code class="language-plaintext highlighter-rouge">use focus-outline and box-shadow for nice focus states.</code>
+]} /&gt;</p>
+
+<h2 id="the-results">the results</h2>
+<p>TBC</p>]]></content><author><name></name></author><summary type="html"><![CDATA[For the last couple of months, I’ve been working on refactoring a core piece of wetransfer.com. The transfer window for Pro users. Currently the Pro features are a bit hidden, and with a new design we wanted to highlight all the extra functionality you get as a paying customer (password protected passwords, extended transfer expiry dates etc.). Changing the transfer window was a big deal, because it’s a core piece of functionality and has been largely untouched for years! This resulted in a quit complex component and I decided to do a complete rewrite (in TypeScript), and start from scratch with accessibility in mind.]]></summary></entry><entry><title type="html">Upload Image from Expo Camera to Ruby’s Active Storage</title><link href="http://localhost:4000/2020/12/31/upload-image-from-expo-camera-to-rubys-active-storage.md.html" rel="alternate" type="text/html" title="Upload Image from Expo Camera to Ruby’s Active Storage" /><published>2020-12-31T15:08:59+01:00</published><updated>2020-12-31T15:08:59+01:00</updated><id>http://localhost:4000/2020/12/31/upload-image-from-expo-camera-to-rubys-active-storage.md</id><content type="html" xml:base="http://localhost:4000/2020/12/31/upload-image-from-expo-camera-to-rubys-active-storage.md.html"><![CDATA[<p>For an Expo project I’m working on, we needed to upload an image captured by Expo’s Camera with Ruby’s Active Storage and store the files on Amazon S3. For the web you can just use the <code class="language-plaintext highlighter-rouge">@rails/activestorage</code> package to handle the upload process, but this doesn’t work on React Native, so I was searching SO for alternatives to do this (<a href="https://github.com/rails/rails/issues/32208#issuecomment-383737803">this</a> GitHub comment explains exactly what I needed to do).</p>
+
+<p>Such a trivial task, wasn’t as straightforward as I’d hoped because when you request the signed upload URL, you need to provide a base64-encoded MD5 checksum that matches the file that you will upload to that signed upload URL. When you use <code class="language-plaintext highlighter-rouge">@rails/activestorage</code>, it uses <code class="language-plaintext highlighter-rouge">FileReader.readAsArrayBuffer</code> to calculate the checksum incrementally, which isn’t available on React Native so you need to calculate this yourself.</p>
+
+<p>A workaround that was mentioned around the web was to use <code class="language-plaintext highlighter-rouge">rn-fetch-blob</code>, which generates a hash of the file that can be encoded in base64. Unfortunately the package was deprecated, and I was hoping not to add another dependency just to fetch a blob and generate a checksum since Expo already provides you with the MD5 hash of a file with <code class="language-plaintext highlighter-rouge">expo-file-system</code>.</p>
+
+<p>In my first attempts I tried to use <code class="language-plaintext highlighter-rouge">fetch</code> to get the blob object of a local <code class="language-plaintext highlighter-rouge">photo.uri</code> and upload that to the signed upload URL. This caused a mismatch in the MD5 hash that expo calculated for the file and the blob I was actually uploading.</p>
+
+<p>Eventually I used the <code class="language-plaintext highlighter-rouge">uploadAsync</code> method of the <code class="language-plaintext highlighter-rouge">expo-file-system</code> which uploads the contents of the file to the signed upload URL.</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* FileSystem.FileInfo */</span>
+<span class="kd">const</span> <span class="nx">meta</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">FileSystem</span><span class="p">.</span><span class="nf">getInfoAsync</span><span class="p">(</span><span class="nx">photo</span><span class="p">.</span><span class="nx">uri</span><span class="p">,</span> <span class="p">{</span> <span class="na">md5</span><span class="p">:</span> <span class="kc">true</span> <span class="p">})</span>
+
+<span class="cm">/* Base 64 of the MD5 hash of the file */</span>
+<span class="kd">const</span> <span class="nx">checksum</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">meta</span><span class="p">.</span><span class="nx">md5</span><span class="p">,</span> <span class="dl">'</span><span class="s1">hex</span><span class="dl">'</span><span class="p">).</span><span class="nf">toString</span><span class="p">(</span><span class="dl">'</span><span class="s1">base64</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="cm">/* Get the signed upload URL */</span>
+<span class="kd">const</span> <span class="p">{</span>
+  <span class="nx">blob_signed_id</span><span class="p">,</span>
+  <span class="na">direct_upload</span><span class="p">:</span> <span class="p">{</span> <span class="nx">headers</span><span class="p">,</span> <span class="nx">url</span> <span class="p">},</span>
+<span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/rails/active_storage/direct_uploads</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">body</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">file</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">photo.jpeg</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">content_type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">image/jpeg</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">byte_size</span><span class="p">:</span> <span class="nx">meta</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span>
+      <span class="nx">checksum</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">})</span>
+
+<span class="cm">/* Upload the file */</span>
+<span class="k">await</span> <span class="nx">FileSystem</span><span class="p">.</span><span class="nf">uploadAsync</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">photo</span><span class="p">.</span><span class="nx">uri</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">headers</span><span class="p">,</span>
+  <span class="na">httpMethod</span><span class="p">:</span> <span class="dl">'</span><span class="s1">PUT</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">})</span>
+
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[For an Expo project I’m working on, we needed to upload an image captured by Expo’s Camera with Ruby’s Active Storage and store the files on Amazon S3. For the web you can just use the @rails/activestorage package to handle the upload process, but this doesn’t work on React Native, so I was searching SO for alternatives to do this (this GitHub comment explains exactly what I needed to do).]]></summary></entry><entry><title type="html">Recreating the Animated Tabs example with Framer Motion</title><link href="http://localhost:4000/2020/09/14/making-the-animated-tabs-example-with-framer-motion.html" rel="alternate" type="text/html" title="Recreating the Animated Tabs example with Framer Motion" /><published>2020-09-14T15:19:00+02:00</published><updated>2020-09-14T15:19:00+02:00</updated><id>http://localhost:4000/2020/09/14/making-the-animated-tabs-example-with-framer-motion</id><content type="html" xml:base="http://localhost:4000/2020/09/14/making-the-animated-tabs-example-with-framer-motion.html"><![CDATA[<p>For a while now, I’ve kept a close eye on Framer. It’s a prototyping tool (based in Amsterdam) and is one of the startups that is trying to make the design handoff easier and bring development closer to design and vice versa.</p>
+
+<p>Over on their website they have this <a href="https://www.framer.com/examples/">beautiful pattern library</a>, so I was hoping to <em>not</em> get my hands dirty and copy and paste some of those examples in the project I was working on. Unfortunately I couldn’t find any drop in examples but luckily there was an example of something that came pretty close - the image carousel which I’ll tweak a bit to fit my use case and learn more about framer motion.</p>
+
+<p>Lets have a look at the code of the image carousel component</p>
+
+<p>That’s exactly what I need, I only need to add the tab indicator, tweak the pagination behaviour a bit and instead of using images display components. So lets have a look at what we see here:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">variants</code> - Variants are a declarative way to orchestrate complex animations throughout a component tree. By providing multiple components with a variants object with visual states of the same name, they can all be animated in sync by the switch of a single animate prop.</li>
+  <li><code class="language-plaintext highlighter-rouge">AnimatePresence</code> - Animate components when they’re removed from the React tree.</li>
+  <li><code class="language-plaintext highlighter-rouge">motion.img</code> - motion component’s flexible animate property.</li>
+</ul>
+
+<p>With a few small tweaks, we have something that comes pretty close:</p>
+
+<!-- <CodeSandbox src="https://codesandbox.io/embed/framer-motion-image-gallery-forked-7h9kq?fontsize=14&hidenavigation=1&theme=dark"/> -->
+<p>&lt;iframe
+  src={“https://codesandbox.io/embed/animated-tabs-20k7l?fontsize=14&amp;hidenavigation=1&amp;theme=dark”}
+  className=”w-full border-none rounded-md overflow-hidden mb-5”
+  style=
+  title=”Framer Motion: Image gallery (forked)”
+  allow=”accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking”
+  sandbox=”allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts”</p>
+<blockquote>
+  <p>&lt;/iframe&gt;</p>
+</blockquote>
+
+<h2 id="css-tweaks">CSS tweaks</h2>
+
+<p>First change Example.js, make file tabs.tsx and export some dummy content with a title and a body:</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// tabs.tsx</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">tabs</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">A</span><span class="dl">'</span><span class="p">,</span> <span class="na">body</span><span class="p">:</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>A<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">B</span><span class="dl">'</span><span class="p">,</span> <span class="na">body</span><span class="p">:</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>B<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">C</span><span class="dl">'</span><span class="p">,</span> <span class="na">body</span><span class="p">:</span> <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>C<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span> <span class="p">},</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>Our animated tabs will use a different header instead of the arrows so we can remove the arrows, and add the heading in the <code class="language-plaintext highlighter-rouge">AnimateSharedLayout</code> to enable <a href="https://www.framer.com/api/">layout animations</a> between the components that share <code class="language-plaintext highlighter-rouge">layoutId</code> <code class="language-plaintext highlighter-rouge">underLine</code> as they’re added/removed so that it appears to slide between the headings.</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nc">AnimateSharedLayout</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">className</span><span class="p">=</span><span class="s">"tabs-header"</span><span class="p">&gt;</span>
+    <span class="si">{</span><span class="nx">tabs</span><span class="p">.</span><span class="nf">map</span><span class="p">(({</span> <span class="nx">title</span> <span class="p">},</span> <span class="nx">i</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+      <span class="p">&lt;</span><span class="nt">li</span>
+        <span class="na">onClick</span><span class="p">=</span><span class="si">{</span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="c1">// set page and determine which direction we're going</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">we are on page</span><span class="dl">"</span><span class="p">,</span> <span class="nx">page</span><span class="p">,</span> <span class="dl">"</span><span class="s2">and want to go to</span><span class="dl">"</span><span class="p">,</span> <span class="nx">i</span><span class="p">);</span>
+          <span class="nf">setPage</span><span class="p">([</span><span class="nx">i</span><span class="p">,</span> <span class="nx">i</span> <span class="o">-</span> <span class="nx">page</span><span class="p">]);</span>
+        <span class="p">}</span><span class="si">}</span>
+      <span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">title</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+        <span class="si">{</span><span class="nx">i</span> <span class="o">===</span> <span class="nx">page</span> <span class="o">&amp;&amp;</span> <span class="p">(</span>
+          <span class="p">&lt;</span><span class="nt">motion</span><span class="p">.</span><span class="nt">div</span> <span class="na">className</span><span class="p">=</span><span class="s">"underline"</span> <span class="na">layoutId</span><span class="p">=</span><span class="s">"underline"</span> <span class="p">/&gt;</span>
+        <span class="p">)</span><span class="si">}</span>
+      <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">))</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nc">AnimatePresence</span> <span class="na">initial</span><span class="p">=</span><span class="si">{</span><span class="kc">false</span><span class="si">}</span> <span class="na">custom</span><span class="p">=</span><span class="si">{</span><span class="nx">direction</span><span class="si">}</span><span class="p">&gt;</span>
+      <span class="si">{</span><span class="p">...</span><span class="si">}</span>
+    <span class="p">&lt;/</span><span class="nc">AnimatePresence</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nc">AnimateSharedLayout</span><span class="p">&gt;</span>
+</code></pre></div></div>
+
+<p>And instead of changing an images source, we render some content based on page’s index in a section element:</p>
+
+<div class="language-tsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">&lt;</span><span class="nc">AnimatePresence</span> <span class="na">initial</span><span class="p">=</span><span class="si">{</span><span class="kc">false</span><span class="si">}</span> <span class="na">custom</span><span class="p">=</span><span class="si">{</span><span class="nx">direction</span><span class="si">}</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">motion</span><span class="p">.</span><span class="nt">section</span>
+      <span class="na">key</span><span class="p">=</span><span class="si">{</span><span class="nx">page</span><span class="si">}</span>
+      <span class="na">custom</span><span class="p">=</span><span class="si">{</span><span class="nx">direction</span><span class="si">}</span>
+      <span class="na">variants</span><span class="p">=</span><span class="si">{</span><span class="nx">variants</span><span class="si">}</span>
+      <span class="na">initial</span><span class="p">=</span><span class="s">"enter"</span>
+      <span class="err">...</span>
+  <span class="p">&gt;</span>
+    <span class="si">{</span><span class="nx">tabs</span><span class="p">[</span><span class="nx">page</span><span class="p">].</span><span class="nx">body</span><span class="si">}</span>
+  <span class="p">&lt;/</span><span class="nt">motion</span><span class="p">.</span><span class="nt">section</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nc">AnimatePresence</span><span class="p">&gt;</span>
+</code></pre></div></div>
+
+<p>then we need to update our css, to style our heading bar, target our section as a body instead of an image, and remove some old styles</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">section</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+  <span class="nl">max-width</span><span class="p">:</span> <span class="m">100vw</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>And here’s the final result:
+&lt;iframe
+  src={“https://codesandbox.io/embed/animated-tabs-20k7l?fontsize=14&amp;hidenavigation=1&amp;theme=dark”}
+  className=”w-full border-none rounded-md overflow-hidden mb-5”
+  style=
+  title=”Framer Motion: Image gallery (forked)”
+  allow=”accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking”
+  sandbox=”allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts”</p>
+<blockquote>
+  <p>&lt;/iframe&gt;</p>
+</blockquote>]]></content><author><name></name></author><summary type="html"><![CDATA[For a while now, I’ve kept a close eye on Framer. It’s a prototyping tool (based in Amsterdam) and is one of the startups that is trying to make the design handoff easier and bring development closer to design and vice versa.]]></summary></entry></feed>
