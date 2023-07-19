@@ -283,6 +283,18 @@
   }
 }
 
+.video-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: $spacing-unit;
+  aspect-ratio: 16 / 9;
+
+  video {
+    width: 100%;
+  }
+}
+
 .iframe-container {
   width: 100%;
   position: relative;
