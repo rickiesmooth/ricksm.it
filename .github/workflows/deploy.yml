@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions: 
+        id-token: write 
+        contents: read 
     steps:
     - uses: actions/checkout@v3
     - uses: ruby/setup-ruby@v1
@@ -16,14 +19,13 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - run: bundle exec jekyll build
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2 
-      with: 
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
         role-to-assume: arn:aws:iam::331208789346:role/GithubAction
-        aws-region: us-east-1
-
-    # - name: Deploy to S3
-    #   run: |
-    #     aws s3 sync _site s3://example.com --acl public-read --delete
+        aws-region: us-east-1 
+    - name: Deploy to S3
+      run: |
+        aws s3 sync _site s3://example.com --acl public-read --delete
     # - name: Invalidate CloudFront Cache
     #   run: |
     #     aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
