@@ -26,7 +26,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ricksm.it" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  rickiesmooth
-tracking_endpoint: https://ingest.trackingsmooth.com/team_123/project_id
+tracking_endpoint: https://ingest.trackingsmooth.com/d5eb5eca-c8b2-4711-9d0a-f07ea0ad7b31/2942cb8a-52b5-4617-a444-29a217d3175c
 
 # Build settings
 plugins:
